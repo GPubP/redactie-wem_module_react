@@ -15,9 +15,9 @@ module.exports = {
 			extensions: ['.ts', '.tsx'],
 		},
 		lngs: ['nl_BE'],
-		ns: ['boilerplate'], // TODO: change ns to correct module name
+		ns: ['events'], // TODO: change ns to correct module name
 		defaultLng: 'nl_BE',
-		defaultNs: 'boilerplate', // TODO: change ns to correct module name
+		defaultNs: 'events', // TODO: change ns to correct module name
 		defaultValue: '__STRING_NOT_TRANSLATED__',
 		resource: {
 			loadPath: 'public/assets/i18n/template.json',

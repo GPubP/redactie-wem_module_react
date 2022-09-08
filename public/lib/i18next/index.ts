@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 
 import translationFile from '../../assets/i18n/locales/template.json';
-import { MODULE_NAME } from '../boilerplate.const';
+import { MODULE_NAME } from '../events.const';
 import translationsConnector from '../connectors/translations';
 
 export class Translations {
