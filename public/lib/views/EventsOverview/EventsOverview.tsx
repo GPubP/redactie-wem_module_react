@@ -2,22 +2,26 @@ import {
 	Container,
 	ContextHeader,
 	ContextHeaderTopSection,
+	ContextHeaderActionsSection,
+	PaginatedTable,
 } from '@acpaas-ui/react-editorial-components';
+import { Button } from '@acpaas-ui/react-components';
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
-import { ContextHeaderTabLinkProps, useNavigate, useRoutes } from '@redactie/utils';
-import React, { FC, useMemo } from 'react';
 import {
-	BREADCRUMB_OPTIONS,
-	EVENTS_ROOT,
-	EVENT_OVERVIEW_TABS,
-	MODULE_PATHS,
-	OVERVIEW,
-} from '../../events.const';
+	ContextHeaderTabLinkProps,
+	DataLoader,
+	useNavigate,
+	useRoutes,
+	LoadingState,
+} from '@redactie/utils';
+import React, { FC, ReactElement, useEffect, useMemo, useState } from 'react';
+import { BREADCRUMB_OPTIONS, EVENTS_ROOT, MODULE_PATHS } from '../../events.const';
 import useActiveTabs from '../../hooks/useActiveTabs/useActiveTabs';
 import useHomeBreadcrumb from '../../hooks/useHomeBreadcrumb/useHomeBreadcrumb';
 import { Link } from 'react-router-dom';
+import { EVENT_OVERVIEW_TABS } from './EventsOverview.const';
 
-const DESTINATIONS_OVERVIEW_MOCK_DATA = {
+const EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA = {
 	_embedded: [
 		{
 			id: '023bd97e-24e3-4236-a2c2-45733b386148',
@@ -48,7 +52,7 @@ const DESTINATIONS_OVERVIEW_MOCK_DATA = {
 	},
 };
 
-const DestinationsOverview: FC = () => {
+const EventsOverview: FC = () => {
 	const routes = useRoutes();
 	const breadcrumbs = useBreadcrumbs(routes as ModuleRouteConfig[], {
 		...BREADCRUMB_OPTIONS,
@@ -60,6 +64,40 @@ const DestinationsOverview: FC = () => {
 		() => activeTabs.find(tab => tab.active)?.target === 'afleveringen',
 		[activeTabs]
 	);
+	const [initialLoading, setInitialLoading] = useState(LoadingState.Loading);
+
+	/**
+	 * Render destinations overview
+	 */
+	const renderOverview = (): ReactElement | null => {
+		return isEpisodesView ? (
+			// TODO
+			<p>TODO EPISODES SCREEN</p>
+		) : (
+			<PaginatedTable
+				fixed
+				className="u-margin-top"
+				tableClassName="a-table--fixed--xs"
+				columns={USERS_OVERVIEW_COLUMNS(t, mySecurityRights)}
+				rows={usersRows}
+				currentPage={query.page}
+				itemsPerPage={DEFAULT_USERS_SEARCH_PARAMS.pagesize}
+				onPageChange={handlePageChange}
+				orderBy={handleOrderBy}
+				activeSorting={activeSorting}
+				totalValues={usersMeta?.totalElements || 0}
+				loading={loadingState === LoadingState.Loading}
+				loadDataMessage="Gebruikers ophalen"
+				noDataMessage={t(CORE_TRANSLATIONS['TABLE_NO-RESULT'])}
+			/>
+		);
+	};
+
+	useEffect(() => {
+		// TODO REMOVE TIMOUT
+		// ONLY FOR LOADING DEMO PURPOSE
+		setTimeout(() => setInitialLoading(LoadingState.Loaded), 2000);
+	}, []);
 
 	return (
 		<>
@@ -75,12 +113,20 @@ const DestinationsOverview: FC = () => {
 				tabs={activeTabs}
 			>
 				<ContextHeaderTopSection>{breadcrumbs}</ContextHeaderTopSection>
+				<ContextHeaderActionsSection>
+					<Button
+						iconLeft="plus"
+						onClick={() => navigate(`${MODULE_PATHS.eventsCreateDestination}`)}
+					>
+						Nieuw aanmaken
+					</Button>
+				</ContextHeaderActionsSection>
 			</ContextHeader>
 			<Container>
-				<p>TODO BESTEMMINGEN OVERZICHT</p>
+				<DataLoader loadingState={initialLoading} render={renderOverview} />
 			</Container>
 		</>
 	);
 };
 
-export default DestinationsOverview;
+export default EventsOverview;

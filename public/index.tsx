@@ -6,8 +6,8 @@ import React, { FC, useMemo } from 'react';
 import Core from '@redactie/redactie-core';
 import { MODULE_PATHS } from './lib/events.const';
 import { registerEventsModule } from './lib/api';
-import EventsOverview from './lib/views/DestinationsOverview/DestinationsOverview';
-import DestinationsOverview from './lib/views/DestinationsOverview/DestinationsOverview';
+import EventsOverview from './lib/views/EventsOverview/EventsOverview';
+import DestinationsOverview from './lib/views/EventsOverview/EventsOverview';
 
 translations.registerTranslations();
 

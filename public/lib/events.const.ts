@@ -5,6 +5,7 @@ export const EVENTS_ROOT = `events`;
 export const OVERVIEW = '/overzicht';
 const eventsOverview = `/${EVENTS_ROOT}/overzicht`;
 const eventsOverviewDestinations = `${eventsOverview}/bestemmingen`;
+const eventsCreateDestination = `${eventsOverviewDestinations}/aanmaken`;
 const eventsOverviewEpisodes = `${eventsOverview}/afleveringen`;
 
 export const MODULE_PATHS = {
@@ -12,26 +13,10 @@ export const MODULE_PATHS = {
 	dashboardRoot: DASHBOARD_ROOT,
 	eventsOverview,
 	eventsOverviewDestinations,
+	eventsCreateDestination,
 	eventsOverviewEpisodes,
 };
 
 export const BREADCRUMB_OPTIONS = {
 	excludePaths: ['/', '/:tenantId', '/:tenantId/sites/:siteId/bewerken'],
 };
-
-export const EVENT_OVERVIEW_TABS = [
-	{
-		name: 'Bestemmingen',
-		target: 'bestemmingen',
-		active: true,
-		disabled: false,
-		// containerId: ALERT_CONTAINER_IDS.UPDATE_USER_ROLES_SITE_ON_SITE,
-	},
-	{
-		name: 'Afleveringen',
-		target: 'afleveringen',
-		active: false,
-		disabled: false,
-		// containerId: ALERT_CONTAINER_IDS.UPDATE_USER_ROLES_SITE_ON_SITE,
-	},
-];
