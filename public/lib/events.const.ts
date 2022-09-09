@@ -5,7 +5,8 @@ export const EVENTS_ROOT = `events`;
 export const OVERVIEW = '/overzicht';
 const eventsOverview = `/${EVENTS_ROOT}/overzicht`;
 const eventsOverviewDestinations = `${eventsOverview}/bestemmingen`;
-const eventsCreateDestination = `${eventsOverviewDestinations}/aanmaken`;
+const eventsCreateDestination = `${OVERVIEW}/bestemmingen/aanmaken`;
+const eventsCreateDestinationEdit = `${OVERVIEW}/bestemmingen/:destinationUuid`;
 const eventsOverviewEpisodes = `${eventsOverview}/afleveringen`;
 
 export const MODULE_PATHS = {
@@ -14,6 +15,7 @@ export const MODULE_PATHS = {
 	eventsOverview,
 	eventsOverviewDestinations,
 	eventsCreateDestination,
+	eventsCreateDestinationEdit,
 	eventsOverviewEpisodes,
 };
 
