@@ -6,7 +6,8 @@ import React, { FC, useMemo } from 'react';
 import Core from '@redactie/redactie-core';
 import { MODULE_PATHS } from './lib/events.const';
 import { registerEventsModule } from './lib/api';
-import EventsOverview from './lib/views/EventsOverview/EventsOverview';
+import EventsOverview from './lib/views/DestinationsOverview/DestinationsOverview';
+import DestinationsOverview from './lib/views/DestinationsOverview/DestinationsOverview';
 
 translations.registerTranslations();
 
@@ -21,19 +22,24 @@ const EventsRoot: FC<EventsModuleRouteProps> = ({ route, tenantId }) => {
 };
 
 Core.routes.register({
-	path: MODULE_PATHS.root,
+	path: MODULE_PATHS.eventsOverview,
 	breadcrumb: false,
 	component: EventsRoot,
-	redirect: MODULE_PATHS.overview,
+	redirect: MODULE_PATHS.eventsOverviewDestinations,
 	navigation: {
 		label: 'Events',
 		order: 7,
 	},
 	routes: [
 		{
-			path: MODULE_PATHS.overview,
+			path: MODULE_PATHS.eventsOverviewDestinations,
 			breadcrumb: false,
-			component: EventsOverview,
+			component: DestinationsOverview,
+		},
+		{
+			path: MODULE_PATHS.eventsOverviewEpisodes,
+			breadcrumb: false,
+			component: DestinationsOverview,
 		},
 	],
 });

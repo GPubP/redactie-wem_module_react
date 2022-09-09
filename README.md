@@ -1,15 +1,9 @@
-# Redactie boilerplate module (React)
-
-## How to start?
-
-### Init repository
-
-Copy this repository and replace references to "redactie-boilerplate" in package.json
+# Events module (React)
 
 ### Install all dependencies
 
 ```
-npm install && cd demo && npm install
+npm install 
 ```
 
 ### Build the library

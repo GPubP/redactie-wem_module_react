@@ -4,5 +4,4 @@
 
 ### Interfaces
 
-- [Boilerplate](../wiki/index.Boilerplate)
 - [BoilerplateAPI](../wiki/index.BoilerplateAPI)

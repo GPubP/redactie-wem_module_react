@@ -1,4 +1,4 @@
-# @redactie/wem-module
+# @redactie/bce-module
 
 ## Table of contents
 
