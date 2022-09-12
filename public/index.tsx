@@ -8,6 +8,7 @@ import { MODULE_PATHS } from './lib/events.const';
 import { registerEventsModule } from './lib/api';
 import EventsOverview from './lib/views/EventsOverview/EventsOverview';
 import DestinationsOverview from './lib/views/EventsOverview/EventsOverview';
+import DestinationsCreate from './lib/views/DestinationsCreate/DestinationsCreate';
 
 translations.registerTranslations();
 
@@ -25,21 +26,26 @@ Core.routes.register({
 	path: MODULE_PATHS.eventsOverview,
 	breadcrumb: false,
 	component: EventsRoot,
-	redirect: MODULE_PATHS.eventsOverviewDestinations,
+	redirect: MODULE_PATHS.eventsDestinations.overview,
 	navigation: {
 		label: 'Events',
 		order: 7,
 	},
 	routes: [
 		{
-			path: MODULE_PATHS.eventsOverviewDestinations,
+			path: MODULE_PATHS.eventsDestinations.overview,
 			breadcrumb: false,
 			component: DestinationsOverview,
 		},
 		{
-			path: MODULE_PATHS.eventsOverviewEpisodes,
+			path: MODULE_PATHS.eventsEpisodes.overview,
 			breadcrumb: false,
 			component: DestinationsOverview,
+		},
+		{
+			path: MODULE_PATHS.eventsDestinations.create,
+			breadcrumb: false,
+			component: DestinationsCreate,
 		},
 	],
 });

@@ -41,7 +41,7 @@ const EventsOverview: FC = () => {
 	const activeTabs = useActiveTabs(EVENT_OVERVIEW_TABS, location.pathname);
 	const { navigate, generatePath } = useNavigate(EVENTS_ROOT);
 	const isEpisodesView = useMemo(
-		() => activeTabs.find(tab => tab.active)?.target === 'afleveringen',
+		() => activeTabs.find((tab) => tab.active)?.target === 'afleveringen',
 		[activeTabs]
 	);
 	const [initialLoading, setInitialLoading] = useState(LoadingState.Loading);
@@ -69,14 +69,14 @@ const EventsOverview: FC = () => {
 	 */
 	const renderOverview = (): ReactElement | null => {
 		const destinationRows: DestinationsOverviewTableRow[] = EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA._embedded.map(
-			destination => ({
+			(destination) => ({
 				uuid: destination.id,
 				name: destination.name,
 				description: destination.description,
 				namespace: destination.namespace,
 				ownerKey: destination.ownerKey,
 				navigate: () =>
-					navigate(MODULE_PATHS.eventsCreateDestinationEdit, {
+					navigate(MODULE_PATHS.eventsDestinations.detail, {
 						destinationUuid: destination.id,
 					}),
 			})
@@ -128,7 +128,7 @@ const EventsOverview: FC = () => {
 				<ContextHeaderActionsSection>
 					<Button
 						iconLeft="plus"
-						onClick={() => navigate(`${MODULE_PATHS.eventsCreateDestination}`)}
+						onClick={() => navigate(`${MODULE_PATHS.eventsDestinations.create}`)}
 					>
 						Nieuw aanmaken
 					</Button>

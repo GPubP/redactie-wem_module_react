@@ -13,10 +13,14 @@ export const MODULE_PATHS = {
 	root: EVENTS_ROOT,
 	dashboardRoot: DASHBOARD_ROOT,
 	eventsOverview,
-	eventsOverviewDestinations,
-	eventsCreateDestination,
-	eventsCreateDestinationEdit,
-	eventsOverviewEpisodes,
+	eventsDestinations: {
+		overview: eventsOverviewDestinations,
+		create: eventsCreateDestination,
+		detail: eventsCreateDestinationEdit,
+	},
+	eventsEpisodes: {
+		overview: eventsOverviewEpisodes,
+	},
 };
 
 export const BREADCRUMB_OPTIONS = {
