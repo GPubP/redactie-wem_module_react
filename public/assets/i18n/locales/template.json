@@ -1,4 +1,11 @@
 {
-  "BOILERPLATE_HELLOWORLD_TITLE": "Hello World!",
-  "HELLOWORLD_MENU-LABEL": "Demo"
+  "EVENTS": "Events",
+  "DESTINATIONS": "Bestemmingen",
+  "DELIVERIES": "Afleveringen",
+  "NEW_BUTTON": "Nieuw aanmaken",
+  "NO_DESTINATIONS": "Geen bestemmingen gevonden",
+  "LOAD_DESTINATIONS": "Bestemmingen ophalen",
+  "NAME": "Naam",
+  "KEY": "Sleutel",
+  "NAMESPACE": "Naamruimte"
 }

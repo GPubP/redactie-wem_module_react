@@ -1,28 +1,39 @@
+// import { TRANSLATIONS } from './i18next/translations.const';
+
 export const MODULE_NAME = 'events';
-export const DASHBOARD_ROOT = `/dashboard`;
-export const TENANT_ROOT = '/:tenantId';
-export const EVENTS_ROOT = `events`;
-export const OVERVIEW = '/overzicht';
-const eventsOverview = `/${EVENTS_ROOT}/overzicht`;
-const eventsOverviewDestinations = `${eventsOverview}/bestemmingen`;
-const eventsCreateDestination = `${OVERVIEW}/bestemmingen/aanmaken`;
-const eventsCreateDestinationEdit = `${OVERVIEW}/bestemmingen/:destinationUuid`;
-const eventsOverviewEpisodes = `${eventsOverview}/afleveringen`;
+export const ROOT_PATH = '/events';
 
-export const MODULE_PATHS = {
-	root: EVENTS_ROOT,
-	dashboardRoot: DASHBOARD_ROOT,
-	eventsOverview,
-	eventsDestinations: {
-		overview: eventsOverviewDestinations,
-		create: eventsCreateDestination,
-		detail: eventsCreateDestinationEdit,
+export const EVENTS_MODULE_PATHS = {
+	ROOT: ROOT_PATH,
+	DESTINATIONS: {
+		base: '/bestemmingen',
+		index: `${ROOT_PATH}/bestemmingen`,
+		create: `${ROOT_PATH}/bestemmingen/nieuw`,
+		details: `${ROOT_PATH}/bestemmingen/:destinationId`,
 	},
-	eventsEpisodes: {
-		overview: eventsOverviewEpisodes,
+	DELIVERIES: {
+		index: `${ROOT_PATH}/afleveringen`,
 	},
 };
 
-export const BREADCRUMB_OPTIONS = {
-	excludePaths: ['/', '/:tenantId', '/:tenantId/sites/:siteId/bewerken'],
-};
+export const MODULE_TABS = [
+	{
+		name: 'DESTINATIONS',
+		target: EVENTS_MODULE_PATHS.DESTINATIONS.index,
+		active: true,
+		disabled: false,
+	},
+	{
+		name: 'DELIVERIES',
+		target: EVENTS_MODULE_PATHS.DELIVERIES.index,
+		active: false,
+		disabled: false,
+	},
+];
+
+export const DEFAULT_SEARCH_PARAMS = {
+	page: { defaultValue: 1, type: 'number' },
+	pagesize: { defaultValue: 20, type: 'number' },
+	sparse: { defaultValue: true, type: 'number' },
+	search: { type: 'string' },
+} as const;

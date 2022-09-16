@@ -1,8 +1,9 @@
 import Core from '@redactie/redactie-core';
 import { TranslateFunc, TranslationsAPI } from '@redactie/translations-module';
+
 import { MODULE_NAME } from '../events.const';
 
-class TranslationsConnector {
+export class TranslationsConnector {
 	static apiName = 'translations-module';
 
 	private api: TranslationsAPI;

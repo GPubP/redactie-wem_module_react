@@ -1,51 +1,53 @@
+/* eslint-disable import/no-unresolved */
+import { Button } from '@acpaas-ui/react-components';
 import {
 	Container,
 	ContextHeader,
-	ContextHeaderTopSection,
 	ContextHeaderActionsSection,
+	ContextHeaderTopSection,
 	PaginatedTable,
 } from '@acpaas-ui/react-editorial-components';
-import { Button } from '@acpaas-ui/react-components';
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
 import {
-	ContextHeaderTabLinkProps,
 	DataLoader,
-	useNavigate,
-	useRoutes,
 	LoadingState,
-	useAPIQueryParams,
-	parseOrderByToObj,
 	OrderBy,
 	parseObjToOrderBy,
+	parseOrderByToObj,
+	useAPIQueryParams,
+	useNavigate,
+	useRoutes,
 } from '@redactie/utils';
-import React, { FC, ReactElement, useEffect, useMemo, useState } from 'react';
-import { BREADCRUMB_OPTIONS, EVENTS_ROOT, MODULE_PATHS } from '../../events.const';
-import useActiveTabs from '../../hooks/useActiveTabs/useActiveTabs';
-import useHomeBreadcrumb from '../../hooks/useHomeBreadcrumb/useHomeBreadcrumb';
-import { Link } from 'react-router-dom';
-import {
-	DEFAULT_DESTINATIONS_SEARCH_PARAMS,
-	DESTINATIONS_OVERVIEW_COLUMNS,
-	DESTINATIONS_QUERY_PARAMS_CONFIG,
-	EVENT_OVERVIEW_TABS,
-} from './EventsOverview.const';
-import { DestinationsOverviewTableRow } from './EventsOverview.types';
-import { EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA } from './EventsOverview.mock.data';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 
-const EventsOverview: FC = () => {
+import translationsConnector from '../../connectors/translations';
+import { DEFAULT_SEARCH_PARAMS, EVENTS_MODULE_PATHS, MODULE_TABS } from '../../events.const';
+import useTabs from '../../hooks/useTabs';
+import { TRANSLATIONS } from '../../i18next/translations.const';
+import { breadcrumbsOptions, linkProps } from '../utils/navigation.utils';
+
+import { EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA } from './EventsOverview.mock.data';
+import { destinationDataToRows, destinationsColumns } from './EventsOverview.resources';
+
+const DestinationsOverview: FC = () => {
+	/**
+	 * INITIALIZE
+	 */
 	const routes = useRoutes();
-	const breadcrumbs = useBreadcrumbs(routes as ModuleRouteConfig[], {
-		...BREADCRUMB_OPTIONS,
-		extraBreadcrumbs: [useHomeBreadcrumb()],
-	});
-	const activeTabs = useActiveTabs(EVENT_OVERVIEW_TABS, location.pathname);
-	const { navigate, generatePath } = useNavigate(EVENTS_ROOT);
-	const isEpisodesView = useMemo(
-		() => activeTabs.find((tab) => tab.active)?.target === 'afleveringen',
-		[activeTabs]
+	const { navigate, generatePath } = useNavigate();
+	const breadcrumbs = useBreadcrumbs(
+		routes as ModuleRouteConfig[],
+		breadcrumbsOptions(generatePath)
 	);
+
+	const [t] = translationsConnector.useModuleTranslation();
+	const tabs = useTabs(MODULE_TABS, generatePath, t, location.pathname);
+
+	/**
+	 * QUERIES
+	 */
 	const [initialLoading, setInitialLoading] = useState(LoadingState.Loading);
-	const [query, setQuery] = useAPIQueryParams(DESTINATIONS_QUERY_PARAMS_CONFIG);
+	const [query, setQuery] = useAPIQueryParams(DEFAULT_SEARCH_PARAMS);
 	const activeSorting = parseObjToOrderBy({
 		sort: query.sort ?? '',
 		direction: query.direction ?? 1,
@@ -65,80 +67,52 @@ const EventsOverview: FC = () => {
 	};
 
 	/**
-	 * Render destinations overview
+	 * RENDER TABLE
 	 */
-	const renderOverview = (): ReactElement | null => {
-		const destinationRows: DestinationsOverviewTableRow[] = EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA._embedded.map(
-			(destination) => ({
-				uuid: destination.id,
-				name: destination.name,
-				description: destination.description,
-				namespace: destination.namespace,
-				ownerKey: destination.ownerKey,
-				navigate: () =>
-					navigate(MODULE_PATHS.eventsDestinations.detail, {
-						destinationUuid: destination.id,
-					}),
-			})
-		);
-
-		return isEpisodesView ? (
-			// TODO
-			<p>TODO EPISODES SCREEN</p>
-		) : (
+	const renderTable = (): ReactElement | null => {
+		return (
 			<PaginatedTable
 				fixed
 				className="u-margin-top"
 				tableClassName="a-table--fixed--xs"
-				columns={DESTINATIONS_OVERVIEW_COLUMNS()}
-				rows={destinationRows}
+				columns={destinationsColumns(t)}
+				rows={destinationDataToRows(navigate)}
 				currentPage={query.page}
-				itemsPerPage={DEFAULT_DESTINATIONS_SEARCH_PARAMS.pagesize}
+				itemsPerPage={DEFAULT_SEARCH_PARAMS.pagesize.defaultValue}
 				onPageChange={handlePageChange}
 				orderBy={handleOrderBy}
 				activeSorting={activeSorting}
 				totalValues={EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA._embedded.length || 0}
 				loading={false}
-				loadDataMessage="Gebruikers ophalen"
-				noDataMessage={'Geen bestemmingen'}
+				loadDataMessage={t(TRANSLATIONS.LOAD_DESTINATIONS)}
+				noDataMessage={t(TRANSLATIONS.NO_DESTINATIONS)}
 			/>
 		);
 	};
 
 	useEffect(() => {
-		// TODO REMOVE TIMOUT
-		// ONLY FOR LOADING DEMO PURPOSE
+		// TODO REMOVE TIMOUT - ONLY FOR LOADING DEMO PURPOSE
 		setTimeout(() => setInitialLoading(LoadingState.Loaded), 2000);
 	}, []);
 
 	return (
 		<>
-			<ContextHeader
-				title="Events"
-				linkProps={(props: ContextHeaderTabLinkProps) => {
-					return {
-						...props,
-						to: generatePath(`/overzicht/${props.href}`),
-						component: Link,
-					};
-				}}
-				tabs={activeTabs}
-			>
+			<ContextHeader title={t(TRANSLATIONS.EVENTS)} linkProps={linkProps} tabs={tabs}>
 				<ContextHeaderTopSection>{breadcrumbs}</ContextHeaderTopSection>
 				<ContextHeaderActionsSection>
 					<Button
 						iconLeft="plus"
-						onClick={() => navigate(`${MODULE_PATHS.eventsDestinations.create}`)}
+						onClick={() => navigate(`${EVENTS_MODULE_PATHS.DESTINATIONS.create}`)}
 					>
-						Nieuw aanmaken
+						{t(TRANSLATIONS.NEW_BUTTON)}
 					</Button>
 				</ContextHeaderActionsSection>
 			</ContextHeader>
 			<Container>
-				<DataLoader loadingState={initialLoading} render={renderOverview} />
+				<DataLoader loadingState={initialLoading} render={renderTable} />
 			</Container>
 		</>
 	);
 };
 
-export default EventsOverview;
+export default DestinationsOverview;

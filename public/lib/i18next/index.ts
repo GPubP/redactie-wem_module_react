@@ -1,8 +1,8 @@
 import { BehaviorSubject } from 'rxjs';
 
 import translationFile from '../../assets/i18n/locales/template.json';
-import { MODULE_NAME } from '../events.const';
 import translationsConnector from '../connectors/translations';
+import { MODULE_NAME } from '../events.const';
 
 export class Translations {
 	public moduleTranslationsLoaded: BehaviorSubject<boolean> = new BehaviorSubject(
