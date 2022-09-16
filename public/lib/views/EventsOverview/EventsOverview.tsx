@@ -10,7 +10,6 @@ import {
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
 import {
 	DataLoader,
-	LoadingState,
 	OrderBy,
 	parseObjToOrderBy,
 	parseOrderByToObj,
@@ -18,15 +17,16 @@ import {
 	useNavigate,
 	useRoutes,
 } from '@redactie/utils';
-import React, { FC, ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useEffect } from 'react';
 
 import translationsConnector from '../../connectors/translations';
 import { DEFAULT_SEARCH_PARAMS, EVENTS_MODULE_PATHS, MODULE_TABS } from '../../events.const';
+import useDestinations from '../../hooks/store/useDestinations';
 import useTabs from '../../hooks/useTabs';
 import { TRANSLATIONS } from '../../i18next/translations.const';
+import { destinationsFacade } from '../../store/destinations/destinations.facade';
 import { breadcrumbsOptions, linkProps } from '../utils/navigation.utils';
 
-import { EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA } from './EventsOverview.mock.data';
 import { destinationDataToRows, destinationsColumns } from './EventsOverview.resources';
 
 const DestinationsOverview: FC = () => {
@@ -46,12 +46,16 @@ const DestinationsOverview: FC = () => {
 	/**
 	 * QUERIES
 	 */
-	const [initialLoading, setInitialLoading] = useState(LoadingState.Loading);
+	const [destinations, pagination, isFetching] = useDestinations();
 	const [query, setQuery] = useAPIQueryParams(DEFAULT_SEARCH_PARAMS);
 	const activeSorting = parseObjToOrderBy({
 		sort: query.sort ?? '',
 		direction: query.direction ?? 1,
 	});
+
+	useEffect(() => {
+		destinationsFacade.fetchAllDestinations(query);
+	}, [query]);
 
 	const handlePageChange = (page: number): void => {
 		setQuery({ page });
@@ -76,24 +80,19 @@ const DestinationsOverview: FC = () => {
 				className="u-margin-top"
 				tableClassName="a-table--fixed--xs"
 				columns={destinationsColumns(t)}
-				rows={destinationDataToRows(navigate)}
+				rows={destinationDataToRows(navigate, destinations)}
 				currentPage={query.page}
 				itemsPerPage={DEFAULT_SEARCH_PARAMS.pagesize.defaultValue}
 				onPageChange={handlePageChange}
 				orderBy={handleOrderBy}
 				activeSorting={activeSorting}
-				totalValues={EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA._embedded.length || 0}
+				totalValues={pagination?.totalElements || 0}
 				loading={false}
 				loadDataMessage={t(TRANSLATIONS.LOAD_DESTINATIONS)}
 				noDataMessage={t(TRANSLATIONS.NO_DESTINATIONS)}
 			/>
 		);
 	};
-
-	useEffect(() => {
-		// TODO REMOVE TIMOUT - ONLY FOR LOADING DEMO PURPOSE
-		setTimeout(() => setInitialLoading(LoadingState.Loaded), 2000);
-	}, []);
 
 	return (
 		<>
@@ -109,7 +108,7 @@ const DestinationsOverview: FC = () => {
 				</ContextHeaderActionsSection>
 			</ContextHeader>
 			<Container>
-				<DataLoader loadingState={initialLoading} render={renderTable} />
+				<DataLoader loadingState={isFetching} render={renderTable} />
 			</Container>
 		</>
 	);

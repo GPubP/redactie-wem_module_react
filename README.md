@@ -2,8 +2,10 @@
 
 ### Install all dependencies
 
+-   Node version 12.x
+
 ```
-npm install 
+npm install
 ```
 
 ### Build the library
@@ -17,6 +19,7 @@ npm run build:w
 ```
 
 ## Deploy
+
 ### Publish library to package registry
 
 ```
@@ -26,6 +29,6 @@ npm publish
 
 ### WCM config
 
-* add module/version to list of modules
-* add translations module to dependencies
-* enable module/version in tenant
+-   add module/version to list of modules
+-   add translations module to dependencies
+-   enable module/version in tenant

@@ -1,11 +1,10 @@
 /* eslint-disable import/no-unresolved */
 import { TableColumn } from '@redactie/utils';
 
-import { TRANSLATIONS } from '../../i18next/translations.const';
 import { EVENTS_MODULE_PATHS } from '../../events.const';
+import { TRANSLATIONS } from '../../i18next/translations.const';
+import { DestinationSchema } from '../../services/destinations/destinations.service.types';
 import { editButton, tableLink } from '../Components/TableComponents';
-
-import { EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA } from './EventsOverview.mock.data';
 
 export interface DestinationRow {
 	uuid: string;
@@ -66,9 +65,9 @@ export const destinationsColumns = (
 
 export const destinationDataToRows = (
 	navigate: any,
-	data = EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA
+	data: DestinationSchema[]
 ): DestinationRow[] => {
-	return data._embedded.map(destination => ({
+	return data.map((destination: DestinationSchema) => ({
 		uuid: destination.id,
 		name: destination.name,
 		description: destination.description,

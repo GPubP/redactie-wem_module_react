@@ -1,5 +1,5 @@
 export const EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA = {
-	_embedded: [
+	data: [
 		{
 			id: '023bd97e-24e3-4236-a2c2-45733b386148',
 			tenantId: '2bd295d9-48d7-4c2a-9de5-c5539f2d6281',
@@ -21,9 +21,9 @@ export const EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA = {
 			updatedAt: '2022-09-09T08:35:18.715Z',
 		},
 	],
-	_page: {
-		pagesize: 20,
-		page: 1,
+	pagination: {
+		size: 20,
+		number: 1,
 		totalElements: 2,
 		totalPages: 1,
 	},

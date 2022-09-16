@@ -1,5 +1,7 @@
 // import { TRANSLATIONS } from './i18next/translations.const';
 
+import { Page } from '@redactie/utils';
+
 export const MODULE_NAME = 'events';
 export const ROOT_PATH = '/events';
 
@@ -37,3 +39,10 @@ export const DEFAULT_SEARCH_PARAMS = {
 	sparse: { defaultValue: true, type: 'number' },
 	search: { type: 'string' },
 } as const;
+
+export const DEFAULT_PAGINATION: Page = {
+	size: DEFAULT_SEARCH_PARAMS.pagesize.defaultValue,
+	totalElements: 0,
+	totalPages: 0,
+	number: DEFAULT_SEARCH_PARAMS.page.defaultValue,
+};
