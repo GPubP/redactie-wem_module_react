@@ -22,9 +22,9 @@ export const EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA = {
 		},
 	],
 	pagination: {
-		size: 20,
+		size: 10,
 		number: 1,
-		totalElements: 2,
-		totalPages: 1,
+		totalElements: 100,
+		totalPages: 10,
 	},
 };

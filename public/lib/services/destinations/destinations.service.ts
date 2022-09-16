@@ -1,7 +1,7 @@
 import { DEFAULT_PAGINATION } from '../../events.const';
-import { EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA } from '../../views/EventsOverview/EventsOverview.mock.data';
 import { api } from '../api';
 
+import { EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA } from './destinations.service.mock';
 import { DestinationsResponseSchema } from './destinations.service.types';
 
 export const DESTINATIONS_PATH = 'events/v1/destinations';
