@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { TableColumn } from '@redactie/utils';
+import React from 'react';
 
 import { EVENTS_MODULE_PATHS } from '../../events.const';
 import useDeliveries from '../../hooks/store/useDeliveries';
@@ -41,6 +42,13 @@ const deliveriesColumns = (translator: (a: string) => string): TableColumn<Deliv
 		{
 			label: translator(TRANSLATIONS.STATUS),
 			disableSorting: true,
+			component: (_v, rowData) => {
+				return rowData.active ? (
+					<span className="u-text-success">Actief</span>
+				) : (
+					<span className="u-text-danger">Niet actief</span>
+				);
+			},
 			value: 'status',
 			width: '14%',
 		},
