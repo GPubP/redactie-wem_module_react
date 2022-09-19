@@ -7,7 +7,6 @@ export interface DestinationsResponseSchema {
 
 export interface DestinationSchema {
 	id: string;
-	tenantId: string;
 	name: string;
 	description: string;
 	ownerKey: string;

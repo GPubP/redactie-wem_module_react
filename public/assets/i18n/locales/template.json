@@ -3,9 +3,14 @@
   "DESTINATIONS": "Bestemmingen",
   "DELIVERIES": "Afleveringen",
   "NEW_BUTTON": "Nieuw aanmaken",
-  "NO_DESTINATIONS": "Geen bestemmingen gevonden",
-  "LOAD_DESTINATIONS": "Bestemmingen ophalen",
+  "NO_DESTINATIONS": "Geen data gevonden",
+  "LOAD_DESTINATIONS": "Data ophalen",
   "NAME": "Naam",
   "KEY": "Sleutel",
-  "NAMESPACE": "Naamruimte"
+  "NAMESPACE": "Naamruimte",
+  "SOURCE": "Bron",
+  "EVENT": "Event",
+  "DESTINATION": "Bestemming",
+  "TOPIC": "Topic",
+  "STATUS": "Status"
 }

@@ -7,7 +7,8 @@ import { DestinationsResponseSchema } from './destinations.service.types';
 export const DESTINATIONS_PATH = 'events/v1/destinations';
 
 export class DestinationsAPIService {
-	public async fetchAllDestinations(
+	// TODO-NT REMOVE MOCK
+	public async fetchAll(
 		page = DEFAULT_PAGINATION.number,
 		pagesize = DEFAULT_PAGINATION.size,
 		sort = ''
@@ -15,7 +16,7 @@ export class DestinationsAPIService {
 		console.log(`Mocking fetch to "${DESTINATIONS_PATH}" - with values:`);
 		console.log({ page, pagesize, sort });
 		return new Promise(resolve =>
-			setTimeout(() => resolve(EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA), 3000)
+			setTimeout(() => resolve(EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA), 1500)
 		);
 		// return api.get(DESTINATIONS_PATH).json();
 	}

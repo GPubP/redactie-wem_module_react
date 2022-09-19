@@ -1,12 +1,11 @@
 import { BaseEntityFacade } from '@redactie/utils';
-import { DEFAULT_PAGINATION } from '../../events.const';
 
 import {
 	destinationsAPIService,
 	DestinationsAPIService,
 } from '../../services/destinations/destinations.service';
 import { DestinationsResponseSchema } from '../../services/destinations/destinations.service.types';
-import { sortAndDirectionToAPIQuery } from '../../services/helpers/query.helpers';
+import { sortAndDirectionToAPIQuery } from '../../services/query.helpers';
 
 import { destinationsQuery, DestinationsQuery } from './destinations.query';
 import { DestinationsStore, destinationsStore } from './destinations.store';
@@ -19,7 +18,7 @@ export class DestinationsFacade extends BaseEntityFacade<
 	public readonly destinations$ = this.query.destinations$;
 	public readonly pagination$ = this.query.pagination$;
 
-	public async fetchAllDestinations(query: any): Promise<void> {
+	public async fetchAll(query: any): Promise<void> {
 		const { isFetching } = this.query.getValue();
 
 		if (isFetching) {
@@ -28,10 +27,8 @@ export class DestinationsFacade extends BaseEntityFacade<
 
 		this.store.setIsFetching(true);
 
-		console.log(query);
-
 		return this.service
-			.fetchAllDestinations(
+			.fetchAll(
 				query.page,
 				query.pagesize,
 				sortAndDirectionToAPIQuery(query.sort, query.direction)

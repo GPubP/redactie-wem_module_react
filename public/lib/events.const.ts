@@ -14,7 +14,10 @@ export const EVENTS_MODULE_PATHS = {
 		details: `${ROOT_PATH}/bestemmingen/:destinationId`,
 	},
 	DELIVERIES: {
+		base: '/afleveringen',
 		index: `${ROOT_PATH}/afleveringen`,
+		create: `${ROOT_PATH}/afleveringen/nieuw`,
+		details: `${ROOT_PATH}/afleveringen/:deliveryId`,
 	},
 };
 

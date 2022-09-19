@@ -5,10 +5,10 @@ import { EllipsisWithTooltip } from '@acpaas-ui/react-editorial-components';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { DestinationRow } from '../EventsOverview/EventsOverview.resources';
+import { BasicRow } from './components.types';
 
 export function tableLink(url: string) {
-	return (value: string, rowData: DestinationRow) => {
+	return (value: string, rowData: BasicRow) => {
 		return (
 			<>
 				<AUILink to={`..${url}/${rowData?.uuid}`} component={Link}>
@@ -27,7 +27,7 @@ export function tableLink(url: string) {
 }
 
 export function editButton() {
-	return (value: unknown, rowData: DestinationRow) => {
+	return (value: unknown, rowData: BasicRow) => {
 		const { uuid, navigate } = rowData;
 		return (
 			<Button
@@ -38,5 +38,5 @@ export function editButton() {
 				transparent
 			/>
 		);
-	}
+	};
 }

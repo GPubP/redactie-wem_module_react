@@ -1,3 +1,6 @@
 export function sortAndDirectionToAPIQuery(sort: string, direction: number): string {
-	return direction >= 0 ? sort : `-${sort}`;
+	if (!sort) {
+		return '';
+	}
+	return direction >= 0 ? sort || '' : `-${sort}`;
 }

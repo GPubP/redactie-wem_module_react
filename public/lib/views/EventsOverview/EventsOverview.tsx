@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable import/no-unresolved */
 import { Button } from '@acpaas-ui/react-components';
 import {
@@ -10,7 +11,6 @@ import {
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
 import {
 	DataLoader,
-	LoadingState,
 	OrderBy,
 	parseObjToOrderBy,
 	parseOrderByToObj,
@@ -22,15 +22,14 @@ import React, { FC, ReactElement, useEffect } from 'react';
 
 import translationsConnector from '../../connectors/translations';
 import { DEFAULT_SEARCH_PARAMS, EVENTS_MODULE_PATHS, MODULE_TABS } from '../../events.const';
-import useDestinations from '../../hooks/store/useDestinations';
 import useTabs from '../../hooks/useTabs';
 import { TRANSLATIONS } from '../../i18next/translations.const';
-import { destinationsFacade } from '../../store/destinations/destinations.facade';
 import { breadcrumbsOptions, linkProps } from '../utils/navigation.utils';
 
-import { destinationDataToRows, destinationsColumns } from './EventsOverview.resources';
+import deliveriesConfig from './deliveries.overview.config';
+import destinationsConfig from './destinations.overview.config';
 
-const DestinationsOverview: FC = () => {
+const EventsOverview: FC = () => {
 	/**
 	 * INITIALIZE
 	 */
@@ -45,9 +44,15 @@ const DestinationsOverview: FC = () => {
 	const tabs = useTabs(MODULE_TABS, generatePath, t, location.pathname);
 
 	/**
+	 * LOAD OVERVIEW CONFIG
+	 */
+	const isDestinations = location.pathname.includes(EVENTS_MODULE_PATHS.DESTINATIONS.base);
+	const config = isDestinations ? destinationsConfig : deliveriesConfig;
+
+	/**
 	 * QUERIES
 	 */
-	const [destinations, pagination, isFetching] = useDestinations();
+	const [items, pagination, isFetching] = config.fetchHook();
 	const [query, setQuery] = useAPIQueryParams(DEFAULT_SEARCH_PARAMS);
 	const activeSorting = parseObjToOrderBy({
 		sort: query.sort ?? '',
@@ -55,7 +60,7 @@ const DestinationsOverview: FC = () => {
 	});
 
 	useEffect(() => {
-		destinationsFacade.fetchAllDestinations(query);
+		config.facade.fetchAll(query);
 	}, [query]);
 
 	const handlePageChange = (page: number): void => {
@@ -80,8 +85,8 @@ const DestinationsOverview: FC = () => {
 				fixed
 				className="u-margin-top"
 				tableClassName="a-table--fixed--xs"
-				columns={destinationsColumns(t)}
-				rows={destinationDataToRows(navigate, destinations)}
+				columns={config.columnsConfig(t)}
+				rows={config.dataToRows(navigate, items)}
 				currentPage={query.page}
 				itemsPerPage={DEFAULT_SEARCH_PARAMS.pagesize.defaultValue}
 				onPageChange={handlePageChange}
@@ -89,8 +94,8 @@ const DestinationsOverview: FC = () => {
 				activeSorting={activeSorting}
 				totalValues={pagination?.totalElements || 0}
 				loading={false}
-				loadDataMessage={t(TRANSLATIONS.LOAD_DESTINATIONS)}
-				noDataMessage={t(TRANSLATIONS.NO_DESTINATIONS)}
+				loadDataMessage={t(TRANSLATIONS.LOAD_TABLE)}
+				noDataMessage={t(TRANSLATIONS.EMPTY_TABLE)}
 			/>
 		);
 	};
@@ -100,10 +105,7 @@ const DestinationsOverview: FC = () => {
 			<ContextHeader title={t(TRANSLATIONS.EVENTS)} linkProps={linkProps} tabs={tabs}>
 				<ContextHeaderTopSection>{breadcrumbs}</ContextHeaderTopSection>
 				<ContextHeaderActionsSection>
-					<Button
-						iconLeft="plus"
-						onClick={() => navigate(`${EVENTS_MODULE_PATHS.DESTINATIONS.create}`)}
-					>
+					<Button iconLeft="plus" onClick={() => navigate(config.urls.create)}>
 						{t(TRANSLATIONS.NEW_BUTTON)}
 					</Button>
 				</ContextHeaderActionsSection>
@@ -115,4 +117,4 @@ const DestinationsOverview: FC = () => {
 	);
 };
 
-export default DestinationsOverview;
+export default EventsOverview;

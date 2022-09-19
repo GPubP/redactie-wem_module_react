@@ -2,22 +2,20 @@
 import { TableColumn } from '@redactie/utils';
 
 import { EVENTS_MODULE_PATHS } from '../../events.const';
+import useDestinations from '../../hooks/store/useDestinations';
 import { TRANSLATIONS } from '../../i18next/translations.const';
 import { DestinationSchema } from '../../services/destinations/destinations.service.types';
+import { destinationsFacade } from '../../store/destinations/destinations.facade';
 import { editButton, tableLink } from '../Components/TableComponents';
+import { BasicRow } from '../Components/components.types';
+import { columnDefinition } from '../utils/table.utils';
 
-export interface DestinationRow {
-	uuid: string;
-	name: string;
-	description: string;
+interface DestinationRow extends BasicRow {
 	namespace: string;
 	ownerKey: string;
-	navigate: (userUuid: string) => void;
 }
 
-export const destinationsColumns = (
-	translator: (a: string) => string
-): TableColumn<DestinationRow>[] => {
+const destinationsColumns = (translator: (a: string) => string): TableColumn<DestinationRow>[] => {
 	// TODO ADD PERMISSIONS LATER
 	// const canUpdate = checkSecurityRights(mySecurityRights, [
 	// 	SecurityRightsSite.UsersUpdateSiteRoles,
@@ -33,18 +31,8 @@ export const destinationsColumns = (
 				component: tableLink(EVENTS_MODULE_PATHS.DESTINATIONS.base),
 			}),
 		},
-		{
-			label: translator(TRANSLATIONS.KEY),
-			disableSorting: true,
-			value: 'ownerKey',
-			width: '20%',
-		},
-		{
-			label: translator(TRANSLATIONS.NAMESPACE),
-			disableSorting: true,
-			value: 'namespace',
-			width: '30%',
-		},
+		columnDefinition(translator(TRANSLATIONS.KEY), 'ownerKey'),
+		columnDefinition(translator(TRANSLATIONS.NAMESPACE), 'namespace', '30%'),
 	];
 
 	if (!canUpdate) {
@@ -63,10 +51,7 @@ export const destinationsColumns = (
 	];
 };
 
-export const destinationDataToRows = (
-	navigate: any,
-	data: DestinationSchema[]
-): DestinationRow[] => {
+const destinationDataToRows = (navigate: any, data: any[]): DestinationRow[] => {
 	return data.map((destination: DestinationSchema) => ({
 		uuid: destination.id,
 		name: destination.name,
@@ -78,4 +63,12 @@ export const destinationDataToRows = (
 				destinationId: destination.id,
 			}),
 	}));
+};
+
+export default {
+	urls: EVENTS_MODULE_PATHS.DESTINATIONS,
+	columnsConfig: destinationsColumns,
+	dataToRows: destinationDataToRows,
+	facade: destinationsFacade,
+	fetchHook: useDestinations,
 };
