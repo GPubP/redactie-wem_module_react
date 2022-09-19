@@ -18,6 +18,11 @@ Core.routes.register({
 	},
 	routes: [
 		{
+			path: EVENTS_MODULE_PATHS.DESTINATIONS.create,
+			breadcrumb: false,
+			component: DestinationsCreate,
+		},
+		{
 			path: EVENTS_MODULE_PATHS.DESTINATIONS.index,
 			breadcrumb: false,
 			component: EventsOverview,

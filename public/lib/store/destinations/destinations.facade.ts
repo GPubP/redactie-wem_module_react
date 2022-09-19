@@ -17,6 +17,7 @@ export class DestinationsFacade extends BaseEntityFacade<
 > {
 	public readonly destinations$ = this.query.destinations$;
 	public readonly pagination$ = this.query.pagination$;
+	public readonly formData$ = this.query.formData$;
 
 	public async fetchAll(query: any): Promise<void> {
 		const { isFetching } = this.query.getValue();

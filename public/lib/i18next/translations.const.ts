@@ -5,11 +5,21 @@ const tKey = translationsConnector.core.tKey;
 const TRANSLATIONS = Object.freeze({
 	EVENTS: tKey('EVENTS', 'Events'),
 	DESTINATIONS: tKey('DESTINATIONS', 'Bestemmingen'),
+	DESTINATION_NEW: tKey('DESTINATION_NEW', 'Nieuwe bestemming aanmaken'),
+	DESTINATION_NAME_HELP: tKey(
+		'DESTINATION_NAME_HELP',
+		'Geef deze bestemming een korte en duidelijke naam.'
+	),
+	DESTINATION_DESCRIPTION_HELP: tKey(
+		'DESTINATION_DESCRIPTION_HELP',
+		'Geef deze bestemming een beschrijving voor in het overzicht.'
+	),
 	DELIVERIES: tKey('DELIVERIES', 'Afleveringen'),
 	NEW_BUTTON: tKey('NEW_BUTTON', 'Nieuw aanmaken'),
 	EMPTY_TABLE: tKey('NO_DESTINATIONS', 'Geen data gevonden'),
 	LOAD_TABLE: tKey('LOAD_DESTINATIONS', 'Data ophalen'),
 	NAME: tKey('NAME', 'Naam'),
+	DESCRIPTION: tKey('DESCRIPTION', 'Beschrijving'),
 	KEY: tKey('KEY', 'Sleutel'),
 	NAMESPACE: tKey('NAMESPACE', 'Naamruimte'),
 	SOURCE: tKey('SOURCE', 'Bron'),
@@ -18,7 +28,12 @@ const TRANSLATIONS = Object.freeze({
 	TOPIC: tKey('TOPIC', 'Topic'),
 	STATUS: tKey('STATUS', 'Status'),
 	ACTIVE: tKey('SOURCE', 'Actief'),
-	NOT_ACTIVE: tKey('SOURCE', 'Niet actief'),
+	NOT_ACTIVE: tKey('NOT_ACTIVE', 'Niet actief'),
+	OWNER_KEY: tKey('OWNER_KEY', 'Owner key'),
+	OWNER_KEY_HELP: tKey(
+		'OWNER_KEY_HELP',
+		'Geef de owner key van de bestemming op om een namespace te kunnen selecteren.'
+	),
 } as const);
 
 export { TRANSLATIONS };

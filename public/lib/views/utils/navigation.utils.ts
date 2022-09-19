@@ -1,8 +1,11 @@
-import { BreadcrumbOptions } from '@redactie/redactie-core';
+import { Breadcrumb, BreadcrumbOptions } from '@redactie/redactie-core';
 import { ContextHeaderTabLinkProps } from '@redactie/utils';
 import { Link } from 'react-router-dom';
 
-export function breadcrumbsOptions(pathGenerator: (a: string) => string): BreadcrumbOptions {
+export function breadcrumbsOptions(
+	pathGenerator: (a: string) => string,
+	breadcrumbs: Breadcrumb[] = []
+): BreadcrumbOptions {
 	return {
 		excludePaths: ['/', '/:tenantId'],
 		extraBreadcrumbs: [
@@ -10,6 +13,7 @@ export function breadcrumbsOptions(pathGenerator: (a: string) => string): Breadc
 				name: 'Home',
 				target: pathGenerator('/'),
 			},
+			...breadcrumbs,
 		],
 	};
 }

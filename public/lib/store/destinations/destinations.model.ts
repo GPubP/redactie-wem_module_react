@@ -5,4 +5,5 @@ import { DestinationSchema } from '../../services/destinations/destinations.serv
 export type DestinationsModel = DestinationSchema;
 export interface DestinationsState extends BaseEntityState<DestinationsModel, string> {
 	pagination?: Page;
+	formData?: DestinationSchema;
 }
