@@ -1,9 +1,11 @@
 import { ChangeHandlerFn } from '../../events.types';
-import { DestinationValidationType } from '../../services/destinations/destinations.service.types';
-import { DestinationsModel } from '../../store/destinations/destinations.model';
+import {
+	DestinationSchema,
+	DestinationValidationType,
+} from '../../services/destinations/destinations.service.types';
 
 export interface DestinationsFormProps {
-	data: DestinationsModel | undefined;
+	data: DestinationSchema | undefined;
 	onChange: ChangeHandlerFn;
 	validations: DestinationValidationType | undefined;
 	isLoading: boolean;
@@ -14,4 +16,12 @@ export interface DestinationsFormActionsProps {
 	onDelete?: () => void;
 	onCancel?: () => void;
 	isLoading: boolean;
+}
+
+export interface DestinationsCrudProps {
+	match: {
+		params: {
+			destinationId?: string;
+		};
+	};
 }

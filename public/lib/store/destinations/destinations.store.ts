@@ -1,9 +1,11 @@
 import { StoreConfig } from '@datorama/akita';
 import { BaseEntityStore } from '@redactie/utils';
 
-import { DestinationsModel, DestinationsState } from './destinations.model';
+import { DestinationSchema } from '../../services/destinations/destinations.service.types';
 
-export const generateNewDestinationForm = (): DestinationsModel => ({
+import { DestinationsState } from './destinations.model';
+
+export const generateNewDestinationForm = (): DestinationSchema => ({
 	id: '',
 	name: '',
 	description: '',

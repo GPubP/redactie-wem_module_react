@@ -4,12 +4,17 @@ import {
 	destinationsAPIService,
 	DestinationsAPIService,
 } from '../../services/destinations/destinations.service';
-import { DestinationsResponseSchema } from '../../services/destinations/destinations.service.types';
+import {
+	DestinationSchema,
+	DestinationsResponseSchema,
+} from '../../services/destinations/destinations.service.types';
 import { validateDestination } from '../../services/destinations/destinations.validations';
 import { sortAndDirectionToAPIQuery } from '../../services/query.helpers';
-import { ModelCreateResponseSchema } from '../../services/services.types';
+import {
+	ModelCreateResponseSchema,
+	ModelUpdateResponseSchema,
+} from '../../services/services.types';
 
-import { DestinationsModel } from './destinations.model';
 import { destinationsQuery, DestinationsQuery } from './destinations.query';
 import {
 	DestinationsStore,
@@ -33,9 +38,7 @@ export class DestinationsFacade extends BaseEntityFacade<
 		if (isFetching) {
 			return;
 		}
-
 		this.store.setIsFetching(true);
-
 		return this.service
 			.fetchAll(
 				query.page,
@@ -51,6 +54,20 @@ export class DestinationsFacade extends BaseEntityFacade<
 			});
 	}
 
+	public async fetchOne(id: string): Promise<void> {
+		const { isFetchingOne } = this.query.getValue();
+		if (isFetchingOne) {
+			return;
+		}
+		this.store.setIsFetchingOne(true);
+		return this.service.fetchOne(id).then((response: DestinationSchema) => {
+			this.store.update(() => ({
+				formData: { ...response },
+			}));
+			this.store.setIsFetchingOne(false);
+		});
+	}
+
 	public updateField(value: string, field: string): void {
 		this.store.update(state => ({
 			formData: {
@@ -61,35 +78,41 @@ export class DestinationsFacade extends BaseEntityFacade<
 	}
 
 	public resetForm(): void {
-		this.store.setIsFetching(false);
+		this.store.setIsCreating(false);
+		this.store.setIsFetchingOne(false);
 		this.store.update(() => ({
 			formData: generateNewDestinationForm(),
+			formValidation: undefined,
 		}));
 	}
 
 	public async submit(
-		body: DestinationsModel | undefined,
+		body: DestinationSchema | undefined,
 		onSuccess: (id: string) => void
 	): Promise<void> {
 		const bodyToSubmit = body;
-		const { isFetching } = this.query.getValue();
+		const { isCreating } = this.query.getValue();
 
-		if (isFetching) {
+		if (isCreating) {
 			return;
 		}
-		this.store.setIsFetching(true);
+		this.store.setIsCreating(true);
 		const validation = validateDestination(bodyToSubmit);
 		this.store.update(() => ({
 			formValidation: validation,
 		}));
-		if (validation.valid) {
+		if (validation.valid && !body?.id) {
 			return this.service.create(bodyToSubmit).then((response: ModelCreateResponseSchema) => {
 				this.resetForm();
 				onSuccess(response.id);
 			});
-		} else {
-			this.store.setIsFetching(false);
 		}
+		if (validation.valid && body?.id) {
+			return this.service.update(body.id, bodyToSubmit).then(() => {
+				this.store.setIsCreating(false);
+			});
+		}
+		this.store.setIsCreating(false);
 	}
 }
 

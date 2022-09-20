@@ -1,20 +1,24 @@
 import { LoadingState, useObservable } from '@redactie/utils';
 
-import { DestinationValidationSchema } from '../../services/destinations/destinations.service.types';
+import {
+	DestinationSchema,
+	DestinationValidationSchema,
+} from '../../services/destinations/destinations.service.types';
 import { destinationsFacade } from '../../store/destinations/destinations.facade';
-import { DestinationsModel } from '../../store/destinations/destinations.model';
 import { generateNewDestinationForm } from '../../store/destinations/destinations.store';
 
 const useDestinationsForm = (): [
-	DestinationsModel | undefined,
+	DestinationSchema | undefined,
 	LoadingState,
-	DestinationValidationSchema | undefined
+	DestinationValidationSchema | undefined,
+	LoadingState
 ] => {
-	const isFetching = useObservable(destinationsFacade.isFetching$, LoadingState.Loaded);
+	const isCreating = useObservable(destinationsFacade.isCreating$, LoadingState.Loaded);
 	const formData = useObservable(destinationsFacade.formData$, generateNewDestinationForm());
 	const formValidation = useObservable(destinationsFacade.formValidation$);
+	const isFetchingOne = useObservable(destinationsFacade.isFetchingOne$, LoadingState.Loaded);
 
-	return [formData, isFetching, formValidation];
+	return [formData, isCreating, formValidation, isFetchingOne];
 };
 
 export default useDestinationsForm;

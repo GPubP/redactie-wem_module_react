@@ -1,10 +1,10 @@
 import { LoadingState, Page, useObservable } from '@redactie/utils';
 
 import { DEFAULT_PAGINATION } from '../../events.const';
+import { DestinationSchema } from '../../services/destinations/destinations.service.types';
 import { destinationsFacade } from '../../store/destinations/destinations.facade';
-import { DestinationsModel } from '../../store/destinations/destinations.model';
 
-const useDestinations = (): [DestinationsModel[], Page | undefined, LoadingState] => {
+const useDestinations = (): [DestinationSchema[], Page | undefined, LoadingState] => {
 	const isFetching = useObservable(destinationsFacade.isFetching$, LoadingState.Loading);
 	const destinations = useObservable(destinationsFacade.destinations$, []);
 	const pagination = useObservable(destinationsFacade.pagination$, DEFAULT_PAGINATION);

@@ -3,7 +3,7 @@ import Core from '@redactie/redactie-core';
 import { registerEventsModule } from './lib/api';
 import { EVENTS_MODULE_PATHS } from './lib/events.const';
 import { translations } from './lib/i18next';
-import DestinationsCreate from './lib/views/DestinationsCreate/DestinationsCreate';
+import DestinationsCrud from './lib/views/DestinationsCrud/DestinationsCrud';
 import EventsOverview from './lib/views/EventsOverview/EventsOverview';
 import EventsRoot from './lib/views/EventsRoot/EventsRoot';
 
@@ -20,7 +20,12 @@ Core.routes.register({
 		{
 			path: EVENTS_MODULE_PATHS.DESTINATIONS.create,
 			breadcrumb: false,
-			component: DestinationsCreate,
+			component: DestinationsCrud,
+		},
+		{
+			path: EVENTS_MODULE_PATHS.DESTINATIONS.details,
+			breadcrumb: false,
+			component: DestinationsCrud,
 		},
 		{
 			path: EVENTS_MODULE_PATHS.DESTINATIONS.index,
@@ -31,11 +36,6 @@ Core.routes.register({
 			path: EVENTS_MODULE_PATHS.DELIVERIES.index,
 			breadcrumb: false,
 			component: EventsOverview,
-		},
-		{
-			path: EVENTS_MODULE_PATHS.DESTINATIONS.create,
-			breadcrumb: false,
-			component: DestinationsCreate,
 		},
 	],
 });

@@ -29,6 +29,7 @@ const TRANSLATIONS = Object.freeze({
 	STATUS: tKey('STATUS', 'Status'),
 	ACTIVE: tKey('SOURCE', 'Actief'),
 	NOT_ACTIVE: tKey('NOT_ACTIVE', 'Niet actief'),
+	TO_EDIT: tKey('TO_EDIT', 'bewerken'),
 	OWNER_KEY: tKey('OWNER_KEY', 'Owner key'),
 	OWNER_KEY_HELP: tKey(
 		'OWNER_KEY_HELP',

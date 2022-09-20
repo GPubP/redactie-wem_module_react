@@ -5,8 +5,8 @@ import {
 	DestinationValidationSchema,
 } from '../../services/destinations/destinations.service.types';
 
-export type DestinationsModel = DestinationSchema;
-export interface DestinationsState extends BaseEntityState<DestinationsModel, string> {
+type DestinationModel = DestinationSchema;
+export interface DestinationsState extends BaseEntityState<DestinationModel, string> {
 	pagination?: Page;
 	formData?: DestinationSchema;
 	formValidation?: DestinationValidationSchema;

@@ -1,7 +1,7 @@
-import { DestinationsModel } from '../../store/destinations/destinations.model';
 import { validateRequired, ValidationState } from '../validation.helpers';
 
 import {
+	DestinationSchema,
 	DestinationValidationSchema,
 	DestinationValidationType,
 } from './destinations.service.types';
@@ -9,7 +9,7 @@ import {
 const DESTINATIONS_REQUIRED_FIELDS = ['ownerKey', 'name', 'namespace'];
 
 export function validateDestination(
-	body: DestinationsModel | undefined
+	body: DestinationSchema | undefined
 ): DestinationValidationSchema {
 	const feedback = {
 		id: ValidationState.Ok,

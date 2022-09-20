@@ -21,7 +21,7 @@ export const EVENT_DELIVERIES_OVERVIEW_MOCK_DATA = {
 			destination: 'Hawaï',
 			topic: 'Topic Z',
 			active: true,
-			namespace: 'namespace1',
+			namespace: 'wcmevents',
 			createdAt: '2022-09-09T08:35:18.715Z',
 			updatedAt: '2022-09-09T08:35:18.715Z',
 		},

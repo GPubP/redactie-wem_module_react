@@ -18,6 +18,7 @@
   "TOPIC": "Topic",
   "STATUS": "Status",
   "NOT_ACTIVE": "Niet actief",
+  "TO_EDIT": "bewerken",
   "OWNER_KEY": "Owner key",
   "OWNER_KEY_HELP": "Geef de owner key van de bestemming op om een namespace te kunnen selecteren.",
   "NAMESPACE_HELP": "Kies een naamruimte (namespace) binnen deze bestemming.",

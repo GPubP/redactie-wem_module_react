@@ -7,7 +7,7 @@ import translationsConnector from '../../connectors/translations';
 import { TRANSLATIONS } from '../../i18next/translations.const';
 import { errorState, errorText } from '../utils/form.utils';
 
-import { DestinationsFormProps } from './DestinationsCreate.types';
+import { DestinationsFormProps } from './DestinationsCrud.types';
 
 const DestinationsForm: FC<DestinationsFormProps> = props => {
 	const [t] = translationsConnector.useModuleTranslation();
@@ -88,6 +88,7 @@ const DestinationsForm: FC<DestinationsFormProps> = props => {
 							name={'namespace'}
 							disabled={props.isLoading || !props?.data?.ownerKey}
 							value={props?.data?.namespace}
+							defaultValue={props?.data?.namespace}
 							state={errorState(props.validations, 'namespace')}
 							onSelection={(value: string) => props.onChange(value, 'namespace')}
 						/>

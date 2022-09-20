@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 
 import translationsConnector from '../../connectors/translations';
 
-import { DestinationsFormActionsProps } from './DestinationsCreate.types';
+import { DestinationsFormActionsProps } from './DestinationsCrud.types';
 
 const DestinationsFormActions: FC<DestinationsFormActionsProps> = ({
 	onCancel,
