@@ -1,5 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import {
+	ActionBar,
+	ActionBarContentSection,
 	Container,
 	ContextHeader,
 	ContextHeaderTopSection,
@@ -12,9 +14,11 @@ import translationsConnector from '../../connectors/translations';
 import { EVENTS_MODULE_PATHS } from '../../events.const';
 import useDestinationsForm from '../../hooks/store/useDestinationsForm';
 import { TRANSLATIONS } from '../../i18next/translations.const';
+import { destinationsFacade } from '../../store/destinations/destinations.facade';
 import { breadcrumbsOptions, linkProps } from '../utils/navigation.utils';
 
 import DestinationsForm from './DestinationsForm';
+import DestinationsFormActions from './DestinationsFormActions';
 
 // import DestinationsForm from './DestinationsForm';
 
@@ -45,6 +49,17 @@ const DestinationsCreate: FC = () => {
 	const [formData] = useDestinationsForm();
 
 	/**
+	 * ACTIONS
+	 */
+	const onFieldChange = (value: string, name: string): void => {
+		destinationsFacade.updateField(value, name);
+	};
+	const onCancel = (): void => {
+		destinationsFacade.resetForm();
+		navigate(EVENTS_MODULE_PATHS.DESTINATIONS.index);
+	};
+
+	/**
 	 * RENDER FORM
 	 */
 	return (
@@ -53,12 +68,18 @@ const DestinationsCreate: FC = () => {
 				<ContextHeaderTopSection>{breadcrumbs}</ContextHeaderTopSection>
 			</ContextHeader>
 			<Container>
-				<DestinationsForm
-					data={formData}
-					onChange={() => {
-						console.log('changes'); // TODO-NT
-					}}
-				/>
+				<DestinationsForm data={formData} onChange={onFieldChange} />
+				<ActionBar className="o-action-bar--fixed" isOpen>
+					<ActionBarContentSection>
+						<DestinationsFormActions
+							isLoading={false}
+							onSubmit={() => {
+								console.log('submit');
+							}}
+							onCancel={onCancel}
+						/>
+					</ActionBarContentSection>
+				</ActionBar>
 			</Container>
 		</>
 	);

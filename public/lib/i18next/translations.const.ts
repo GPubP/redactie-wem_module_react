@@ -34,6 +34,10 @@ const TRANSLATIONS = Object.freeze({
 		'OWNER_KEY_HELP',
 		'Geef de owner key van de bestemming op om een namespace te kunnen selecteren.'
 	),
+	NAMESPACE_HELP: tKey(
+		'NAMESPACE_HELP',
+		'Kies een naamruimte (namespace) binnen deze bestemming.'
+	),
 } as const);
 
 export { TRANSLATIONS };

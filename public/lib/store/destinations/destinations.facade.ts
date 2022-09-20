@@ -8,7 +8,11 @@ import { DestinationsResponseSchema } from '../../services/destinations/destinat
 import { sortAndDirectionToAPIQuery } from '../../services/query.helpers';
 
 import { destinationsQuery, DestinationsQuery } from './destinations.query';
-import { DestinationsStore, destinationsStore } from './destinations.store';
+import {
+	DestinationsStore,
+	destinationsStore,
+	generateNewDestinationForm,
+} from './destinations.store';
 
 export class DestinationsFacade extends BaseEntityFacade<
 	DestinationsStore,
@@ -41,6 +45,21 @@ export class DestinationsFacade extends BaseEntityFacade<
 			.catch(error => {
 				this.store.setError(error);
 			});
+	}
+
+	public updateField(value: string, field: string): void {
+		this.store.update(state => ({
+			formData: {
+				...(state.formData || generateNewDestinationForm()),
+				[field]: value,
+			},
+		}));
+	}
+
+	public resetForm(): void {
+		this.store.update(() => ({
+			formData: generateNewDestinationForm(),
+		}));
 	}
 }
 
