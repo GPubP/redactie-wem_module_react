@@ -38,6 +38,7 @@ const TRANSLATIONS = Object.freeze({
 		'NAMESPACE_HELP',
 		'Kies een naamruimte (namespace) binnen deze bestemming.'
 	),
+	REQUIRED: tKey('REQUIRED', 'Dit veld is verplicht'),
 } as const);
 
 export { TRANSLATIONS };

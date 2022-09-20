@@ -7,7 +7,7 @@ import {
 	ContextHeaderTopSection,
 } from '@acpaas-ui/react-editorial-components';
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
-import { useNavigate, useRoutes } from '@redactie/utils';
+import { LoadingState, useNavigate, useRoutes } from '@redactie/utils';
 import React, { FC } from 'react';
 
 import translationsConnector from '../../connectors/translations';
@@ -19,8 +19,6 @@ import { breadcrumbsOptions, linkProps } from '../utils/navigation.utils';
 
 import DestinationsForm from './DestinationsForm';
 import DestinationsFormActions from './DestinationsFormActions';
-
-// import DestinationsForm from './DestinationsForm';
 
 const DestinationsCreate: FC = () => {
 	/**
@@ -46,17 +44,23 @@ const DestinationsCreate: FC = () => {
 	/**
 	 * STORE
 	 */
-	const [formData] = useDestinationsForm();
+	const [formData, loadingState, formValidation] = useDestinationsForm();
 
 	/**
 	 * ACTIONS
 	 */
+	const navigateToDetails = (id: string): void =>
+		navigate(`${EVENTS_MODULE_PATHS.DESTINATIONS.details.replace(':destinationId', id)}`);
+
 	const onFieldChange = (value: string, name: string): void => {
 		destinationsFacade.updateField(value, name);
 	};
 	const onCancel = (): void => {
 		destinationsFacade.resetForm();
 		navigate(EVENTS_MODULE_PATHS.DESTINATIONS.index);
+	};
+	const onSubmit = (): void => {
+		destinationsFacade.submit(formData, navigateToDetails);
 	};
 
 	/**
@@ -68,14 +72,17 @@ const DestinationsCreate: FC = () => {
 				<ContextHeaderTopSection>{breadcrumbs}</ContextHeaderTopSection>
 			</ContextHeader>
 			<Container>
-				<DestinationsForm data={formData} onChange={onFieldChange} />
+				<DestinationsForm
+					isLoading={loadingState === LoadingState.Loading}
+					data={formData}
+					onChange={onFieldChange}
+					validations={formValidation?.feedback}
+				/>
 				<ActionBar className="o-action-bar--fixed" isOpen>
 					<ActionBarContentSection>
 						<DestinationsFormActions
-							isLoading={false}
-							onSubmit={() => {
-								console.log('submit');
-							}}
+							isLoading={loadingState === LoadingState.Loading}
+							onSubmit={onSubmit}
 							onCancel={onCancel}
 						/>
 					</ActionBarContentSection>

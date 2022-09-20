@@ -13,6 +13,9 @@ export class DestinationsQuery extends BaseEntityQuery<DestinationsState> {
 	public formData$ = this.select(state => state.formData).pipe(
 		filter(formData => !isNil(formData), distinctUntilChanged())
 	);
+	public formValidation$ = this.select(state => state.formValidation).pipe(
+		filter(validation => !isNil(validation), distinctUntilChanged())
+	);
 }
 
 export const destinationsQuery = new DestinationsQuery(destinationsStore);

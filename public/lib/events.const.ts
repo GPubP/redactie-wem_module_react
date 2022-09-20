@@ -49,3 +49,5 @@ export const DEFAULT_PAGINATION: Page = {
 	totalPages: 0,
 	number: DEFAULT_SEARCH_PARAMS.page.defaultValue,
 };
+
+export const ERROR_STATE = 'error';

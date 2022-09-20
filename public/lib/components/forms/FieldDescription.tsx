@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 interface FieldDescriptionProps {
 	message: string;
-	state: 'error' | '';
+	state: string;
 }
 
 const FieldDescription: FC<FieldDescriptionProps> = ({ message, state }) => {

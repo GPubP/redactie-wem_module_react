@@ -1,5 +1,7 @@
 import { DEFAULT_PAGINATION } from '../../events.const';
+import { DestinationsModel } from '../../store/destinations/destinations.model';
 import { api } from '../api';
+import { ModelCreateResponseSchema } from '../services.types';
 
 import { EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA } from './destinations.service.mock';
 import { DestinationsResponseSchema } from './destinations.service.types';
@@ -19,6 +21,15 @@ export class DestinationsAPIService {
 			setTimeout(() => resolve(EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA), 1500)
 		);
 		// return api.get(DESTINATIONS_PATH).json();
+	}
+
+	public async create(body: DestinationsModel | undefined): Promise<ModelCreateResponseSchema> {
+		console.log(`Mocking post to "${DESTINATIONS_PATH}" - with body:`);
+		console.log({ body });
+		return new Promise(resolve =>
+			setTimeout(() => resolve({ id: '4c7af0f8-38f5-11ed-a261-0242ac120002' }), 1500)
+		);
+		// return api.post(DESTINATIONS_PATH, { body }).json();
 	}
 }
 
