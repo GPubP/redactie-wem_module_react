@@ -8,6 +8,7 @@ import { TRANSLATIONS } from '../../i18next/translations.const';
 import { errorState, errorText } from '../utils/form.utils';
 
 import { DeliveriesFormProps } from './DeliveriesCrud.types';
+import DeliveriesStatusEdit from './DeliveriesStatusEdit';
 
 const DeliveriesForm: FC<DeliveriesFormProps> = props => {
 	const [t] = translationsConnector.useModuleTranslation();
@@ -54,6 +55,7 @@ const DeliveriesForm: FC<DeliveriesFormProps> = props => {
 					</div>
 				</div>
 			</div>
+			<DeliveriesStatusEdit {...props} />
 		</div>
 	);
 };

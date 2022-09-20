@@ -1,6 +1,5 @@
 /* eslint-disable import/no-unresolved */
 import { TableColumn } from '@redactie/utils';
-import React from 'react';
 
 import { EVENTS_MODULE_PATHS } from '../../events.const';
 import useDeliveries from '../../hooks/store/useDeliveries';
@@ -9,6 +8,7 @@ import { DeliverySchema } from '../../services/deliveries/deliveries.service.typ
 import { deliveriesFacade } from '../../store/deliveries/deliveries.facade';
 import { editButton, tableLink } from '../Components/TableComponents';
 import { BasicRow } from '../Components/components.types';
+import { renderActiveState } from '../utils/render.utilis';
 import { columnDefinition } from '../utils/table.utils';
 
 interface DeliveryRow extends BasicRow {
@@ -43,11 +43,7 @@ const deliveriesColumns = (translator: (a: string) => string): TableColumn<Deliv
 			label: translator(TRANSLATIONS.STATUS),
 			disableSorting: true,
 			component: (_v, rowData) => {
-				return rowData.active ? (
-					<span className="u-text-success">Actief</span>
-				) : (
-					<span className="u-text-danger">Niet actief</span>
-				);
+				return renderActiveState(rowData, translator);
 			},
 			value: 'status',
 			width: '14%',

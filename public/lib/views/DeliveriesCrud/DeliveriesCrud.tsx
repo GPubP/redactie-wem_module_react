@@ -112,7 +112,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 							isLoading={isCreating === LoadingState.Loading}
 							onSubmit={onSubmit}
 							onCancel={onCancel}
-							submitLabel={t(TRANSLATIONS.SAVE_AND_CONTINUE)}
+							submitLabel={modelId ? '' : t(TRANSLATIONS.SAVE_AND_CONTINUE)}
 						/>
 					</ActionBarContentSection>
 				</ActionBar>
