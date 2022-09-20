@@ -3,9 +3,13 @@ import translationsConnector from '../connectors/translations';
 const tKey = translationsConnector.core.tKey;
 
 const TRANSLATIONS = Object.freeze({
+	CREATED: tKey('CREATED', 'Aangemaakt'),
+	UPDATED: tKey('UPDATED', 'Bewaard'),
 	EVENTS: tKey('EVENTS', 'Events'),
 	DESTINATIONS: tKey('DESTINATIONS', 'Bestemmingen'),
 	DESTINATION_NEW: tKey('DESTINATION_NEW', 'Nieuwe bestemming aanmaken'),
+	DESTINATION_CREATED: tKey('DESTINATION_CREATED', 'Bestemming werd successvol aangemaakt.'),
+	DESTINATION_UPDATED: tKey('DESTINATION_UPDATED', 'Bestemming werd successvol bewaard.'),
 	DESTINATION_NAME_HELP: tKey(
 		'DESTINATION_NAME_HELP',
 		'Geef deze bestemming een korte en duidelijke naam.'

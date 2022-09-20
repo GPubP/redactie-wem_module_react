@@ -51,3 +51,7 @@ export const DEFAULT_PAGINATION: Page = {
 };
 
 export const ERROR_STATE = 'error';
+
+export const ALERT_IDS = {
+	DESTINATIONS_CRUD: 'destinations-crud',
+};

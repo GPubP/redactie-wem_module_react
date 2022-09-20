@@ -7,11 +7,11 @@ import {
 	ContextHeaderTopSection,
 } from '@acpaas-ui/react-editorial-components';
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
-import { DataLoader, LoadingState, useNavigate, useRoutes } from '@redactie/utils';
+import { AlertContainer, DataLoader, LoadingState, useNavigate, useRoutes } from '@redactie/utils';
 import React, { FC, useEffect } from 'react';
 
 import translationsConnector from '../../connectors/translations';
-import { EVENTS_MODULE_PATHS } from '../../events.const';
+import { ALERT_IDS, EVENTS_MODULE_PATHS } from '../../events.const';
 import useDestinationsForm from '../../hooks/store/useDestinationsForm';
 import { TRANSLATIONS } from '../../i18next/translations.const';
 import { destinationsFacade } from '../../store/destinations/destinations.facade';
@@ -26,7 +26,6 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 	 * INITIALIZE
 	 */
 	const modelId = match.params.destinationId;
-	console.log(modelId);
 
 	const routes = useRoutes();
 	const { navigate, generatePath } = useNavigate();
@@ -73,7 +72,7 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 		navigate(EVENTS_MODULE_PATHS.DESTINATIONS.index);
 	};
 	const onSubmit = (): void => {
-		destinationsFacade.submit(formData, navigateToDetails);
+		destinationsFacade.submit(formData, t, navigateToDetails);
 	};
 
 	/**
@@ -92,6 +91,10 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 				<ContextHeaderTopSection>{breadcrumbs}</ContextHeaderTopSection>
 			</ContextHeader>
 			<Container>
+				<AlertContainer
+					toastClassName="u-margin-bottom"
+					containerId={ALERT_IDS.DESTINATIONS_CRUD}
+				/>
 				{isFetching === LoadingState.Loading ? (
 					<DataLoader loadingState={isFetching} render={() => null} />
 				) : (

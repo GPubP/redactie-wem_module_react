@@ -1,4 +1,6 @@
-import { BaseEntityFacade } from '@redactie/utils';
+import { alertService, BaseEntityFacade } from '@redactie/utils';
+import { ALERT_IDS } from '../../events.const';
+import { ALERT_TEXTS } from '../../i18next/alerts.text';
 
 import {
 	destinationsAPIService,
@@ -10,10 +12,7 @@ import {
 } from '../../services/destinations/destinations.service.types';
 import { validateDestination } from '../../services/destinations/destinations.validations';
 import { sortAndDirectionToAPIQuery } from '../../services/query.helpers';
-import {
-	ModelCreateResponseSchema,
-	ModelUpdateResponseSchema,
-} from '../../services/services.types';
+import { ModelCreateResponseSchema } from '../../services/services.types';
 
 import { destinationsQuery, DestinationsQuery } from './destinations.query';
 import {
@@ -88,6 +87,7 @@ export class DestinationsFacade extends BaseEntityFacade<
 
 	public async submit(
 		body: DestinationSchema | undefined,
+		translator: (a: string) => string,
 		onSuccess: (id: string) => void
 	): Promise<void> {
 		const bodyToSubmit = body;
@@ -105,10 +105,18 @@ export class DestinationsFacade extends BaseEntityFacade<
 			return this.service.create(bodyToSubmit).then((response: ModelCreateResponseSchema) => {
 				this.resetForm();
 				onSuccess(response.id);
+				setTimeout(() => {
+					alertService.success(ALERT_TEXTS(translator).DESTINATIONS.createOk, {
+						containerId: ALERT_IDS.DESTINATIONS_CRUD,
+					});
+				}, 500);
 			});
 		}
 		if (validation.valid && body?.id) {
 			return this.service.update(body.id, bodyToSubmit).then(() => {
+				alertService.success(ALERT_TEXTS(translator).DESTINATIONS.updateOk, {
+					containerId: ALERT_IDS.DESTINATIONS_CRUD,
+				});
 				this.store.setIsCreating(false);
 			});
 		}
