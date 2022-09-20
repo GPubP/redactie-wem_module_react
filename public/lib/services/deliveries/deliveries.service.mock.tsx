@@ -3,7 +3,7 @@ export const EVENT_DELIVERIES_OVERVIEW_MOCK_DATA = {
 		{
 			id: '023bd97e-22e3-4236-a2c2-45733b386148',
 			name: 'Nieuw crisisbericht',
-			description: '',
+			description: 'Crisis bericht in WCM!',
 			source: 'Content',
 			event: 'created',
 			destination: 'Bestemming 1',

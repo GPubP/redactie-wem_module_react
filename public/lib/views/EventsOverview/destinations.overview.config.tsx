@@ -28,7 +28,7 @@ const destinationsColumns = (translator: (a: string) => string): TableColumn<Des
 			value: 'name',
 			width: '40%',
 			...(canUpdate && {
-				component: tableLink(EVENTS_MODULE_PATHS.DESTINATIONS.base),
+				component: tableLink(EVENTS_MODULE_PATHS.DESTINATIONS.index),
 			}),
 		},
 		columnDefinition(translator(TRANSLATIONS.KEY), 'ownerKey'),

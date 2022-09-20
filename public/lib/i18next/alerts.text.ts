@@ -11,4 +11,10 @@ export const ALERT_TEXTS = (translator: (a: string) => string): any => ({
 			message: translator(TRANSLATIONS.DESTINATION_UPDATED),
 		},
 	},
+	DELIVERIES: {
+		createOk: {
+			title: translator(TRANSLATIONS.CREATED),
+			message: translator(TRANSLATIONS.DELIVERY_CREATED),
+		},
+	},
 });

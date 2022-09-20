@@ -1,7 +1,7 @@
 import { alertService, BaseEntityFacade } from '@redactie/utils';
+
 import { ALERT_IDS } from '../../events.const';
 import { ALERT_TEXTS } from '../../i18next/alerts.text';
-
 import {
 	destinationsAPIService,
 	DestinationsAPIService,
@@ -13,6 +13,7 @@ import {
 import { validateDestination } from '../../services/destinations/destinations.validations';
 import { sortAndDirectionToAPIQuery } from '../../services/query.helpers';
 import { ModelCreateResponseSchema } from '../../services/services.types';
+import { FormUtils } from '../form.utils';
 
 import { destinationsQuery, DestinationsQuery } from './destinations.query';
 import {
@@ -26,14 +27,25 @@ export class DestinationsFacade extends BaseEntityFacade<
 	DestinationsAPIService,
 	DestinationsQuery
 > {
+	private formUtils: FormUtils;
 	public readonly destinations$ = this.query.destinations$;
 	public readonly pagination$ = this.query.pagination$;
 	public readonly formData$ = this.query.formData$;
 	public readonly formValidation$ = this.query.formValidation$;
 
+	constructor() {
+		super(destinationsStore, destinationsAPIService, destinationsQuery);
+		this.formUtils = new FormUtils(
+			this.store,
+			this.query,
+			this.service,
+			generateNewDestinationForm,
+			validateDestination
+		);
+	}
+
 	public async fetchAll(query: any): Promise<void> {
 		const { isFetching } = this.query.getValue();
-
 		if (isFetching) {
 			return;
 		}
@@ -54,35 +66,15 @@ export class DestinationsFacade extends BaseEntityFacade<
 	}
 
 	public async fetchOne(id: string): Promise<void> {
-		const { isFetchingOne } = this.query.getValue();
-		if (isFetchingOne) {
-			return;
-		}
-		this.store.setIsFetchingOne(true);
-		return this.service.fetchOne(id).then((response: DestinationSchema) => {
-			this.store.update(() => ({
-				formData: { ...response },
-			}));
-			this.store.setIsFetchingOne(false);
-		});
+		return this.formUtils.fetchOne(id);
 	}
 
 	public updateField(value: string, field: string): void {
-		this.store.update(state => ({
-			formData: {
-				...(state.formData || generateNewDestinationForm()),
-				[field]: value,
-			},
-		}));
+		this.formUtils.updateField(value, field);
 	}
 
 	public resetForm(): void {
-		this.store.setIsCreating(false);
-		this.store.setIsFetchingOne(false);
-		this.store.update(() => ({
-			formData: generateNewDestinationForm(),
-			formValidation: undefined,
-		}));
+		this.formUtils.resetForm();
 	}
 
 	public async submit(
@@ -90,19 +82,10 @@ export class DestinationsFacade extends BaseEntityFacade<
 		translator: (a: string) => string,
 		onSuccess: (id: string) => void
 	): Promise<void> {
-		const bodyToSubmit = body;
-		const { isCreating } = this.query.getValue();
+		const validation = this.formUtils.preSubmit(body);
 
-		if (isCreating) {
-			return;
-		}
-		this.store.setIsCreating(true);
-		const validation = validateDestination(bodyToSubmit);
-		this.store.update(() => ({
-			formValidation: validation,
-		}));
 		if (validation.valid && !body?.id) {
-			return this.service.create(bodyToSubmit).then((response: ModelCreateResponseSchema) => {
+			return this.service.create(body).then((response: ModelCreateResponseSchema) => {
 				this.resetForm();
 				onSuccess(response.id);
 				setTimeout(() => {
@@ -113,19 +96,15 @@ export class DestinationsFacade extends BaseEntityFacade<
 			});
 		}
 		if (validation.valid && body?.id) {
-			return this.service.update(body.id, bodyToSubmit).then(() => {
+			return this.service.update(body.id, body).then(() => {
+				this.store.setIsCreating(false);
 				alertService.success(ALERT_TEXTS(translator).DESTINATIONS.updateOk, {
 					containerId: ALERT_IDS.DESTINATIONS_CRUD,
 				});
-				this.store.setIsCreating(false);
 			});
 		}
 		this.store.setIsCreating(false);
 	}
 }
 
-export const destinationsFacade = new DestinationsFacade(
-	destinationsStore,
-	destinationsAPIService,
-	destinationsQuery
-);
+export const destinationsFacade = new DestinationsFacade();

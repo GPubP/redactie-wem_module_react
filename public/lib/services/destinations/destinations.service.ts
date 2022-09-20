@@ -35,14 +35,14 @@ export class DestinationsAPIService {
 		id: string,
 		body: DestinationSchema | undefined
 	): Promise<ModelUpdateResponseSchema> {
-		console.log(`Mocking patch to "${`DESTINATIONS_PATH/${id}`}" - with body:`);
+		console.log(`Mocking patch to "${`${DESTINATIONS_PATH}/${id}`}" - with body:`);
 		console.log({ body });
 		return new Promise(resolve => setTimeout(() => resolve({ message: 'Update OK!' }), 1500));
 		// return api.patch(`DESTINATIONS_PATH/${id}`, { body }).json();
 	}
 
 	public async fetchOne(id: string): Promise<DestinationSchema> {
-		console.log(`Mocking fetch to "${`DESTINATIONS_PATH/${id}`}"`);
+		console.log(`Mocking fetch to "${`${DESTINATIONS_PATH}/${id}`}"`);
 		return new Promise(resolve =>
 			setTimeout(() => resolve(EVENT_DESTINATIONS_OVERVIEW_MOCK_DATA.data[0]), 1500)
 		);

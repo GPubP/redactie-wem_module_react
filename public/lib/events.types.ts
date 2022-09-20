@@ -6,3 +6,7 @@ export interface EventsModuleRouteProps extends RouteConfigComponentProps {
 }
 
 export type ChangeHandlerFn = (value: any, name: string) => void;
+
+export interface ValidationProps {
+	valid: boolean;
+}

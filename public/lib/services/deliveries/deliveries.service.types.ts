@@ -1,5 +1,8 @@
 import { Page } from '@redactie/utils';
 
+import { ValidationProps } from '../../events.types';
+import { ValidationState } from '../validation.helpers';
+
 export interface DeliveriesResponseSchema {
 	data: DeliverySchema[];
 	pagination: Page;
@@ -16,4 +19,18 @@ export interface DeliverySchema {
 	active: boolean;
 	createdAt: string;
 	updatedAt: string;
+}
+
+export interface DeliveryValidationSchema extends ValidationProps {
+	feedback: DeliveryValidationType;
+}
+
+export interface DeliveryValidationType {
+	name: ValidationState;
+	description: ValidationState;
+	source: ValidationState;
+	event: ValidationState;
+	destination: ValidationState;
+	topic: ValidationState;
+	active: ValidationState;
 }

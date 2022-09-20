@@ -1,5 +1,6 @@
 import { Page } from '@redactie/utils';
 
+import { ValidationProps } from '../../events.types';
 import { ValidationState } from '../validation.helpers';
 
 export interface DestinationsResponseSchema {
@@ -17,17 +18,13 @@ export interface DestinationSchema {
 	updatedAt: string;
 }
 
-export interface DestinationValidationSchema {
-	valid: boolean;
+export interface DestinationValidationSchema extends ValidationProps {
 	feedback: DestinationValidationType;
 }
 
 export interface DestinationValidationType {
-	id: ValidationState;
 	name: ValidationState;
 	description: ValidationState;
 	ownerKey: ValidationState;
 	namespace: ValidationState;
-	createdAt: ValidationState;
-	updatedAt: ValidationState;
 }

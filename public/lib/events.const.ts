@@ -54,4 +54,5 @@ export const ERROR_STATE = 'error';
 
 export const ALERT_IDS = {
 	DESTINATIONS_CRUD: 'destinations-crud',
+	DELIVERIES_CRUD: 'deliveries-crud',
 };

@@ -12,35 +12,36 @@ import React, { FC, useEffect } from 'react';
 
 import translationsConnector from '../../connectors/translations';
 import { ALERT_IDS, EVENTS_MODULE_PATHS } from '../../events.const';
-import useDestinationsForm from '../../hooks/store/useDestinationsForm';
+import useDeliveriesForm from '../../hooks/store/useDeliveriesForm';
 import { TRANSLATIONS } from '../../i18next/translations.const';
-import { destinationsFacade } from '../../store/destinations/destinations.facade';
+import { deliveriesFacade } from '../../store/deliveries/deliveries.facade';
 import FormActions from '../Components/FormActions';
 import { breadcrumbsOptions, linkProps } from '../utils/navigation.utils';
 
-import { DestinationsCrudProps } from './DestinationsCrud.types';
-import DestinationsForm from './DestinationsForm';
+import { DeliveriesCrudProps } from './DeliveriesCrud.types';
+import DeliveriesForm from './DeliveriesForm';
 
-const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
+const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	/**
 	 * INITIALIZE
 	 */
-	const modelId = match.params.destinationId;
+	const modelId = match.params.deliveryId;
 
 	const routes = useRoutes();
 	const { navigate, generatePath } = useNavigate();
 	const [t] = translationsConnector.useModuleTranslation();
-	const [formData, isCreating, formValidation, isFetching] = useDestinationsForm();
+
+	const [formData, isCreating, formValidation, isFetching] = useDeliveriesForm();
 
 	const breadcrumbs = useBreadcrumbs(
 		routes as ModuleRouteConfig[],
 		breadcrumbsOptions(generatePath, [
 			{
-				name: t(TRANSLATIONS.DESTINATIONS),
-				target: generatePath(EVENTS_MODULE_PATHS.DESTINATIONS.index),
+				name: t(TRANSLATIONS.DELIVERIES),
+				target: generatePath(EVENTS_MODULE_PATHS.DELIVERIES.index),
 			},
 			{
-				name: modelId ? `${formData?.name || '...'}` : t(TRANSLATIONS.DESTINATION_NEW),
+				name: modelId ? `${formData?.name || '...'}` : t(TRANSLATIONS.DELIVERY_NEW),
 				target: '',
 			},
 		])
@@ -50,11 +51,11 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 	 * STORE
 	 */
 	useEffect(() => {
-		destinationsFacade.resetForm();
+		deliveriesFacade.resetForm();
 	}, []);
 	useEffect(() => {
 		if (modelId) {
-			destinationsFacade.fetchOne(modelId);
+			deliveriesFacade.fetchOne(modelId);
 		}
 	}, [modelId]);
 
@@ -62,17 +63,17 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 	 * ACTIONS
 	 */
 	const navigateToDetails = (id: string): void =>
-		navigate(`${EVENTS_MODULE_PATHS.DESTINATIONS.details.replace(':destinationId', id)}`);
+		navigate(`${EVENTS_MODULE_PATHS.DELIVERIES.details.replace(':deliveryId', id)}`);
 
 	const onFieldChange = (value: string, name: string): void => {
-		destinationsFacade.updateField(value, name);
+		deliveriesFacade.updateField(value, name);
 	};
 	const onCancel = (): void => {
-		destinationsFacade.resetForm();
-		navigate(EVENTS_MODULE_PATHS.DESTINATIONS.index);
+		deliveriesFacade.resetForm();
+		navigate(EVENTS_MODULE_PATHS.DELIVERIES.index);
 	};
 	const onSubmit = (): void => {
-		destinationsFacade.submit(formData, t, navigateToDetails);
+		deliveriesFacade.submit(formData, t, navigateToDetails);
 	};
 
 	/**
@@ -84,7 +85,7 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 				title={
 					modelId
 						? `"${formData?.name || '...'}" ${t(TRANSLATIONS.TO_EDIT)}`
-						: t(TRANSLATIONS.DESTINATION_NEW)
+						: t(TRANSLATIONS.DELIVERY_NEW)
 				}
 				linkProps={linkProps}
 			>
@@ -93,15 +94,15 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 			<Container>
 				<AlertContainer
 					toastClassName="u-margin-bottom"
-					containerId={ALERT_IDS.DESTINATIONS_CRUD}
+					containerId={ALERT_IDS.DELIVERIES_CRUD}
 				/>
 				{isFetching === LoadingState.Loading ? (
 					<DataLoader loadingState={isFetching} render={() => null} />
 				) : (
-					<DestinationsForm
-						isLoading={isCreating === LoadingState.Loading}
+					<DeliveriesForm
 						data={formData}
 						onChange={onFieldChange}
+						isLoading={isCreating === LoadingState.Loading}
 						validations={formValidation?.feedback}
 					/>
 				)}
@@ -111,6 +112,7 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 							isLoading={isCreating === LoadingState.Loading}
 							onSubmit={onSubmit}
 							onCancel={onCancel}
+							submitLabel={t(TRANSLATIONS.SAVE_AND_CONTINUE)}
 						/>
 					</ActionBarContentSection>
 				</ActionBar>
@@ -119,4 +121,4 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 	);
 };
 
-export default DestinationsCrud;
+export default DeliveriesCrud;

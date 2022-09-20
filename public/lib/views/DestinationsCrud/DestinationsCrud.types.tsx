@@ -11,13 +11,6 @@ export interface DestinationsFormProps {
 	isLoading: boolean;
 }
 
-export interface DestinationsFormActionsProps {
-	onSubmit?: () => void;
-	onDelete?: () => void;
-	onCancel?: () => void;
-	isLoading: boolean;
-}
-
 export interface DestinationsCrudProps {
 	match: {
 		params: {

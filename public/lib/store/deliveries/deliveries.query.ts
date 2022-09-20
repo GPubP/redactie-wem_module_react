@@ -10,6 +10,12 @@ export class DeliveriesQuery extends BaseEntityQuery<DeliveriesState> {
 	public pagination$ = this.select(state => state.pagination).pipe(
 		filter(pagination => !isNil(pagination), distinctUntilChanged())
 	);
+	public formData$ = this.select(state => state.formData).pipe(
+		filter(formData => !isNil(formData), distinctUntilChanged())
+	);
+	public formValidation$ = this.select(state => state.formValidation).pipe(
+		filter(validation => !isNil(validation), distinctUntilChanged())
+	);
 }
 
 export const deliveriesQuery = new DeliveriesQuery(deliveriesStore);

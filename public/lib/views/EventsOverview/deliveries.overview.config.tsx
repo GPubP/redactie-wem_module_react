@@ -32,7 +32,7 @@ const deliveriesColumns = (translator: (a: string) => string): TableColumn<Deliv
 			value: 'name',
 			width: '20%',
 			...(canUpdate && {
-				component: tableLink(EVENTS_MODULE_PATHS.DELIVERIES.base),
+				component: tableLink(EVENTS_MODULE_PATHS.DELIVERIES.index),
 			}),
 		},
 		columnDefinition(translator(TRANSLATIONS.SOURCE), 'source', '14%'),

@@ -4,13 +4,9 @@ import React, { FC } from 'react';
 
 import translationsConnector from '../../connectors/translations';
 
-import { DestinationsFormActionsProps } from './DestinationsCrud.types';
+import { FormActionsProps } from './components.types';
 
-const DestinationsFormActions: FC<DestinationsFormActionsProps> = ({
-	onCancel,
-	onSubmit,
-	isLoading,
-}) => {
+const FormActions: FC<FormActionsProps> = ({ onCancel, onSubmit, isLoading, submitLabel }) => {
 	const [t] = translationsConnector.useCoreTranslation();
 
 	return (
@@ -32,10 +28,10 @@ const DestinationsFormActions: FC<DestinationsFormActionsProps> = ({
 				htmlType="submit"
 				type="success"
 			>
-				{t(translationsConnector.CORE_TRANSLATIONS.BUTTON_SAVE)}
+				{submitLabel || t(translationsConnector.CORE_TRANSLATIONS.BUTTON_SAVE)}
 			</Button>
 		</div>
 	);
 };
 
-export default DestinationsFormActions;
+export default FormActions;
