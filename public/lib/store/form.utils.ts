@@ -24,7 +24,7 @@ export class FormUtils {
 		this.validator = validator;
 	}
 
-	public updateField(value: string, field: string): void {
+	public updateField(value: string | boolean, field: string): void {
 		this.store.update((state: any) => ({
 			formData: {
 				...(state.formData || this.populate()),

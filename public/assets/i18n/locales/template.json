@@ -11,6 +11,7 @@
   "DESTINATION_NAME_HELP": "Geef deze bestemming een korte en duidelijke naam.",
   "DESTINATION_DESCRIPTION_HELP": "Geef deze bestemming een beschrijving voor in het overzicht.",
   "DELIVERY_CREATED": "Aflevering werd successvol aangemaakt.",
+  "DELIVERY_UPDATED": "Aflevering werd successvol bewaard.",
   "DELIVERIES": "Afleveringen",
   "NEW_BUTTON": "Nieuw aanmaken",
   "NO_DESTINATIONS": "Geen data gevonden",

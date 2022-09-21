@@ -17,4 +17,5 @@ export interface DeliveriesFormProps {
 	onChange: ChangeHandlerFn;
 	validations: DeliveryValidationType | undefined;
 	isLoading: boolean;
+	changeActiveState: () => void;
 }

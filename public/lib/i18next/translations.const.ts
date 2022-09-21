@@ -29,6 +29,7 @@ const TRANSLATIONS = Object.freeze({
 		'Geef deze aflevering een beschrijving voor in het overzicht.'
 	),
 	DELIVERY_CREATED: tKey('DELIVERY_CREATED', 'Aflevering werd successvol aangemaakt.'),
+	DELIVERY_UPDATED: tKey('DELIVERY_UPDATED', 'Aflevering werd successvol bewaard.'),
 	DELIVERIES: tKey('DELIVERIES', 'Afleveringen'),
 	NEW_BUTTON: tKey('NEW_BUTTON', 'Nieuw aanmaken'),
 	EMPTY_TABLE: tKey('NO_DESTINATIONS', 'Geen data gevonden'),

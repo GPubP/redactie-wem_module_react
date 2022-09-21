@@ -73,7 +73,11 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 		navigate(EVENTS_MODULE_PATHS.DELIVERIES.index);
 	};
 	const onSubmit = (): void => {
-		deliveriesFacade.submit(formData, t, navigateToDetails);
+		deliveriesFacade.submit(formData, t, navigateToDetails, {});
+	};
+	const changeActiveState = (): void => {
+		deliveriesFacade.updateField(!formData?.active, 'active');
+		deliveriesFacade.submit(formData, t, navigateToDetails, { active: !formData?.active });
 	};
 
 	/**
@@ -101,6 +105,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 				) : (
 					<DeliveriesForm
 						data={formData}
+						changeActiveState={changeActiveState}
 						onChange={onFieldChange}
 						isLoading={isCreating === LoadingState.Loading}
 						validations={formValidation?.feedback}
