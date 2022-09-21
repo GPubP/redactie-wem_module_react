@@ -4,14 +4,14 @@ const { getWorkerConfig, getModuleConfig } = require('@redactie/utils/dist/webpa
 
 const packageJSON = require('./package.json');
 
-module.exports = (env) => {
+module.exports = env => {
 	const defaultConfig = getModuleConfig({
 		packageJSON,
 		mainEntryPath: path.resolve(__dirname, './public/index.tsx'),
 		tsIncludes: [/public/],
 		sassIncludes: [/public/, /node_modules\/@a-ui\/core/],
-		// outputPath: path.resolve(__dirname, 'dist'),
-		outputPath: path.resolve(__dirname, '../module_server/public'),
+		outputPath: path.resolve(__dirname, 'dist'),
+		// outputPath: path.resolve(__dirname, '../module_server/public'),
 	})(env);
 	// Enable this if you want to use web-workers
 	// const workerConfig = getWorkerConfig();

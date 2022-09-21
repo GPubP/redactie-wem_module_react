@@ -4,8 +4,8 @@ import { ValidationProps } from '../../events.types';
 import { ValidationState } from '../validation.helpers';
 
 export interface DestinationsResponseSchema {
-	data: DestinationSchema[];
-	pagination: Page;
+	_embedded: DestinationSchema[];
+	_page: Page;
 }
 
 export interface DestinationSchema {

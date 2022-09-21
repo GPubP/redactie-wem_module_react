@@ -68,12 +68,7 @@ const EventsOverview: FC = () => {
 	};
 
 	const handleOrderBy = (orderBy: OrderBy): void => {
-		setQuery(
-			parseOrderByToObj({
-				...orderBy,
-				key: `meta.${orderBy.key}`,
-			})
-		);
+		setQuery(parseOrderByToObj(orderBy));
 	};
 
 	/**

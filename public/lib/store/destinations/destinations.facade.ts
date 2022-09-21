@@ -57,8 +57,8 @@ export class DestinationsFacade extends BaseEntityFacade<
 				sortAndDirectionToAPIQuery(query.sort, query.direction)
 			)
 			.then((destinations: DestinationsResponseSchema) => {
-				this.store.set(destinations.data);
-				this.store.update({ pagination: destinations.pagination, isFetching: false });
+				this.store.set(destinations._embedded);
+				this.store.update({ pagination: destinations._page, isFetching: false });
 			})
 			.catch(error => {
 				this.store.setError(error);
