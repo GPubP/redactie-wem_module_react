@@ -53,6 +53,7 @@ export const DEFAULT_PAGINATION: Page = {
 export const ERROR_STATE = 'error';
 
 export const ALERT_IDS = {
+	EVENTS_INDEX: 'events-index',
 	DESTINATIONS_CRUD: 'destinations-crud',
 	DELIVERIES_CRUD: 'deliveries-crud',
 };

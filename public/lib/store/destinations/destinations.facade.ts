@@ -90,7 +90,7 @@ export class DestinationsFacade extends BaseEntityFacade<
 				onSuccess(response.id);
 				setTimeout(() => {
 					alertService.success(ALERT_TEXTS(translator).DESTINATIONS.createOk, {
-						containerId: ALERT_IDS.DESTINATIONS_CRUD,
+						containerId: ALERT_IDS.EVENTS_INDEX,
 					});
 				}, 500);
 			});
@@ -99,7 +99,7 @@ export class DestinationsFacade extends BaseEntityFacade<
 			return this.service.update(body.id, body).then(() => {
 				this.store.setIsCreating(false);
 				alertService.success(ALERT_TEXTS(translator).DESTINATIONS.updateOk, {
-					containerId: ALERT_IDS.DESTINATIONS_CRUD,
+					containerId: ALERT_IDS.EVENTS_INDEX,
 				});
 			});
 		}

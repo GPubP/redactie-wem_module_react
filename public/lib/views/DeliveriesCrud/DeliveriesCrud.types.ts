@@ -18,4 +18,5 @@ export interface DeliveriesFormProps {
 	validations: DeliveryValidationType | undefined;
 	isLoading: boolean;
 	changeActiveState: () => void;
+	onDelete: () => void;
 }

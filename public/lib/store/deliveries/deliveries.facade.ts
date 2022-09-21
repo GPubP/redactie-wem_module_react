@@ -102,6 +102,23 @@ export class DeliveriesFacade extends BaseEntityFacade<
 		}
 		this.store.setIsCreating(false);
 	}
+
+	public async delete(
+		id: string | undefined,
+		translator: (a: string) => string,
+		onSuccess: () => void
+	): Promise<void> {
+		this.store.setIsCreating(true);
+		return this.service.delete(id).then(() => {
+			this.resetForm();
+			onSuccess();
+			setTimeout(() => {
+				alertService.success(ALERT_TEXTS(translator).DELIVERIES.deleteOk, {
+					containerId: ALERT_IDS.EVENTS_INDEX,
+				});
+			}, 500);
+		});
+	}
 }
 
 export const deliveriesFacade = new DeliveriesFacade();

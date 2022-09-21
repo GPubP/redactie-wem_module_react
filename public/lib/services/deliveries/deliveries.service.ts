@@ -48,6 +48,12 @@ export class DeliveriesAPIService {
 		);
 		// return api.get(`${DELIVERIES_PATH}/${id}`).json();
 	}
+
+	public async delete(id: string | undefined): Promise<ModelUpdateResponseSchema> {
+		console.log(`Mocking DELETE  "${`${DELIVERIES_PATH}/${id}`}"`);
+		return new Promise(resolve => setTimeout(() => resolve({ message: 'Delete OK!' }), 1500));
+		// return delete.get(`${DELIVERIES_PATH}/${id}`).json();
+	}
 }
 
 export const deliveriesAPIService = new DeliveriesAPIService();

@@ -61,8 +61,7 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 	/**
 	 * ACTIONS
 	 */
-	const navigateToDetails = (id: string): void =>
-		navigate(`${EVENTS_MODULE_PATHS.DESTINATIONS.details.replace(':destinationId', id)}`);
+	const navigateToIndex = (): void => navigate(EVENTS_MODULE_PATHS.DESTINATIONS.index);
 
 	const onFieldChange = (value: string, name: string): void => {
 		destinationsFacade.updateField(value, name);
@@ -72,7 +71,7 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 		navigate(EVENTS_MODULE_PATHS.DESTINATIONS.index);
 	};
 	const onSubmit = (): void => {
-		destinationsFacade.submit(formData, t, navigateToDetails);
+		destinationsFacade.submit(formData, t, navigateToIndex);
 	};
 
 	/**

@@ -12,6 +12,8 @@ const TRANSLATIONS = Object.freeze({
 	DELIVERY_NEW: tKey('DELIVERY_NEW', 'Nieuwe aflevering aanmaken'),
 	DESTINATION_CREATED: tKey('DESTINATION_CREATED', 'Bestemming werd successvol aangemaakt.'),
 	DESTINATION_UPDATED: tKey('DESTINATION_UPDATED', 'Bestemming werd successvol bewaard.'),
+	DELETE: tKey('DELETE', 'Verwijderen'),
+	DELETED: tKey('DELETED', 'Verwijderd'),
 	DESTINATION_NAME_HELP: tKey(
 		'DESTINATION_NAME_HELP',
 		'Geef deze bestemming een korte en duidelijke naam.'
@@ -30,6 +32,7 @@ const TRANSLATIONS = Object.freeze({
 	),
 	DELIVERY_CREATED: tKey('DELIVERY_CREATED', 'Aflevering werd successvol aangemaakt.'),
 	DELIVERY_UPDATED: tKey('DELIVERY_UPDATED', 'Aflevering werd successvol bewaard.'),
+	DELIVERY_DELETED: tKey('DELIVERY_DELETED', 'Aflevering werd successvol verwijderd.'),
 	DELIVERIES: tKey('DELIVERIES', 'Afleveringen'),
 	NEW_BUTTON: tKey('NEW_BUTTON', 'Nieuw aanmaken'),
 	EMPTY_TABLE: tKey('NO_DESTINATIONS', 'Geen data gevonden'),

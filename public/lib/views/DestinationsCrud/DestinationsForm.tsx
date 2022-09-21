@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { Autocomplete, Textarea, TextField } from '@acpaas-ui/react-components';
+import { Textarea, TextField } from '@acpaas-ui/react-components';
 import React, { FC, FormEvent } from 'react';
 
 import FieldDescription from '../../components/forms/FieldDescription';
@@ -81,16 +81,16 @@ const DestinationsForm: FC<DestinationsFormProps> = props => {
 				</div>
 				<div className="col-lg-6 col-xs-12">
 					<>
-						<Autocomplete
-							items={[{ label: 'wcmevents', value: 'wcmevents' }]}
+						<TextField
 							label={t(TRANSLATIONS.NAMESPACE)}
-							required={true}
 							name={'namespace'}
-							disabled={props.isLoading || !props?.data?.ownerKey}
+							required={true}
 							value={props?.data?.namespace}
-							defaultValue={props?.data?.namespace}
+							onChange={(event: FormEvent<HTMLInputElement>) =>
+								props.onChange(event.currentTarget.value, 'namespace')
+							}
+							disabled={props.isLoading}
 							state={errorState(props.validations, 'namespace')}
-							onSelection={(value: string) => props.onChange(value, 'namespace')}
 						/>
 						<FieldDescription
 							message={errorText(
