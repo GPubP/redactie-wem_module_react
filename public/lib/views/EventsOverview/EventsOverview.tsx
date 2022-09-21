@@ -10,6 +10,7 @@ import {
 } from '@acpaas-ui/react-editorial-components';
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
 import {
+	AlertContainer,
 	DataLoader,
 	OrderBy,
 	parseObjToOrderBy,
@@ -21,7 +22,12 @@ import {
 import React, { FC, ReactElement, useEffect } from 'react';
 
 import translationsConnector from '../../connectors/translations';
-import { DEFAULT_SEARCH_PARAMS, EVENTS_MODULE_PATHS, MODULE_TABS } from '../../events.const';
+import {
+	ALERT_IDS,
+	DEFAULT_SEARCH_PARAMS,
+	EVENTS_MODULE_PATHS,
+	MODULE_TABS,
+} from '../../events.const';
 import useTabs from '../../hooks/useTabs';
 import { TRANSLATIONS } from '../../i18next/translations.const';
 import { breadcrumbsOptions, linkProps } from '../utils/navigation.utils';
@@ -106,6 +112,10 @@ const EventsOverview: FC = () => {
 				</ContextHeaderActionsSection>
 			</ContextHeader>
 			<Container>
+				<AlertContainer
+					toastClassName="u-margin-bottom"
+					containerId={ALERT_IDS.EVENTS_INDEX}
+				/>
 				<DataLoader loadingState={isFetching} render={renderTable} />
 			</Container>
 		</>

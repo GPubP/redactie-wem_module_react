@@ -65,6 +65,8 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	const navigateToDetails = (id: string): void =>
 		navigate(`${EVENTS_MODULE_PATHS.DELIVERIES.details.replace(':deliveryId', id)}`);
 
+	const navigateToIndex = (): void => navigate(`${EVENTS_MODULE_PATHS.DELIVERIES.index}`);
+
 	const onFieldChange = (value: string, name: string): void => {
 		deliveriesFacade.updateField(value, name);
 	};
@@ -73,7 +75,14 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 		navigate(EVENTS_MODULE_PATHS.DELIVERIES.index);
 	};
 	const onSubmit = (): void => {
-		deliveriesFacade.submit(formData, t, navigateToDetails);
+		deliveriesFacade.submit(formData, t, navigateToDetails, {});
+	};
+	const changeActiveState = (): void => {
+		deliveriesFacade.updateField(!formData?.active, 'active');
+		deliveriesFacade.submit(formData, t, navigateToDetails, { active: !formData?.active });
+	};
+	const onDelete = (): void => {
+		deliveriesFacade.delete(formData?.id, t, navigateToIndex);
 	};
 
 	/**
@@ -94,13 +103,15 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 			<Container>
 				<AlertContainer
 					toastClassName="u-margin-bottom"
-					containerId={ALERT_IDS.DELIVERIES_CRUD}
+					containerId={ALERT_IDS.EVENTS_INDEX}
 				/>
 				{isFetching === LoadingState.Loading ? (
 					<DataLoader loadingState={isFetching} render={() => null} />
 				) : (
 					<DeliveriesForm
 						data={formData}
+						onDelete={onDelete}
+						changeActiveState={changeActiveState}
 						onChange={onFieldChange}
 						isLoading={isCreating === LoadingState.Loading}
 						validations={formValidation?.feedback}

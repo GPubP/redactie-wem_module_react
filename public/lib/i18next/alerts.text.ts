@@ -16,5 +16,13 @@ export const ALERT_TEXTS = (translator: (a: string) => string): any => ({
 			title: translator(TRANSLATIONS.CREATED),
 			message: translator(TRANSLATIONS.DELIVERY_CREATED),
 		},
+		updateOk: {
+			title: translator(TRANSLATIONS.UPDATED),
+			message: translator(TRANSLATIONS.DELIVERY_UPDATED),
+		},
+		deleteOk: {
+			title: translator(TRANSLATIONS.DELETED),
+			message: translator(TRANSLATIONS.DELIVERY_DELETED),
+		},
 	},
 });

@@ -8,7 +8,12 @@ import { renderActiveState } from '../utils/render.utilis';
 
 import { DeliveriesFormProps } from './DeliveriesCrud.types';
 
-const DeliveriesStatusEdit: FC<DeliveriesFormProps> = ({ data, onChange }) => {
+const DeliveriesStatusEdit: FC<DeliveriesFormProps> = ({
+	data,
+	onDelete,
+	changeActiveState,
+	isLoading,
+}) => {
 	const [t] = translationsConnector.useModuleTranslation();
 
 	return data?.id ? (
@@ -27,15 +32,21 @@ const DeliveriesStatusEdit: FC<DeliveriesFormProps> = ({ data, onChange }) => {
 						</p>
 						<div className="m-button-group u-margin-top">
 							<Button
-								onClick={() => onChange(!data.active, 'active')}
+								disabled={isLoading}
+								onClick={changeActiveState}
 								className="u-margin-right-xs"
 							>
 								{!data?.active
 									? t(TRANSLATIONS.ACTIVATE)
 									: t(TRANSLATIONS.DESACTIVATE)}
 							</Button>
-							<Button iconLeft="trash" type="danger">
-								Verwijderen
+							<Button
+								onClick={onDelete}
+								disabled={isLoading}
+								iconLeft="trash"
+								type="danger"
+							>
+								{t(TRANSLATIONS.DELETE)}
 							</Button>
 						</div>
 					</div>

@@ -1,7 +1,7 @@
 import { alertService, BaseEntityFacade } from '@redactie/utils';
+
 import { ALERT_IDS } from '../../events.const';
 import { ALERT_TEXTS } from '../../i18next/alerts.text';
-
 import {
 	deliveriesAPIService,
 	DeliveriesAPIService,
@@ -61,7 +61,7 @@ export class DeliveriesFacade extends BaseEntityFacade<
 			});
 	}
 
-	public updateField(value: string, field: string): void {
+	public updateField(value: string | boolean, field: string): void {
 		this.formUtils.updateField(value, field);
 	}
 
@@ -76,11 +76,13 @@ export class DeliveriesFacade extends BaseEntityFacade<
 	public async submit(
 		body: DeliverySchema | undefined,
 		translator: (a: string) => string,
-		onSuccess: (id: string) => void
+		onSuccess: (id: string) => void,
+		update: any
 	): Promise<void> {
-		const validation = this.formUtils.preSubmit(body);
-		if (validation.valid && !body?.id) {
-			return this.service.create(body).then((response: ModelCreateResponseSchema) => {
+		const bodyToSubmit = { ...body, ...update };
+		const validation = this.formUtils.preSubmit(bodyToSubmit);
+		if (validation.valid && !bodyToSubmit?.id) {
+			return this.service.create(bodyToSubmit).then((response: ModelCreateResponseSchema) => {
 				this.resetForm();
 				onSuccess(response.id);
 				setTimeout(() => {
@@ -90,7 +92,32 @@ export class DeliveriesFacade extends BaseEntityFacade<
 				}, 500);
 			});
 		}
+		if (validation.valid && bodyToSubmit?.id) {
+			return this.service.update(bodyToSubmit.id, bodyToSubmit).then(() => {
+				this.store.setIsCreating(false);
+				alertService.success(ALERT_TEXTS(translator).DELIVERIES.updateOk, {
+					containerId: ALERT_IDS.DELIVERIES_CRUD,
+				});
+			});
+		}
 		this.store.setIsCreating(false);
+	}
+
+	public async delete(
+		id: string | undefined,
+		translator: (a: string) => string,
+		onSuccess: () => void
+	): Promise<void> {
+		this.store.setIsCreating(true);
+		return this.service.delete(id).then(() => {
+			this.resetForm();
+			onSuccess();
+			setTimeout(() => {
+				alertService.success(ALERT_TEXTS(translator).DELIVERIES.deleteOk, {
+					containerId: ALERT_IDS.EVENTS_INDEX,
+				});
+			}, 500);
+		});
 	}
 }
 
