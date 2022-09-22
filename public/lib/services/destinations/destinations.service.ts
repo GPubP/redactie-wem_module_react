@@ -4,7 +4,7 @@ import { ModelCreateResponseSchema, ModelUpdateResponseSchema } from '../service
 
 import { DestinationSchema, DestinationsResponseSchema } from './destinations.service.types';
 
-export const DESTINATIONS_PATH = 'event/v1/event-destinations';
+export const DESTINATIONS_PATH = 'wem/v1/event-destinations';
 
 export class DestinationsAPIService {
 	public async fetchAll(

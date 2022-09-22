@@ -53,8 +53,8 @@ export class DeliveriesFacade extends BaseEntityFacade<
 				sortAndDirectionToAPIQuery(query.sort, query.direction)
 			)
 			.then((deliveries: DeliveriesResponseSchema) => {
-				this.store.set(deliveries.data);
-				this.store.update({ pagination: deliveries.pagination, isFetching: false });
+				this.store.set(deliveries._embedded);
+				this.store.update({ pagination: deliveries._page, isFetching: false });
 			})
 			.catch(error => {
 				this.store.setError(error);

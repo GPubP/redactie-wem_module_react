@@ -4,8 +4,8 @@ import { ValidationProps } from '../../events.types';
 import { ValidationState } from '../validation.helpers';
 
 export interface DeliveriesResponseSchema {
-	data: DeliverySchema[];
-	pagination: Page;
+	_embedded: DeliverySchema[];
+	_page: Page;
 }
 
 export interface DeliverySchema {
