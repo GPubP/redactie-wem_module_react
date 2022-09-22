@@ -1,0 +1,57 @@
+@import '../../../../assets/styles/variables';
+
+.wem-a-adv-select {
+	&--max-width {
+		max-width: 400px;
+	}
+	.a-input__wrapper {
+		user-select: none;
+		&--error {
+			> div {
+				border: 1px solid $wem-color-red !important;
+				color: $wem-color-red !important;
+			}
+			.fa {
+				color: $wem-color-red !important;
+			}
+		}
+	}
+	.wem-a-adv-select__input {
+		display: block;
+		background-color: $wem-color-white;
+		border: 1px solid $wem-color-grey;
+		cursor: pointer;
+		padding: 0.75rem 1.5rem;
+		padding-right: 3rem;
+		height: 3rem;
+		line-height: 1.5rem;
+		color: $wem-color-black;
+		user-select: none;
+		&--dynamic {
+			height: auto;
+		}
+		&--lighter {
+			color: $wem-color-grey-dark;
+		}
+	}
+	.wem-m-flyout-menu {
+		transition: none;
+		width: 100%;
+	}
+	.m-flyout__content {
+		transition: none;
+	}
+	.wem-m-flyout-menu__search-input {
+		border-top: none;
+	}
+	&--disabled {
+		.wem-a-adv-select__input {
+			border: 1px solid $wem-color-grey-light;
+			cursor: not-allowed;
+			color: $wem-color-grey-light;
+			&:focus {
+				outline: none;
+			}
+		}
+	}
+}

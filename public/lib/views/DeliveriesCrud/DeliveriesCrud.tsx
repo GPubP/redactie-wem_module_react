@@ -11,10 +11,15 @@ import { AlertContainer, DataLoader, LoadingState, useNavigate, useRoutes } from
 import React, { FC, useEffect } from 'react';
 
 import translationsConnector from '../../connectors/translations';
-import { ALERT_IDS, EVENTS_MODULE_PATHS } from '../../events.const';
+import { ALERT_IDS, EVENT_DELIVERIES_TABS, EVENTS_MODULE_PATHS } from '../../events.const';
 import useDeliveriesForm from '../../hooks/store/useDeliveriesForm';
+import useDestinations from '../../hooks/store/useDestinations';
+import useEvents from '../../hooks/store/useEvents';
+import useActiveTabs from '../../hooks/useActiveTabs/useActiveTabs';
 import { TRANSLATIONS } from '../../i18next/translations.const';
 import { deliveriesFacade } from '../../store/deliveries/deliveries.facade';
+import { destinationsFacade } from '../../store/destinations/destinations.facade';
+import { eventsFacade } from '../../store/events/events.facade';
 import FormActions from '../Components/FormActions';
 import { breadcrumbsOptions, linkProps } from '../utils/navigation.utils';
 
@@ -32,6 +37,9 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	const [t] = translationsConnector.useModuleTranslation();
 
 	const [formData, isCreating, formValidation, isFetching] = useDeliveriesForm();
+	const [destinationsOptions, page, isFetchingDestinations] = useDestinations();
+	const [eventOptions, isFetchingEvents] = useEvents();
+	const activeTabs = useActiveTabs(EVENT_DELIVERIES_TABS, location.pathname);
 
 	const breadcrumbs = useBreadcrumbs(
 		routes as ModuleRouteConfig[],
@@ -56,6 +64,8 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	useEffect(() => {
 		if (modelId) {
 			deliveriesFacade.fetchOne(modelId);
+			eventsFacade.fetchAll();
+			destinationsFacade.fetchAll({ page: 1, pagesize: 999, sort: 'name', direction: 1 });
 		}
 	}, [modelId]);
 
@@ -91,6 +101,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	return (
 		<>
 			<ContextHeader
+				tabs={modelId ? activeTabs : undefined}
 				title={
 					modelId
 						? `"${formData?.name || '...'}" ${t(TRANSLATIONS.TO_EDIT)}`
@@ -109,12 +120,17 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 					<DataLoader loadingState={isFetching} render={() => null} />
 				) : (
 					<DeliveriesForm
+						activeTab={activeTabs?.find(tab => tab.active)?.target}
 						data={formData}
 						onDelete={onDelete}
 						changeActiveState={changeActiveState}
 						onChange={onFieldChange}
 						isLoading={isCreating === LoadingState.Loading}
 						validations={formValidation?.feedback}
+						eventOptions={eventOptions}
+						isFetchingEvents={isFetchingEvents === LoadingState.Loading}
+						destinationsOptions={destinationsOptions}
+						isFetchingDestinations={isFetchingDestinations === LoadingState.Loading}
 					/>
 				)}
 				<ActionBar className="o-action-bar--fixed" isOpen>

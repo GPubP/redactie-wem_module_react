@@ -14,7 +14,9 @@ export interface DeliverySchema {
 	description: string;
 	source: string;
 	event: string;
-	destination: string;
+	eventDescription: string;
+	eventVersion: string;
+	destinationId: string;
 	topic: string;
 	active: boolean;
 	createdAt: string;

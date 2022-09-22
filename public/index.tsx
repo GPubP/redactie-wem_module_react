@@ -42,7 +42,26 @@ Core.routes.register({
 			path: EVENTS_MODULE_PATHS.DELIVERIES.details,
 			breadcrumb: false,
 			component: DeliveriesCrud,
+			redirect: EVENTS_MODULE_PATHS.DELIVERIES.detailsSettings,
+			routes: [
+				{
+					path: EVENTS_MODULE_PATHS.DELIVERIES.detailsSettings,
+					breadcrumb: false,
+					component: DeliveriesCrud,
+				},
+				{
+					path: EVENTS_MODULE_PATHS.DELIVERIES.detailsInput,
+					breadcrumb: false,
+					component: DeliveriesCrud,
+				},
+				{
+					path: EVENTS_MODULE_PATHS.DELIVERIES.detailsTest,
+					breadcrumb: false,
+					component: DeliveriesCrud,
+				},
+			],
 		},
+
 		{
 			path: EVENTS_MODULE_PATHS.DELIVERIES.index,
 			breadcrumb: false,

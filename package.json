@@ -34,6 +34,7 @@
 		"@redactie:registry": "https://nexusrepo.antwerpen.be/repository/npm-private"
 	},
 	"devDependencies": {
+		"@acpaas-ui/react-components": "^3.4.1",
 		"@babel/core": "7.15.5",
 		"@babel/plugin-proposal-class-static-block": "7.15.4",
 		"@babel/preset-env": "7.15.6",
@@ -84,6 +85,10 @@
 	"author": "Yapla",
 	"license": "ISC",
 	"dependencies": {
-		"@redactie/roles-rights-module": "^1.2.2"
+		"@a-ui/core": "^4.3.1",
+		"@redactie/roles-rights-module": "^1.2.2",
+		"@types/lodash": "^4.14.185",
+		"lodash": "^4.17.21",
+		"react-sortable-hoc": "^2.0.0"
 	}
 }

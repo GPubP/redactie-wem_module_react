@@ -23,13 +23,19 @@ const TRANSLATIONS = Object.freeze({
 		'Geef deze bestemming een beschrijving voor in het overzicht.'
 	),
 	DELIVERY_NAME_HELP: tKey(
-		'DESTINATION_NAME_HELP',
+		'DELIVERY_NAME_HELP',
 		'Geef deze aflevering een korte en duidelijke naam.'
 	),
 	DELIVERY_DESCRIPTION_HELP: tKey(
-		'DESTINATION_DESCRIPTION_HELP',
+		'DELIVERY_DESCRIPTION_HELP',
 		'Geef deze aflevering een beschrijving voor in het overzicht.'
 	),
+	DELIVERY_EVENT_HELP: tKey('DELIVERY_EVENT_HELP', 'Selecteer het event.'),
+	DELIVERY_DESTINATION_HELP: tKey(
+		'DELIVERY_DESTINATION_HELP',
+		'Selecteer de bestemming voor dit event.'
+	),
+	DELIVERY_TOPIC_HELP: tKey('DELIVERY_TOPIC_HELP', 'Selecteer een topic voor dit event.'),
 	DELIVERY_CREATED: tKey('DELIVERY_CREATED', 'Aflevering werd successvol aangemaakt.'),
 	DELIVERY_UPDATED: tKey('DELIVERY_UPDATED', 'Aflevering werd successvol bewaard.'),
 	DELIVERY_DELETED: tKey('DELIVERY_DELETED', 'Aflevering werd successvol verwijderd.'),
@@ -42,6 +48,7 @@ const TRANSLATIONS = Object.freeze({
 	KEY: tKey('KEY', 'Sleutel'),
 	NAMESPACE: tKey('NAMESPACE', 'Naamruimte'),
 	SOURCE: tKey('SOURCE', 'Bron'),
+	VERSION: tKey('VERSION', 'Versie'),
 	EVENT: tKey('EVENT', 'Event'),
 	DESTINATION: tKey('DESTINATION', 'Bestemming'),
 	TOPIC: tKey('TOPIC', 'Topic'),

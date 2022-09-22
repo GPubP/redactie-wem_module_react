@@ -18,8 +18,20 @@ export const EVENTS_MODULE_PATHS = {
 		index: `${ROOT_PATH}/afleveringen`,
 		create: `${ROOT_PATH}/afleveringen/nieuw`,
 		details: `${ROOT_PATH}/afleveringen/:deliveryId`,
+		detailsSettings: `${ROOT_PATH}/afleveringen/:deliveryId/instellingen`,
+		detailsInput: `${ROOT_PATH}/afleveringen/:deliveryId/inhoud`,
+		detailsTest: `${ROOT_PATH}/afleveringen/:deliveryId/test`,
 	},
 };
+
+export const EVENT_DELIVERY_SETTINGS_TAB = 'instellingen';
+export const EVENT_DELIVERY_INPUT_TAB = 'inhoud';
+export const EVENT_DELIVERY_TEST_TAB = 'test';
+export const EVENT_DELIVERIES_TABS = [
+	{ name: 'Instellingen', target: EVENT_DELIVERY_SETTINGS_TAB },
+	{ name: 'Inhoud', target: EVENT_DELIVERY_INPUT_TAB },
+	{ name: 'Test', target: EVENT_DELIVERY_TEST_TAB },
+];
 
 export const MODULE_TABS = [
 	{

@@ -1,0 +1,11 @@
+.wem-a-tooltip {
+	&--hidden {
+		.a-tooltip {
+			display: none;
+			opacity: 0;
+		}
+	}
+	.a-tooltip {
+		position: absolute;
+	}
+}

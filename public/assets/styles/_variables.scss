@@ -1,0 +1,36 @@
+@import '~@a-ui/core/dist/assets/styles/quarks';
+
+// INDICES
+$wem-index-flyout-overlay: 8;
+$wem-index-flyout: 9;
+
+// COLORS
+$wem-color-red: $alizarin-crimson;
+$wem-color-white: $white;
+$wem-color-grey: $grey;
+$wem-color-black: $black-pearl;
+$wem-color-grey-dark: $grey-dark;
+$wem-color-grey-light: $grey-light;
+$wem-color-blue: $brand-primary;
+
+// SPACING
+$wem-space-micro: $spacer / 4; // 6px
+$wem-space-tiny: $spacer / 3; // 8px
+$wem-space-small: $spacer / 2; // 12px
+$wem-space: $spacer; // 24px
+$wem-space-medium: 2 * $spacer; // 48px
+$wem-space-large: 3 * $spacer;
+
+// LINE HEIGHT
+$wem-lh-small: 120%;
+$wem-lh-default: 150%;
+
+// FONT SIZE
+$wem-fs-plus-1: 20px;
+$wem-fs: 16px;
+$wem-fs-min-1: 14px;
+$wem-fs-min-3: 11px;
+
+$wem-fw-light: 200;
+$wem-fw-normal: 400;
+$wem-fw-bold: 700;
