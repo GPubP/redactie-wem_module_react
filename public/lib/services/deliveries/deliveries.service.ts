@@ -19,9 +19,6 @@ export class DeliveriesAPIService {
 	}
 
 	public async create(body: DeliverySchema | undefined): Promise<ModelCreateResponseSchema> {
-		console.log(`Mocking post to "${DELIVERIES_PATH}" - with body:`);
-		console.log({ body });
-
 		return api
 			.post(DELIVERIES_PATH, {
 				json: { name: body?.name, description: body?.description ?? '' },
@@ -40,15 +37,11 @@ export class DeliveriesAPIService {
 	}
 
 	public async fetchOne(id: string): Promise<DeliverySchema> {
-		console.log(`Mocking fetch to "${`${DELIVERIES_PATH}/${id}`}"`);
-
 		return api.get(`${DELIVERIES_PATH}/${id}`).json();
 	}
 
-	public async delete(id: string | undefined): Promise<ModelUpdateResponseSchema> {
-		console.log(`Mocking DELETE  "${`${DELIVERIES_PATH}/${id}`}"`);
-		return new Promise(resolve => setTimeout(() => resolve({ message: 'Delete OK!' }), 1500));
-		// return delete.get(`${DELIVERIES_PATH}/${id}`).json();
+	public async delete(id: string | undefined): Promise<void> {
+		return api.delete(`${DELIVERIES_PATH}/${id}`).then();
 	}
 }
 
