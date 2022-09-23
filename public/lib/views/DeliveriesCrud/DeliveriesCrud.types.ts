@@ -5,6 +5,7 @@ import {
 } from '../../services/deliveries/deliveries.service.types';
 import { DestinationSchema } from '../../services/destinations/destinations.service.types';
 import { EventOptionSchema } from '../../services/events/events.service.types';
+import { TopicOptionSchema } from '../../services/topics/topics.service.types';
 
 export interface DeliveriesCrudProps {
 	match: {
@@ -26,4 +27,6 @@ export interface DeliveriesFormProps {
 	isFetchingDestinations: boolean;
 	eventOptions: EventOptionSchema[];
 	isFetchingEvents: boolean;
+	topicOptions: TopicOptionSchema[];
+	isFetchingTopics: boolean;
 }

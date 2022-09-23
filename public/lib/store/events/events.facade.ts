@@ -22,7 +22,6 @@ export class EventsFacade extends BaseEntityFacade<EventsStore, EventsAPIService
 		return this.service
 			.fetchAll()
 			.then((events: EventOptionSchema[]) => {
-				console.log('Events facate ALL EVENTS:');
 				this.store.set(events);
 				this.store.update({ isFetching: false });
 			})

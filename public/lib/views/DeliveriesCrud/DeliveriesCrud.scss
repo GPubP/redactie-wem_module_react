@@ -1,0 +1,22 @@
+.DeliveriesCrud {
+	ul.m-nav-tabs {
+		li > a.has-error {
+			&::before {
+				-webkit-font-smoothing: antialiased;
+				font-family: FontAwesome;
+				font-size: inherit;
+				text-rendering: auto;
+				font-size: 1rem;
+				position: absolute;
+				right: 4px;
+				text-align: center;
+				top: 4px;
+				color: #da291c;
+				content: '\f071';
+			}
+		}
+	}
+	.u-relative {
+		position: relative;
+	}
+}

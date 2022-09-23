@@ -18,7 +18,7 @@ export interface DeliverySchema {
 	eventVersion: string;
 	destinationId: string;
 	topic: string;
-	active: boolean;
+	isActive: boolean;
 	createdAt: string;
 	updatedAt: string;
 }
@@ -32,7 +32,9 @@ export interface DeliveryValidationType {
 	description: ValidationState;
 	source: ValidationState;
 	event: ValidationState;
-	destination: ValidationState;
+	eventDescription: ValidationState;
+	eventVersion: ValidationState;
+	destinationId: ValidationState;
 	topic: ValidationState;
-	active: ValidationState;
+	isActive: ValidationState;
 }

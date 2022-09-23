@@ -16,7 +16,7 @@ interface DeliveryRow extends BasicRow {
 	event: string;
 	destination: string;
 	topic: string;
-	active: boolean;
+	isActive: boolean;
 }
 
 const deliveriesColumns = (translator: (a: string) => string): TableColumn<DeliveryRow>[] => {
@@ -75,7 +75,7 @@ const deliveryDataToRows = (navigate: any, data: any[]): DeliveryRow[] => {
 		event: delivery.event,
 		destination: delivery.destinationId,
 		topic: delivery.topic,
-		active: delivery.active,
+		isActive: delivery.isActive,
 		navigate: () =>
 			navigate(EVENTS_MODULE_PATHS.DELIVERIES.details, {
 				deliveryId: delivery.id,

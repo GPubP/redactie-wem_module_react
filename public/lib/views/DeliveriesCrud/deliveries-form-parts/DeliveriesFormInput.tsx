@@ -1,6 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { TextField } from '@acpaas-ui/react-components';
-import React, { FC, FormEvent } from 'react';
+import React, { FC } from 'react';
 
 import AdvancedSelect from '../../../components/Fields/AdvancedSelect/AdvancedSelect';
 import FieldDescription from '../../../components/forms/FieldDescription';
@@ -12,6 +11,8 @@ import { DeliveriesFormProps } from '../DeliveriesCrud.types';
 
 import DeliveriesFormEventInfo from './DeliveriesFormEventInfo';
 
+import './DeliveriesFormInput.scss';
+
 const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 	const [t] = translationsConnector.useModuleTranslation();
 
@@ -20,7 +21,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 	}
 
 	return (
-		<div>
+		<div className="DeliveriesFormInput">
 			<div className="row">
 				<div className="col-lg-6 col-xs-12">
 					<div className="u-margin-bottom">
@@ -94,16 +95,20 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 			</div>
 			<div className="row">
 				<div className="col-lg-6 col-xs-12">
-					<div className="u-margin-bottom">
-						<TextField
+					<div className="topic-input-group u-margin-bottom">
+						<AdvancedSelect
+							disabled={props.isLoading || props.isFetchingTopics}
+							onChange={(selected: any) => {
+								props.onChange(selected, 'topic');
+							}}
+							value={props.data?.topic}
+							name="topic"
 							label={t(TRANSLATIONS.TOPIC)}
-							name={'topic'}
 							required={true}
-							value={props?.data?.topic}
-							onChange={(event: FormEvent<HTMLInputElement>) =>
-								props.onChange(event.currentTarget.value, 'topic')
-							}
-							disabled={props.isLoading}
+							options={props.topicOptions.map(t => ({
+								value: t.name,
+								label: t.name,
+							}))}
 							state={errorState(props.validations, 'topic')}
 						/>
 						<FieldDescription

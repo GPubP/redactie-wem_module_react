@@ -26,7 +26,7 @@ const DeliveriesStatusEdit: FC<DeliveriesFormProps> = ({
 							{renderActiveState(data, t)}
 						</h6>
 						<p className="u-margin-top-xs">
-							{data?.active
+							{data?.isActive
 								? t(TRANSLATIONS.DELIVERY_ACTIVE_HELP)
 								: t(TRANSLATIONS.DELIVERY_NOT_ACTIVE_HELP)}
 						</p>
@@ -36,7 +36,7 @@ const DeliveriesStatusEdit: FC<DeliveriesFormProps> = ({
 								onClick={changeActiveState}
 								className="u-margin-right-xs"
 							>
-								{!data?.active
+								{!data?.isActive
 									? t(TRANSLATIONS.ACTIVATE)
 									: t(TRANSLATIONS.DESACTIVATE)}
 							</Button>

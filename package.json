@@ -86,6 +86,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"@a-ui/core": "^4.3.1",
+		"@acpaas-ui/react-editorial-components": "0.0.19",
 		"@redactie/roles-rights-module": "^1.2.2",
 		"@types/lodash": "^4.14.185",
 		"lodash": "^4.17.21",

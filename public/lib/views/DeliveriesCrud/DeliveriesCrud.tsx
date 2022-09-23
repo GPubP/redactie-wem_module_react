@@ -8,23 +8,31 @@ import {
 } from '@acpaas-ui/react-editorial-components';
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
 import { AlertContainer, DataLoader, LoadingState, useNavigate, useRoutes } from '@redactie/utils';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 
 import translationsConnector from '../../connectors/translations';
 import { ALERT_IDS, EVENT_DELIVERIES_TABS, EVENTS_MODULE_PATHS } from '../../events.const';
 import useDeliveriesForm from '../../hooks/store/useDeliveriesForm';
 import useDestinations from '../../hooks/store/useDestinations';
 import useEvents from '../../hooks/store/useEvents';
+import useTopics from '../../hooks/store/useTopics';
 import useActiveTabs from '../../hooks/useActiveTabs/useActiveTabs';
 import { TRANSLATIONS } from '../../i18next/translations.const';
 import { deliveriesFacade } from '../../store/deliveries/deliveries.facade';
 import { destinationsFacade } from '../../store/destinations/destinations.facade';
 import { eventsFacade } from '../../store/events/events.facade';
+import { topicsFacade } from '../../store/topics/topics.facade';
 import FormActions from '../Components/FormActions';
-import { breadcrumbsOptions, linkProps } from '../utils/navigation.utils';
+import {
+	breadcrumbsOptions,
+	ExtendedContextHeaderTabLinkProps,
+	linkProps,
+} from '../utils/navigation.utils';
 
 import { DeliveriesCrudProps } from './DeliveriesCrud.types';
 import DeliveriesForm from './DeliveriesForm';
+
+import './DeliveriesCrud.scss';
 
 const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	/**
@@ -39,6 +47,13 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	const [formData, isCreating, formValidation, isFetching] = useDeliveriesForm();
 	const [destinationsOptions, page, isFetchingDestinations] = useDestinations();
 	const [eventOptions, isFetchingEvents] = useEvents();
+	const [topicOptions, isFetchingTopics] = useTopics();
+
+	const currentDestination = useMemo(
+		() => destinationsOptions.find(d => d.id === formData?.destinationId),
+		[formData?.destinationId, destinationsOptions]
+	);
+
 	const activeTabs = useActiveTabs(EVENT_DELIVERIES_TABS, location.pathname);
 
 	const breadcrumbs = useBreadcrumbs(
@@ -68,6 +83,11 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 			destinationsFacade.fetchAll({ page: 1, pagesize: 999, sort: 'name', direction: 1 });
 		}
 	}, [modelId]);
+	useEffect(() => {
+		if (currentDestination?.namespace && currentDestination?.ownerKey) {
+			topicsFacade.fetchAll(currentDestination?.ownerKey, currentDestination?.namespace);
+		}
+	}, [currentDestination?.namespace, currentDestination?.ownerKey]);
 
 	/**
 	 * ACTIONS
@@ -88,8 +108,8 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 		deliveriesFacade.submit(formData, t, navigateToDetails, {});
 	};
 	const changeActiveState = (): void => {
-		deliveriesFacade.updateField(!formData?.active, 'active');
-		deliveriesFacade.submit(formData, t, navigateToDetails, { active: !formData?.active });
+		deliveriesFacade.updateField(!formData?.isActive, 'isActive');
+		deliveriesFacade.submit(formData, t, navigateToDetails, { isActive: !formData?.isActive });
 	};
 	const onDelete = (): void => {
 		deliveriesFacade.delete(formData?.id, t, navigateToIndex);
@@ -99,7 +119,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	 * RENDER FORM
 	 */
 	return (
-		<>
+		<div className="DeliveriesCrud">
 			<ContextHeader
 				tabs={modelId ? activeTabs : undefined}
 				title={
@@ -107,7 +127,9 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 						? `"${formData?.name || '...'}" ${t(TRANSLATIONS.TO_EDIT)}`
 						: t(TRANSLATIONS.DELIVERY_NEW)
 				}
-				linkProps={linkProps}
+				linkProps={(props: ExtendedContextHeaderTabLinkProps) =>
+					linkProps(props, formValidation?.feedback, activeTabs)
+				}
 			>
 				<ContextHeaderTopSection>{breadcrumbs}</ContextHeaderTopSection>
 			</ContextHeader>
@@ -131,6 +153,8 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 						isFetchingEvents={isFetchingEvents === LoadingState.Loading}
 						destinationsOptions={destinationsOptions}
 						isFetchingDestinations={isFetchingDestinations === LoadingState.Loading}
+						topicOptions={topicOptions}
+						isFetchingTopics={isFetchingTopics === LoadingState.Loading}
 					/>
 				)}
 				<ActionBar className="o-action-bar--fixed" isOpen>
@@ -144,7 +168,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 					</ActionBarContentSection>
 				</ActionBar>
 			</Container>
-		</>
+		</div>
 	);
 };
 
