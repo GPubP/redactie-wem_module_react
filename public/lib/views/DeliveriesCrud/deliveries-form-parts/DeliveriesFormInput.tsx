@@ -28,9 +28,9 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 						<AdvancedSelect
 							disabled={props.isLoading || props.isFetchingEvents}
 							onChange={(selected: any) => {
-								const event = props.eventOptions.find(e => e.uuid === selected);
+								const event = props.eventOptions?.find(e => e.uuid === selected);
 								props.onChange(selected, 'event');
-								props.onChange(event?.source, 'source');
+								props.onChange(event?.source, 'eventSource');
 								props.onChange(event?.description, 'eventDescription');
 								props.onChange(event?.version, 'eventVersion');
 							}}
@@ -38,10 +38,12 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 							name="event"
 							label={t(TRANSLATIONS.EVENT)}
 							required={true}
-							options={props.eventOptions.map(e => ({
-								value: e.uuid,
-								label: `${e.event} ver:${e.version}`,
-							}))}
+							options={
+								props.eventOptions?.map(e => ({
+									value: e.uuid,
+									label: `${e.event} ver:${e.version}`,
+								})) ?? []
+							}
 							state={errorState(props.validations, 'event')}
 						/>
 						<FieldDescription
@@ -65,7 +67,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 						<AdvancedSelect
 							disabled={props.isLoading || props.isFetchingDestinations}
 							onChange={(selected: any) => {
-								const destination = props.destinationsOptions.find(
+								const destination = props.destinationsOptions?.find(
 									e => e.id === selected
 								);
 								props.onChange(selected, 'destinationId');
@@ -95,7 +97,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 			</div>
 			<div className="row">
 				<div className="col-lg-6 col-xs-12">
-					<div className="topic-input-group u-margin-bottom">
+					<div className="topic-input-group">
 						<AdvancedSelect
 							disabled={props.isLoading || props.isFetchingTopics}
 							onChange={(selected: any) => {

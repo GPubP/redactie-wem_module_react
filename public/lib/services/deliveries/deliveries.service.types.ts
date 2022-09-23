@@ -12,8 +12,8 @@ export interface DeliverySchema {
 	id: string;
 	name: string;
 	description: string;
-	source: string;
 	event: string;
+	eventSource: string;
 	eventDescription: string;
 	eventVersion: string;
 	destinationId: string;
@@ -30,8 +30,8 @@ export interface DeliveryValidationSchema extends ValidationProps {
 export interface DeliveryValidationType {
 	name: ValidationState;
 	description: ValidationState;
-	source: ValidationState;
 	event: ValidationState;
+	eventSource: string;
 	eventDescription: ValidationState;
 	eventVersion: ValidationState;
 	destinationId: ValidationState;

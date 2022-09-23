@@ -136,7 +136,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 			<Container>
 				<AlertContainer
 					toastClassName="u-margin-bottom"
-					containerId={ALERT_IDS.EVENTS_INDEX}
+					containerId={ALERT_IDS.DELIVERIES_CRUD}
 				/>
 				{isFetching === LoadingState.Loading ? (
 					<DataLoader loadingState={isFetching} render={() => null} />

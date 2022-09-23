@@ -16,10 +16,11 @@ const DeliveriesFormEventInfo: FC<DeliveriesFormProps> = props => {
 		<>
 			<div className="col-lg-6 col-xs-12">
 				<TextField
+					required
 					label={t(TRANSLATIONS.SOURCE)}
 					name={'eventSource'}
 					readOnly
-					value={props?.data?.source}
+					value={props?.data?.eventSource}
 					disabled
 				/>
 			</div>

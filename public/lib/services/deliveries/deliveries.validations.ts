@@ -6,22 +6,33 @@ import {
 	DeliveryValidationType,
 } from './deliveries.service.types';
 
-const DELIVERIES_REQUIRED_FIELDS = ['name', 'source', 'event', 'eventVersion'];
+const DELIVERIES_REQUIRED_FIELDS = [
+	'name',
+	'destinationId',
+	'topic',
+	'eventSource',
+	'event',
+	'eventVersion',
+];
 
 export function validateDelivery(body: DeliverySchema | undefined): DeliveryValidationSchema {
 	const feedback = {
 		name: validateRequired('name', body?.name, DELIVERIES_REQUIRED_FIELDS),
 		description: ValidationState.Ok,
-		source: validateRequired('source', body?.source, DELIVERIES_REQUIRED_FIELDS),
-		event: validateRequired('event', body?.event, DELIVERIES_REQUIRED_FIELDS),
+		eventSource: body?.id
+			? validateRequired('source', body?.eventSource, DELIVERIES_REQUIRED_FIELDS)
+			: ValidationState.Ok,
+		event: body?.id
+			? validateRequired('event', body?.event, DELIVERIES_REQUIRED_FIELDS)
+			: ValidationState.Ok,
 		eventDescription: ValidationState.Ok,
-		eventVersion: validateRequired(
-			'eventVersion',
-			body?.eventVersion,
-			DELIVERIES_REQUIRED_FIELDS
-		),
-		destinationId: ValidationState.Ok,
-		topic: ValidationState.Ok,
+		eventVersion: ValidationState.Ok,
+		destinationId: body?.id
+			? validateRequired('destinationId', body?.destinationId, DELIVERIES_REQUIRED_FIELDS)
+			: ValidationState.Ok,
+		topic: body?.id
+			? validateRequired('topic', body?.topic, DELIVERIES_REQUIRED_FIELDS)
+			: ValidationState.Ok,
 		isActive: ValidationState.Ok,
 	};
 	let valid = true;

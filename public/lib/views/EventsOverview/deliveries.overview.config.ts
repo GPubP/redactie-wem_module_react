@@ -12,7 +12,7 @@ import { renderActiveState } from '../utils/render.utilis';
 import { columnDefinition } from '../utils/table.utils';
 
 interface DeliveryRow extends BasicRow {
-	source: string;
+	eventSource: string;
 	event: string;
 	destination: string;
 	topic: string;
@@ -35,7 +35,7 @@ const deliveriesColumns = (translator: (a: string) => string): TableColumn<Deliv
 				component: tableLink(EVENTS_MODULE_PATHS.DELIVERIES.index),
 			}),
 		},
-		columnDefinition(translator(TRANSLATIONS.SOURCE), 'source', '14%'),
+		columnDefinition(translator(TRANSLATIONS.SOURCE), 'eventSource', '14%'),
 		columnDefinition(translator(TRANSLATIONS.EVENT), 'event', '14%'),
 		columnDefinition(translator(TRANSLATIONS.DESTINATION), 'destination', '14%'),
 		columnDefinition(translator(TRANSLATIONS.TOPIC), 'topic', '14%'),
@@ -71,7 +71,7 @@ const deliveryDataToRows = (navigate: any, data: any[]): DeliveryRow[] => {
 		uuid: delivery.id,
 		name: delivery.name,
 		description: delivery.description,
-		source: delivery.source,
+		eventSource: delivery.eventSource,
 		event: delivery.event,
 		destination: delivery.destinationId,
 		topic: delivery.topic,

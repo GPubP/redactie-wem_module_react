@@ -30,7 +30,11 @@ import {
 } from '../../events.const';
 import useTabs from '../../hooks/useTabs';
 import { TRANSLATIONS } from '../../i18next/translations.const';
-import { breadcrumbsOptions, linkProps } from '../utils/navigation.utils';
+import {
+	breadcrumbsOptions,
+	ExtendedContextHeaderTabLinkProps,
+	linkProps,
+} from '../utils/navigation.utils';
 
 import deliveriesConfig from './deliveries.overview.config';
 import destinationsConfig from './destinations.overview.config';
@@ -103,7 +107,13 @@ const EventsOverview: FC = () => {
 
 	return (
 		<>
-			<ContextHeader title={t(TRANSLATIONS.EVENTS)} linkProps={linkProps} tabs={tabs}>
+			<ContextHeader
+				title={t(TRANSLATIONS.EVENTS)}
+				linkProps={(props: ExtendedContextHeaderTabLinkProps) =>
+					linkProps(props, undefined, tabs)
+				}
+				tabs={tabs}
+			>
 				<ContextHeaderTopSection>{breadcrumbs}</ContextHeaderTopSection>
 				<ContextHeaderActionsSection>
 					<Button iconLeft="plus" onClick={() => navigate(config.urls.create)}>

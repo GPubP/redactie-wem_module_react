@@ -51,7 +51,7 @@ export class FormUtils {
 		return validation;
 	}
 
-	public async fetchOne(id: string): Promise<void> {
+	public async fetchOne(id: string): Promise<any> {
 		const { isFetchingOne } = this.query.getValue();
 		if (isFetchingOne) {
 			return;
@@ -62,6 +62,7 @@ export class FormUtils {
 				formData: { ...response },
 			}));
 			this.store.setIsFetchingOne(false);
+			return response;
 		});
 	}
 }

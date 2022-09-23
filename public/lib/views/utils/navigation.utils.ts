@@ -31,10 +31,6 @@ export function linkProps(
 	validationFeedback: DeliveryValidationType | undefined,
 	tabs: ContextHeaderTab[]
 ): any {
-	if (!validationFeedback) {
-		return null;
-	}
-
 	const hasSettingsErrors =
 		props.href === EVENT_DELIVERY_SETTINGS_TAB &&
 		(validationFeedback?.name !== ValidationState.Ok ||
@@ -47,8 +43,8 @@ export function linkProps(
 
 	return {
 		...props,
-		className: `${tabs.find(t => t.target === props.href)?.active ? 'is-active' : ''} ${
-			hasSettingsErrors || hasInputErrors ? 'has-error' : ''
+		className: `${tabs?.find(t => t.target === props.href)?.active ? 'is-active' : ''} ${
+			validationFeedback && (hasSettingsErrors || hasInputErrors) ? 'has-error' : ''
 		} u-relative`,
 		to: props.href,
 		component: Link,

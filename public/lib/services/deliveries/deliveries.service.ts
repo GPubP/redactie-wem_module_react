@@ -30,10 +30,7 @@ export class DeliveriesAPIService {
 		id: string,
 		body: DeliverySchema | undefined
 	): Promise<ModelUpdateResponseSchema> {
-		console.log(`Mocking patch to "${`${DELIVERIES_PATH}/${id}`}" - with body:`);
-		console.log({ body });
-		return new Promise(resolve => setTimeout(() => resolve({ message: 'Update OK!' }), 1500));
-		// return api.patch(`${DELIVERIES_PATH}/${id}`, { body }).json();
+		return api.patch(`${DELIVERIES_PATH}/${id}`, { json: body }).json();
 	}
 
 	public async fetchOne(id: string): Promise<DeliverySchema> {

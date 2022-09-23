@@ -69,7 +69,7 @@ export class DeliveriesFacade extends BaseEntityFacade<
 		this.formUtils.resetForm();
 	}
 
-	public async fetchOne(id: string): Promise<void> {
+	public async fetchOne(id: string): Promise<DeliverySchema | undefined> {
 		return this.formUtils.fetchOne(id);
 	}
 
@@ -84,6 +84,7 @@ export class DeliveriesFacade extends BaseEntityFacade<
 		if (validation.valid && !bodyToSubmit?.id) {
 			return this.service.create(bodyToSubmit).then((response: ModelCreateResponseSchema) => {
 				this.resetForm();
+				this.store.setIsCreating(false);
 				onSuccess(response.id);
 				setTimeout(() => {
 					alertService.success(ALERT_TEXTS(translator).DELIVERIES.createOk, {
