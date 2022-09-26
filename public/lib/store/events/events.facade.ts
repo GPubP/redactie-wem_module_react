@@ -1,7 +1,7 @@
 import { BaseEntityFacade } from '@redactie/utils';
 
 import { eventsAPIService, EventsAPIService } from '../../services/events/events.service';
-import { EventOptionSchema } from '../../services/events/events.service.types';
+import { EventsResponseSchema } from '../../services/events/events.service.types';
 
 import { eventsQuery, EventsQuery } from './events.query';
 import { eventsStore, EventsStore } from './events.store';
@@ -21,9 +21,9 @@ export class EventsFacade extends BaseEntityFacade<EventsStore, EventsAPIService
 		this.store.setIsFetching(true);
 		return this.service
 			.fetchAll()
-			.then((events: EventOptionSchema[]) => {
-				this.store.set(events);
-				this.store.update({ isFetching: false });
+			.then((events: EventsResponseSchema) => {
+				this.store.set(events?._embedded?.events ?? []);
+				this.store.update({ pagination: events._page, isFetching: false });
 			})
 			.catch(error => {
 				this.store.setError(error);

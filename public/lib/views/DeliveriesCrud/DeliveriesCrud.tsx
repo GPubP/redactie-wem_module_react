@@ -84,10 +84,10 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 		}
 	}, [modelId]);
 	useEffect(() => {
-		if (currentDestination?.namespace && currentDestination?.ownerKey) {
-			topicsFacade.fetchAll(currentDestination?.ownerKey, currentDestination?.namespace);
+		if (currentDestination?.id) {
+			topicsFacade.fetchAll(currentDestination.id);
 		}
-	}, [currentDestination?.namespace, currentDestination?.ownerKey]);
+	}, [currentDestination?.id]);
 
 	/**
 	 * ACTIONS
@@ -105,6 +105,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 		navigate(EVENTS_MODULE_PATHS.DELIVERIES.index);
 	};
 	const onSubmit = (): void => {
+		console.log(`FORM DATA ${JSON.stringify(formData)}`);
 		deliveriesFacade.submit(formData, t, navigateToDetails, {});
 	};
 	const changeActiveState = (): void => {

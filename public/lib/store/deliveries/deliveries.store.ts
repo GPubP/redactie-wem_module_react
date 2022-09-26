@@ -10,6 +10,7 @@ export const generateNewDeliveryForm = (): DeliverySchema => ({
 	name: '',
 	description: '',
 	event: '',
+	eventId: '',
 	eventSource: '',
 	eventDescription: '',
 	eventVersion: '',

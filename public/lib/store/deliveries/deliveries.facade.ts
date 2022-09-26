@@ -94,6 +94,7 @@ export class DeliveriesFacade extends BaseEntityFacade<
 			});
 		}
 		if (validation.valid && bodyToSubmit?.id) {
+			console.log(`BODY TO SUBMIT ${JSON.stringify(bodyToSubmit)}`);
 			return this.service.update(bodyToSubmit.id, bodyToSubmit).then(() => {
 				this.store.setIsCreating(false);
 				alertService.success(ALERT_TEXTS(translator).DELIVERIES.updateOk, {

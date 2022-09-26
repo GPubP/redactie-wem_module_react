@@ -13,6 +13,7 @@ export interface DeliverySchema {
 	name: string;
 	description: string;
 	event: string;
+	eventId: string;
 	eventSource: string;
 	eventDescription: string;
 	eventVersion: string;

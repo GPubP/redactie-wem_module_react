@@ -7,7 +7,6 @@ import { DeliveriesResponseSchema, DeliverySchema } from './deliveries.service.t
 export const DELIVERIES_PATH = 'wem/v1/event-episodes';
 
 export class DeliveriesAPIService {
-	// TODO-NT REMOVE MOCK
 	public async fetchAll(
 		page = DEFAULT_PAGINATION.number,
 		pagesize = DEFAULT_PAGINATION.size,

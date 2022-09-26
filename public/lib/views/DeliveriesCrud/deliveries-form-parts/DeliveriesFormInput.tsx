@@ -29,19 +29,20 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 							disabled={props.isLoading || props.isFetchingEvents}
 							onChange={(selected: any) => {
 								const event = props.eventOptions?.find(e => e.uuid === selected);
-								props.onChange(selected, 'event');
-								props.onChange(event?.source, 'eventSource');
-								props.onChange(event?.description, 'eventDescription');
-								props.onChange(event?.version, 'eventVersion');
+								props.onChange(event?.data?.event, 'event');
+								props.onChange(selected, 'eventId');
+								props.onChange(event?.data?.source, 'eventSource');
+								props.onChange(event?.data?.description, 'eventDescription');
+								props.onChange(event?.data?.version, 'eventVersion');
 							}}
-							value={props.data?.event}
-							name="event"
+							value={props.data?.eventId}
+							name="eventId"
 							label={t(TRANSLATIONS.EVENT)}
 							required={true}
 							options={
 								props.eventOptions?.map(e => ({
 									value: e.uuid,
-									label: `${e.event} ver:${e.version}`,
+									label: `${e?.data?.source} - ${e?.data?.event} - ${e?.data?.version}`,
 								})) ?? []
 							}
 							state={errorState(props.validations, 'event')}

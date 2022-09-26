@@ -13,14 +13,14 @@ export class TopicsFacade extends BaseEntityFacade<TopicsStore, TopicsAPIService
 		super(topicsStore, topicsAPIService, topicsQuery);
 	}
 
-	public async fetchAll(ownerKey: string, namespace: string): Promise<void> {
+	public async fetchAll(destinationId: string): Promise<void> {
 		const { isFetching } = this.query.getValue();
 		if (isFetching) {
 			return;
 		}
 		this.store.setIsFetching(true);
 		return this.service
-			.fetchAll(ownerKey, namespace)
+			.fetchAll(destinationId)
 			.then((topics: TopicOptionSchema[]) => {
 				this.store.set(topics);
 				this.store.update({ isFetching: false });

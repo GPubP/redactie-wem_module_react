@@ -20,7 +20,7 @@ const DeliveriesFormEventInfo: FC<DeliveriesFormProps> = props => {
 					label={t(TRANSLATIONS.SOURCE)}
 					name={'eventSource'}
 					readOnly
-					value={props?.data?.eventSource}
+					value={props?.data?.eventSource ?? ''}
 					disabled
 				/>
 			</div>
@@ -29,7 +29,7 @@ const DeliveriesFormEventInfo: FC<DeliveriesFormProps> = props => {
 					label={t(TRANSLATIONS.VERSION)}
 					name={'eventVersion'}
 					readOnly
-					value={props?.data?.eventVersion}
+					value={props?.data?.eventVersion ?? ''}
 					disabled
 				/>
 			</div>
@@ -38,7 +38,7 @@ const DeliveriesFormEventInfo: FC<DeliveriesFormProps> = props => {
 					label={t(TRANSLATIONS.DESCRIPTION)}
 					name={'eventDescription'}
 					readOnly
-					value={props?.data?.eventDescription}
+					value={props?.data?.eventDescription ?? ''}
 					disabled
 				/>
 			</div>
