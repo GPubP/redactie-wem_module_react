@@ -1,4 +1,6 @@
-import { BaseEntityFacade } from '@redactie/utils';
+import { alertService, BaseEntityFacade } from '@redactie/utils';
+import { ALERT_IDS } from '../../events.const';
+import { ALERT_TEXTS } from '../../i18next/alerts.text';
 
 import { eventsAPIService, EventsAPIService } from '../../services/events/events.service';
 import { EventsResponseSchema } from '../../services/events/events.service.types';
@@ -28,6 +30,17 @@ export class EventsFacade extends BaseEntityFacade<EventsStore, EventsAPIService
 			.catch(error => {
 				this.store.setError(error);
 			});
+	}
+
+	public async checkIfEventExists(
+		eventId: string,
+		translator: (a: string) => string
+	): Promise<void> {
+		await this.service.fetchById(eventId).catch(() => {
+			alertService.warning(ALERT_TEXTS(translator).DELIVERIES.eventDoesNotExist, {
+				containerId: ALERT_IDS.DELIVERIES_CRUD,
+			});
+		});
 	}
 }
 

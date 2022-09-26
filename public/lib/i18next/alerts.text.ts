@@ -24,5 +24,9 @@ export const ALERT_TEXTS = (translator: (a: string) => string): any => ({
 			title: translator(TRANSLATIONS.DELETED),
 			message: translator(TRANSLATIONS.DELIVERY_DELETED),
 		},
+		eventDoesNotExist: {
+			title: translator(TRANSLATIONS.EVENT_DOES_NOT_EXIST_TITLE),
+			message: translator(TRANSLATIONS.EVENT_DOES_NOT_EXIST_MESSAGE),
+		},
 	},
 });

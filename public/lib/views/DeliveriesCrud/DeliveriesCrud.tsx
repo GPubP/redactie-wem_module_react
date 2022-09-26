@@ -8,7 +8,7 @@ import {
 } from '@acpaas-ui/react-editorial-components';
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
 import { AlertContainer, DataLoader, LoadingState, useNavigate, useRoutes } from '@redactie/utils';
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
 
 import translationsConnector from '../../connectors/translations';
 import { ALERT_IDS, EVENT_DELIVERIES_TABS, EVENTS_MODULE_PATHS } from '../../events.const';
@@ -18,6 +18,7 @@ import useEvents from '../../hooks/store/useEvents';
 import useTopics from '../../hooks/store/useTopics';
 import useActiveTabs from '../../hooks/useActiveTabs/useActiveTabs';
 import { TRANSLATIONS } from '../../i18next/translations.const';
+import { DeliverySchema } from '../../services/deliveries/deliveries.service.types';
 import { deliveriesFacade } from '../../store/deliveries/deliveries.facade';
 import { destinationsFacade } from '../../store/destinations/destinations.facade';
 import { eventsFacade } from '../../store/events/events.facade';
@@ -70,6 +71,17 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 		])
 	);
 
+	const verifyEventExists = useCallback(
+		(delivery: DeliverySchema | undefined): void => {
+			if (!delivery?.eventId) {
+				return;
+			}
+
+			eventsFacade.checkIfEventExists(delivery.eventId, t);
+		},
+		[t]
+	);
+
 	/**
 	 * STORE
 	 */
@@ -78,11 +90,11 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	}, []);
 	useEffect(() => {
 		if (modelId) {
-			deliveriesFacade.fetchOne(modelId);
+			deliveriesFacade.fetchOne(modelId).then(verifyEventExists);
 			eventsFacade.fetchAll();
 			destinationsFacade.fetchAll({ page: 1, pagesize: 999, sort: 'name', direction: 1 });
 		}
-	}, [modelId]);
+	}, [modelId, verifyEventExists]);
 	useEffect(() => {
 		if (currentDestination?.id) {
 			topicsFacade.fetchAll(currentDestination.id);
@@ -105,7 +117,6 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 		navigate(EVENTS_MODULE_PATHS.DELIVERIES.index);
 	};
 	const onSubmit = (): void => {
-		console.log(`FORM DATA ${JSON.stringify(formData)}`);
 		deliveriesFacade.submit(formData, t, navigateToDetails, {});
 	};
 	const changeActiveState = (): void => {
