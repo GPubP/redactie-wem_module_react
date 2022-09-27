@@ -20,16 +20,18 @@ const FormActions: FC<FormActionsProps> = ({ onCancel, onSubmit, isLoading, subm
 			>
 				{t(translationsConnector.CORE_TRANSLATIONS.BUTTON_CANCEL)}
 			</Button>
-			<Button
-				iconLeft={isLoading ? 'circle-o-notch fa-spin' : null}
-				disabled={isLoading}
-				className="u-margin-right-xs"
-				onClick={onSubmit}
-				htmlType="submit"
-				type="success"
-			>
-				{submitLabel || t(translationsConnector.CORE_TRANSLATIONS.BUTTON_SAVE)}
-			</Button>
+			{onSubmit && (
+				<Button
+					iconLeft={isLoading ? 'circle-o-notch fa-spin' : null}
+					disabled={isLoading}
+					className="u-margin-right-xs"
+					onClick={onSubmit}
+					htmlType="submit"
+					type="success"
+				>
+					{submitLabel || t(translationsConnector.CORE_TRANSLATIONS.BUTTON_SAVE)}
+				</Button>
+			)}
 		</div>
 	);
 };

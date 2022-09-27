@@ -30,7 +30,7 @@ const DeliveriesFormSettings: FC<DeliveriesFormProps> = props => {
 							onChange={(event: FormEvent<HTMLInputElement>) =>
 								props.onChange(event.currentTarget.value, 'name')
 							}
-							disabled={props.isLoading}
+							disabled={props.isLoading || !props.canUpdate}
 							state={errorState(props.validations, 'name')}
 						/>
 						<FieldDescription
@@ -51,7 +51,7 @@ const DeliveriesFormSettings: FC<DeliveriesFormProps> = props => {
 							onChange={(event: FormEvent<HTMLInputElement>) =>
 								props.onChange(event.currentTarget.value, 'description')
 							}
-							disabled={props.isLoading}
+							disabled={props.isLoading || !props.canUpdate}
 						/>
 						<FieldDescription
 							message={t(TRANSLATIONS.DELIVERY_DESCRIPTION_HELP)}

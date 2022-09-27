@@ -73,7 +73,7 @@ const deliveryDataToRows = (navigate: any, data: any[]): DeliveryRow[] => {
 		description: delivery.description,
 		eventSource: delivery.eventSource,
 		event: delivery.event,
-		destination: delivery.destinationId,
+		destination: delivery.destinationName,
 		topic: delivery.topic,
 		isActive: delivery.isActive,
 		navigate: () =>

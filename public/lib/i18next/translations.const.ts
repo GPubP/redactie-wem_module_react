@@ -76,10 +76,10 @@ const TRANSLATIONS = Object.freeze({
 		'Kies een naamruimte (namespace) binnen deze bestemming.'
 	),
 	REQUIRED: tKey('REQUIRED', 'Dit veld is verplicht'),
-	EVENT_DOES_NOT_EXIST_TITLE: tKey('EVENT_DOES_NOT_EXIST_TITLE', 'Pas op!'),
+	EVENT_DOES_NOT_EXIST_TITLE: tKey('EVENT_DOES_NOT_EXIST_TITLE', 'Waarschuwing'),
 	EVENT_DOES_NOT_EXIST_MESSAGE: tKey(
 		'EVENT_DOES_NOT_EXIST_MESSAGE',
-		'Geconfigureerde event bestaat niet in het register. Het is mogelijk verwijderd.'
+		'Het gekozen event bestaat niet en is mogelijks verwijderd. Kies een ander event.'
 	),
 } as const);
 

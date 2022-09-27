@@ -26,7 +26,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 				<div className="col-lg-6 col-xs-12">
 					<div className="u-margin-bottom">
 						<AdvancedSelect
-							disabled={props.isLoading || props.isFetchingEvents}
+							disabled={props.isLoading || props.isFetchingEvents || !props.canUpdate}
 							onChange={(selected: any) => {
 								const event = props.eventOptions?.find(e => e.uuid === selected);
 								props.onChange(event?.data?.event, 'event');
@@ -66,7 +66,9 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 				<div className="col-lg-6 col-xs-12">
 					<div className="u-margin-bottom">
 						<AdvancedSelect
-							disabled={props.isLoading || props.isFetchingDestinations}
+							disabled={
+								props.isLoading || props.isFetchingDestinations || !props.canUpdate
+							}
 							onChange={(selected: any) => {
 								const destination = props.destinationsOptions?.find(
 									e => e.id === selected
@@ -100,7 +102,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 				<div className="col-lg-6 col-xs-12">
 					<div className="topic-input-group">
 						<AdvancedSelect
-							disabled={props.isLoading || props.isFetchingTopics}
+							disabled={props.isLoading || props.isFetchingTopics || !props.canUpdate}
 							onChange={(selected: any) => {
 								props.onChange(selected, 'topic');
 							}}

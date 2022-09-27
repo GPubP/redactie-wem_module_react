@@ -16,6 +16,8 @@ export interface DeliveriesCrudProps {
 }
 
 export interface DeliveriesFormProps {
+	canUpdate: boolean;
+	canDelete: boolean;
 	activeTab?: string;
 	data: DeliverySchema | undefined;
 	onChange: ChangeHandlerFn;

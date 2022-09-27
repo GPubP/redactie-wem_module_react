@@ -10,6 +10,7 @@ import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
 import { AlertContainer, DataLoader, LoadingState, useNavigate, useRoutes } from '@redactie/utils';
 import React, { FC, useEffect } from 'react';
 
+import rolesRightsConnector from '../../connectors/rolesRights';
 import translationsConnector from '../../connectors/translations';
 import { ALERT_IDS, EVENTS_MODULE_PATHS } from '../../events.const';
 import useDestinationsForm from '../../hooks/store/useDestinationsForm';
@@ -31,6 +32,17 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 	const { navigate, generatePath } = useNavigate();
 	const [t] = translationsConnector.useModuleTranslation();
 	const [formData, isCreating, formValidation, isFetching] = useDestinationsForm();
+
+	const [
+		mySecurityRightsLoadingState,
+		mySecurityRights,
+	] = rolesRightsConnector.api.hooks.useMySecurityRightsForTenant(true);
+	const canUpdate = rolesRightsConnector.api.helpers.checkSecurityRights(mySecurityRights, [
+		rolesRightsConnector.securityRights.destinationUpdate,
+	]);
+	const canDelete = rolesRightsConnector.api.helpers.checkSecurityRights(mySecurityRights, [
+		rolesRightsConnector.securityRights.destinationDelete,
+	]);
 
 	const breadcrumbs = useBreadcrumbs(
 		routes as ModuleRouteConfig[],
@@ -94,10 +106,13 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 					toastClassName="u-margin-bottom"
 					containerId={ALERT_IDS.DESTINATIONS_CRUD}
 				/>
-				{isFetching === LoadingState.Loading ? (
+				{mySecurityRightsLoadingState === LoadingState.Loading ||
+				isFetching === LoadingState.Loading ? (
 					<DataLoader loadingState={isFetching} render={() => null} />
 				) : (
 					<DestinationsForm
+						canDelete={canDelete}
+						canUpdate={canUpdate}
 						isLoading={isCreating === LoadingState.Loading}
 						data={formData}
 						onChange={onFieldChange}
@@ -108,7 +123,7 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 					<ActionBarContentSection>
 						<FormActions
 							isLoading={isCreating === LoadingState.Loading}
-							onSubmit={onSubmit}
+							onSubmit={canUpdate ? onSubmit : undefined}
 							onCancel={onCancel}
 						/>
 					</ActionBarContentSection>

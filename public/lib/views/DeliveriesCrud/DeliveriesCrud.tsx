@@ -8,8 +8,9 @@ import {
 } from '@acpaas-ui/react-editorial-components';
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
 import { AlertContainer, DataLoader, LoadingState, useNavigate, useRoutes } from '@redactie/utils';
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 
+import rolesRightsConnector from '../../connectors/rolesRights';
 import translationsConnector from '../../connectors/translations';
 import { ALERT_IDS, EVENT_DELIVERIES_TABS, EVENTS_MODULE_PATHS } from '../../events.const';
 import useDeliveriesForm from '../../hooks/store/useDeliveriesForm';
@@ -57,6 +58,17 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 
 	const activeTabs = useActiveTabs(EVENT_DELIVERIES_TABS, location.pathname);
 
+	const [
+		mySecurityRightsLoadingState,
+		mySecurityRights,
+	] = rolesRightsConnector.api.hooks.useMySecurityRightsForTenant(true);
+	const canUpdate = rolesRightsConnector.api.helpers.checkSecurityRights(mySecurityRights, [
+		rolesRightsConnector.securityRights.deliveryUpdate,
+	]);
+	const canDelete = rolesRightsConnector.api.helpers.checkSecurityRights(mySecurityRights, [
+		rolesRightsConnector.securityRights.deliveryDelete,
+	]);
+
 	const breadcrumbs = useBreadcrumbs(
 		routes as ModuleRouteConfig[],
 		breadcrumbsOptions(generatePath, [
@@ -71,16 +83,13 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 		])
 	);
 
-	const verifyEventExists = useCallback(
-		(delivery: DeliverySchema | undefined): void => {
-			if (!delivery?.eventId) {
-				return;
-			}
+	const verifyEventExists = (delivery: DeliverySchema | undefined): void => {
+		if (!delivery?.eventId) {
+			return;
+		}
 
-			eventsFacade.checkIfEventExists(delivery.eventId, t);
-		},
-		[t]
-	);
+		eventsFacade.checkIfEventExists(delivery.eventId, t);
+	};
 
 	/**
 	 * STORE
@@ -94,7 +103,9 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 			eventsFacade.fetchAll();
 			destinationsFacade.fetchAll({ page: 1, pagesize: 999, sort: 'name', direction: 1 });
 		}
-	}, [modelId, verifyEventExists]);
+		// we do not want to run on verifyEventExists change, it triggers endless rerender loop
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [modelId]);
 	useEffect(() => {
 		if (currentDestination?.id) {
 			topicsFacade.fetchAll(currentDestination.id);
@@ -150,10 +161,13 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 					toastClassName="u-margin-bottom"
 					containerId={ALERT_IDS.DELIVERIES_CRUD}
 				/>
-				{isFetching === LoadingState.Loading ? (
+				{mySecurityRightsLoadingState === LoadingState.Loading ||
+				isFetching === LoadingState.Loading ? (
 					<DataLoader loadingState={isFetching} render={() => null} />
 				) : (
 					<DeliveriesForm
+						canUpdate={canUpdate}
+						canDelete={canDelete}
 						activeTab={activeTabs?.find(tab => tab.active)?.target}
 						data={formData}
 						onDelete={onDelete}
@@ -173,7 +187,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 					<ActionBarContentSection>
 						<FormActions
 							isLoading={isCreating === LoadingState.Loading}
-							onSubmit={onSubmit}
+							onSubmit={canUpdate ? onSubmit : undefined}
 							onCancel={onCancel}
 							submitLabel={modelId ? '' : t(TRANSLATIONS.SAVE_AND_CONTINUE)}
 						/>

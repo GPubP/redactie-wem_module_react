@@ -12,6 +12,7 @@ import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
 import {
 	AlertContainer,
 	DataLoader,
+	LoadingState,
 	OrderBy,
 	parseObjToOrderBy,
 	parseOrderByToObj,
@@ -19,8 +20,9 @@ import {
 	useNavigate,
 	useRoutes,
 } from '@redactie/utils';
-import React, { FC, ReactElement, useEffect } from 'react';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 
+import rolesRightsConnector from '../../connectors/rolesRights';
 import translationsConnector from '../../connectors/translations';
 import {
 	ALERT_IDS,
@@ -50,7 +52,12 @@ const EventsOverview: FC = () => {
 		breadcrumbsOptions(generatePath)
 	);
 
+	const [initialLoading, setInitialLoading] = useState(LoadingState.Loading);
 	const [t] = translationsConnector.useModuleTranslation();
+	const [
+		mySecurityRightsLoadingState,
+		mySecurityRights,
+	] = rolesRightsConnector.api.hooks.useMySecurityRightsForTenant(true);
 	const tabs = useTabs(MODULE_TABS, generatePath, t, location.pathname);
 
 	/**
@@ -58,6 +65,11 @@ const EventsOverview: FC = () => {
 	 */
 	const isDestinations = location.pathname.includes(EVENTS_MODULE_PATHS.DESTINATIONS.base);
 	const config = isDestinations ? destinationsConfig : deliveriesConfig;
+	const canCreate = rolesRightsConnector.api.helpers.checkSecurityRights(mySecurityRights, [
+		isDestinations
+			? rolesRightsConnector.securityRights.destinationCreate
+			: rolesRightsConnector.securityRights.deliveryCreate,
+	]);
 
 	/**
 	 * QUERIES
@@ -68,6 +80,15 @@ const EventsOverview: FC = () => {
 		sort: query.sort ?? '',
 		direction: query.direction ?? 1,
 	});
+
+	useEffect(() => {
+		if (
+			isFetching !== LoadingState.Loading &&
+			mySecurityRightsLoadingState !== LoadingState.Loading
+		) {
+			setInitialLoading(LoadingState.Loaded);
+		}
+	}, [isFetching, mySecurityRightsLoadingState]);
 
 	useEffect(() => {
 		config.facade.fetchAll(query);
@@ -115,18 +136,20 @@ const EventsOverview: FC = () => {
 				tabs={tabs}
 			>
 				<ContextHeaderTopSection>{breadcrumbs}</ContextHeaderTopSection>
-				<ContextHeaderActionsSection>
-					<Button iconLeft="plus" onClick={() => navigate(config.urls.create)}>
-						{t(TRANSLATIONS.NEW_BUTTON)}
-					</Button>
-				</ContextHeaderActionsSection>
+				{canCreate && (
+					<ContextHeaderActionsSection>
+						<Button iconLeft="plus" onClick={() => navigate(config.urls.create)}>
+							{t(TRANSLATIONS.NEW_BUTTON)}
+						</Button>
+					</ContextHeaderActionsSection>
+				)}
 			</ContextHeader>
 			<Container>
 				<AlertContainer
 					toastClassName="u-margin-bottom"
 					containerId={ALERT_IDS.EVENTS_INDEX}
 				/>
-				<DataLoader loadingState={isFetching} render={renderTable} />
+				<DataLoader loadingState={initialLoading} render={renderTable} />
 			</Container>
 		</>
 	);

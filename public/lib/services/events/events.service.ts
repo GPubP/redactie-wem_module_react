@@ -2,7 +2,7 @@ import { api } from '../api';
 
 import { EventOptionSchema, EventsResponseSchema } from './events.service.types';
 
-export const EVENTS_PATH = 'event-registry/v1/event-registry';
+export const EVENTS_PATH = 'event-registry/v1/events';
 
 export class EventsAPIService {
 	public async fetchAll(sort?: string): Promise<EventsResponseSchema> {

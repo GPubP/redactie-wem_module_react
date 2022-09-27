@@ -5,6 +5,8 @@ import {
 } from '../../services/destinations/destinations.service.types';
 
 export interface DestinationsFormProps {
+	canDelete: boolean;
+	canUpdate: boolean;
 	data: DestinationSchema | undefined;
 	onChange: ChangeHandlerFn;
 	validations: DestinationValidationType | undefined;

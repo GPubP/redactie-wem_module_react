@@ -9,6 +9,8 @@ import { renderActiveState } from '../utils/render.utilis';
 import { DeliveriesFormProps } from './DeliveriesCrud.types';
 
 const DeliveriesStatusEdit: FC<DeliveriesFormProps> = ({
+	canUpdate,
+	canDelete,
 	data,
 	onDelete,
 	changeActiveState,
@@ -32,7 +34,7 @@ const DeliveriesStatusEdit: FC<DeliveriesFormProps> = ({
 						</p>
 						<div className="m-button-group u-margin-top">
 							<Button
-								disabled={isLoading}
+								disabled={isLoading || !canUpdate}
 								onClick={changeActiveState}
 								className="u-margin-right-xs"
 							>
@@ -42,7 +44,7 @@ const DeliveriesStatusEdit: FC<DeliveriesFormProps> = ({
 							</Button>
 							<Button
 								onClick={onDelete}
-								disabled={isLoading}
+								disabled={isLoading || !canDelete}
 								iconLeft="trash"
 								type="danger"
 							>

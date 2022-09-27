@@ -16,10 +16,6 @@ interface DestinationRow extends BasicRow {
 }
 
 const destinationsColumns = (translator: (a: string) => string): TableColumn<DestinationRow>[] => {
-	// TODO ADD PERMISSIONS LATER
-	// const canUpdate = checkSecurityRights(mySecurityRights, [
-	// 	SecurityRightsSite.UsersUpdateSiteRoles,
-	//  ]);
 	const canUpdate = true;
 	const defaultColumns: TableColumn<DestinationRow>[] = [
 		{

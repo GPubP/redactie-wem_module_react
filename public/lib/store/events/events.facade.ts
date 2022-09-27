@@ -1,7 +1,7 @@
 import { alertService, BaseEntityFacade } from '@redactie/utils';
+
 import { ALERT_IDS } from '../../events.const';
 import { ALERT_TEXTS } from '../../i18next/alerts.text';
-
 import { eventsAPIService, EventsAPIService } from '../../services/events/events.service';
 import { EventsResponseSchema } from '../../services/events/events.service.types';
 
