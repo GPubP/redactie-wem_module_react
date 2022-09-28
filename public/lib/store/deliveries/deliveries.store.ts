@@ -17,6 +17,7 @@ export const generateNewDeliveryForm = (): DeliverySchema => ({
 	destinationId: '',
 	destinationName: '',
 	topic: '',
+	testEvent: '',
 	isActive: false,
 	createdAt: '',
 	updatedAt: '',

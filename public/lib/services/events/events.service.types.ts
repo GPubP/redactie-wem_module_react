@@ -16,6 +16,13 @@ interface EventOptionData {
 	specVersion: string;
 	version: string;
 	type: string;
+	dataSchema: {
+		definitions: {
+			datadef: {
+				examples: any[];
+			};
+		};
+	};
 }
 
 export interface EventOptionSchema {

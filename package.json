@@ -34,7 +34,9 @@
 		"@redactie:registry": "https://nexusrepo.antwerpen.be/repository/npm-private"
 	},
 	"devDependencies": {
+		"@a-ui/core": "^4.3.1",
 		"@acpaas-ui/react-components": "^3.4.1",
+		"@acpaas-ui/react-editorial-components": "^1.5.0",
 		"@babel/core": "7.15.5",
 		"@babel/plugin-proposal-class-static-block": "7.15.4",
 		"@babel/preset-env": "7.15.6",
@@ -51,7 +53,9 @@
 		"@testing-library/jest-dom": "5.0.2",
 		"@testing-library/react": "9.4.0",
 		"@types/jest": "24.9.1",
+		"@types/lodash": "^4.14.185",
 		"@types/react": "16.9.19",
+		"@types/react-json-editor-ajrm": "^2.5.3",
 		"@types/react-router-dom": "^5.3.3",
 		"@types/webpack-env": "^1.15.1",
 		"@typescript-eslint/eslint-plugin": "5.9.1",
@@ -70,9 +74,11 @@
 		"i18next-scanner-typescript": "^1.0.6",
 		"jest": "25.1.0",
 		"lint-staged": "10.0.8",
+		"lodash": "^4.17.21",
 		"node-sass": "4.13.1",
 		"npm": "6.13.7",
 		"prettier": "1.19.1",
+		"react-sortable-hoc": "^2.0.0",
 		"stylelint": "13.0.0",
 		"stylelint-config-standard": "19.0.0",
 		"ts-loader": "6.2.1",
@@ -80,16 +86,12 @@
 		"typescript": "4.4.3",
 		"webpack": "4.41.5",
 		"webpack-bundle-analyzer": "3.6.0",
-		"webpack-cli": "3.3.10",
-		"@types/lodash": "^4.14.185",
-		"lodash": "^4.17.21",
-		"react-sortable-hoc": "^2.0.0",
-		"@a-ui/core": "^4.3.1",
-		"@acpaas-ui/react-editorial-components": "^1.5.0"
+		"webpack-cli": "3.3.10"
 	},
 	"author": "Yapla",
 	"license": "ISC",
 	"dependencies": {
-		"@redactie/roles-rights-module": "^1.2.2"
+		"@redactie/roles-rights-module": "^1.2.2",
+		"react-json-editor-ajrm": "^2.5.13"
 	}
 }
