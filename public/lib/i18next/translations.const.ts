@@ -13,6 +13,7 @@ const TRANSLATIONS = Object.freeze({
 	DESTINATION_CREATED: tKey('DESTINATION_CREATED', 'Bestemming werd successvol aangemaakt.'),
 	DESTINATION_UPDATED: tKey('DESTINATION_UPDATED', 'Bestemming werd successvol bewaard.'),
 	DELETE: tKey('DELETE', 'Verwijderen'),
+	CANCEL: tKey('CANCEL', 'Annuleer'),
 	DELETED: tKey('DELETED', 'Verwijderd'),
 	DESTINATION_NAME_HELP: tKey(
 		'DESTINATION_NAME_HELP',
@@ -80,6 +81,11 @@ const TRANSLATIONS = Object.freeze({
 	EVENT_DOES_NOT_EXIST_MESSAGE: tKey(
 		'EVENT_DOES_NOT_EXIST_MESSAGE',
 		'Het gekozen event bestaat niet en is mogelijks verwijderd. Kies een ander event.'
+	),
+	DELETE_MODAL_TITLE: tKey('DELETE_MODAL_TITLE', 'Verwijderen?'),
+	DELETE_MODAL_DELIVERY_BODY: tKey(
+		'DELETE_MODAL_DELIVERY_BODY',
+		'Ben je zeker dat je deze aflevering wil verwijderen? Dit kan niet ongedaan gemaakt worden.'
 	),
 } as const);
 
