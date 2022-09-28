@@ -55,10 +55,10 @@ const TRANSLATIONS = Object.freeze({
 	STATUS: tKey('STATUS', 'Status'),
 	ACTIVE: tKey('ACTIVE', 'Actief'),
 	ACTIVATE: tKey('ACTIVATE', 'Activeren'),
-	DESACTIVATE: tKey('DESACTIVATE', 'Desactiveren'),
+	DESACTIVATE: tKey('DESACTIVATE', 'Deactiveren'),
 	DELIVERY_ACTIVE_HELP: tKey(
 		'DELIVERY_ACTIVE_HELP',
-		'Dit event is actief. Je kan het desactiveren of verwijderen.'
+		'Dit event is actief. Je kan het deactiveren of verwijderen.'
 	),
 	DELIVERY_NOT_ACTIVE_HELP: tKey(
 		'DELIVERY_NOT_ACTIVE_HELP',

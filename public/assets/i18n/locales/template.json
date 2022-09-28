@@ -36,8 +36,8 @@
   "STATUS": "Status",
   "ACTIVE": "Actief",
   "ACTIVATE": "Activeren",
-  "DESACTIVATE": "Desactiveren",
-  "DELIVERY_ACTIVE_HELP": "Dit event is actief. Je kan het desactiveren of verwijderen.",
+  "DESACTIVATE": "Deactiveren",
+  "DELIVERY_ACTIVE_HELP": "Dit event is actief. Je kan het deactiveren of verwijderen.",
   "DELIVERY_NOT_ACTIVE_HELP": "Dit event is niet actief. Je kan het activeren of verwijderen.",
   "NOT_ACTIVE": "Niet actief",
   "TO_EDIT": "bewerken",
@@ -45,6 +45,6 @@
   "OWNER_KEY_HELP": "Geef de owner key van de bestemming op om een namespace te kunnen selecteren.",
   "NAMESPACE_HELP": "Kies een naamruimte (namespace) binnen deze bestemming.",
   "REQUIRED": "Dit veld is verplicht",
-  "EVENT_DOES_NOT_EXIST_TITLE": "Waarschuwing",
-  "EVENT_DOES_NOT_EXIST_MESSAGE": "Het gekozen event bestaat niet en is mogelijks verwijderd. Kies een ander event."
+  "EVENT_DOES_NOT_EXIST_TITLE": "Pas op!",
+  "EVENT_DOES_NOT_EXIST_MESSAGE": "Geconfigureerde event bestaat niet in het register. Het is mogelijk verwijderd."
 }
