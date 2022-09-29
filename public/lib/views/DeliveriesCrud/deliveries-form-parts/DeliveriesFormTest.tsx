@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 
@@ -11,13 +11,25 @@ import { JSON_INPUT_COLORS, JSON_INPUT_STYLE, JSON_INPUT_THEME } from './Deliver
 import { JSONInputOnChangeValue } from './DeliveriesFormTest.types';
 
 const DeliveriesFormTest: FC<DeliveriesFormProps> = props => {
+	const eventDataExample = useMemo(() => {
+		const example =
+			props.eventOptions?.find(e => e.uuid === props.data?.eventId)?.data?.dataSchema
+				?.definitions?.datadef?.examples?.[0] ?? {};
+
+		if (props.data?.testEvent) {
+			try {
+				return JSON.parse(props.data.testEvent);
+			} catch (error) {
+				return example;
+			}
+		}
+
+		return example;
+	}, [props.data?.testEvent, props.data?.eventId, props.eventOptions]);
+
 	if (props.activeTab !== EVENT_DELIVERY_TEST_TAB) {
 		return null;
 	}
-
-	const eventDataExample =
-		props.eventOptions?.find(e => e.uuid === props.data?.eventId)?.data?.dataSchema?.definitions
-			?.datadef?.examples?.[0] ?? {};
 
 	const handleChange = (value: JSONInputOnChangeValue): void => {
 		if (!value.error) {
