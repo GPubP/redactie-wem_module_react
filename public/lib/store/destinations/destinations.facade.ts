@@ -116,7 +116,7 @@ export class DestinationsFacade extends BaseEntityFacade<
 			this.resetForm();
 			onSuccess();
 			setTimeout(() => {
-				alertService.success(ALERT_TEXTS(translator).DESTINATION.deleteOk, {
+				alertService.success(ALERT_TEXTS(translator).DESTINATIONS.deleteOk, {
 					containerId: ALERT_IDS.EVENTS_INDEX,
 				});
 			}, 500);
