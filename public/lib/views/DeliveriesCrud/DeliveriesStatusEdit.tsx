@@ -5,14 +5,8 @@ import React, { FC, useState } from 'react';
 import translationsConnector from '../../connectors/translations';
 import { TRANSLATIONS } from '../../i18next/translations.const';
 import { renderActiveState } from '../utils/render.utilis';
-import {
-	ControlledModal,
-	ControlledModalBody,
-	ControlledModalFooter,
-	ControlledModalHeader,
-} from '@acpaas-ui/react-editorial-components';
-
 import { DeliveriesFormProps } from './DeliveriesCrud.types';
+import Modal from '../../components/Modal/Modal';
 
 const DeliveriesStatusEdit: FC<DeliveriesFormProps> = ({
 	canUpdate,
@@ -76,33 +70,26 @@ const DeliveriesStatusEdit: FC<DeliveriesFormProps> = ({
 					</div>
 				</div>
 			</div>
-			<ControlledModal
+			<Modal
 				show={showDeleteModal}
 				onClose={onDeleteModalPromptCancel}
 				size="large"
-			>
-				<ControlledModalHeader>
-					<h4>{t(TRANSLATIONS.DELETE_MODAL_TITLE)}</h4>
-				</ControlledModalHeader>
-				<ControlledModalBody>
-					{t(TRANSLATIONS.DELETE_MODAL_DELIVERY_BODY)}
-				</ControlledModalBody>
-				<ControlledModalFooter>
-					<div className="u-flex u-flex-item u-flex-justify-end">
-						<Button onClick={onDeleteModalPromptCancel} negative>
-							{t(TRANSLATIONS.CANCEL)}
-						</Button>
-						<Button
-							iconLeft="trash-o"
-							// disabled={isSubmitting}
-							onClick={onDeleteConfirm}
-							type={'danger'}
-						>
-							{t(TRANSLATIONS.DELETE)}
-						</Button>
-					</div>
-				</ControlledModalFooter>
-			</ControlledModal>
+				title={t(TRANSLATIONS.DELETE_MODAL_TITLE)}
+				body={t(TRANSLATIONS.DELETE_MODAL_DELIVERY_BODY)}
+				actions={[
+					{
+						title: t(TRANSLATIONS.CANCEL),
+						onClick: onDeleteModalPromptCancel,
+						negative: true,
+					},
+					{
+						title: t(TRANSLATIONS.DELETE),
+						onClick: onDeleteConfirm,
+						iconLeft: 'trash-o',
+						type: 'danger',
+					},
+				]}
+			/>
 		</>
 	) : null;
 };
