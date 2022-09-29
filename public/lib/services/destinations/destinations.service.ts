@@ -31,6 +31,10 @@ export class DestinationsAPIService {
 	public async fetchOne(id: string): Promise<DestinationSchema> {
 		return api.get(`${DESTINATIONS_PATH}/${id}`).json();
 	}
+
+	public async delete(id: string | undefined): Promise<void> {
+		return api.delete(`${DESTINATIONS_PATH}/${id}`).then();
+	}
 }
 
 export const destinationsAPIService = new DestinationsAPIService();

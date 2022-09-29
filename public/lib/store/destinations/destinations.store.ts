@@ -10,6 +10,7 @@ export const generateNewDestinationForm = (): DestinationSchema => ({
 	name: '',
 	description: '',
 	ownerKey: '',
+	usedInCount: 0,
 	namespace: '',
 	createdAt: '',
 	updatedAt: '',

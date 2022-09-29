@@ -86,6 +86,10 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 		destinationsFacade.submit(formData, t, navigateToIndex);
 	};
 
+	const onDelete = (): void => {
+		destinationsFacade.delete(formData?.id, t, navigateToIndex);
+	};
+
 	/**
 	 * RENDER FORM
 	 */
@@ -117,6 +121,7 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 						data={formData}
 						onChange={onFieldChange}
 						validations={formValidation?.feedback}
+						onDelete={onDelete}
 					/>
 				)}
 				<ActionBar className="o-action-bar--fixed" isOpen>

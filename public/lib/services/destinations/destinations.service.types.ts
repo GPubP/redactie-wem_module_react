@@ -14,6 +14,7 @@ export interface DestinationSchema {
 	description: string;
 	ownerKey: string;
 	namespace: string;
+	usedInCount: number;
 	createdAt: string;
 	updatedAt: string;
 }

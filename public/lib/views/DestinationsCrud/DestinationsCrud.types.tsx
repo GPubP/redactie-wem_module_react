@@ -7,6 +7,7 @@ import {
 export interface DestinationsFormProps {
 	canDelete: boolean;
 	canUpdate: boolean;
+	onDelete: () => void;
 	data: DestinationSchema | undefined;
 	onChange: ChangeHandlerFn;
 	validations: DestinationValidationType | undefined;

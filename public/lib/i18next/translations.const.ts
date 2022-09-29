@@ -12,6 +12,15 @@ const TRANSLATIONS = Object.freeze({
 	DELIVERY_NEW: tKey('DELIVERY_NEW', 'Nieuwe aflevering aanmaken'),
 	DESTINATION_CREATED: tKey('DESTINATION_CREATED', 'Bestemming werd successvol aangemaakt.'),
 	DESTINATION_UPDATED: tKey('DESTINATION_UPDATED', 'Bestemming werd successvol bewaard.'),
+	DESTINATION_DELETED: tKey('DESTINATION_DELETED', 'Bestemming werd successvol verwijderd.'),
+	DESTINATION_CAN_DELETE: tKey(
+		'DESTINATION_CAN_DELETE',
+		'Opgelet: indien je deze bestemming verwijdert kan deze niet meer gebruikt worden door afleveringen.'
+	),
+	DESTINATION_CANNOT_DELETE: tKey(
+		'DESTINATION_CANNOT_DELETE',
+		'Deze bestemming wordt gebruikt in :usedInCount: afleveringen waardoor deze niet verwijderd kan worden. '
+	),
 	DELETE: tKey('DELETE', 'Verwijderen'),
 	CANCEL: tKey('CANCEL', 'Annuleer'),
 	DELETED: tKey('DELETED', 'Verwijderd'),
@@ -86,6 +95,10 @@ const TRANSLATIONS = Object.freeze({
 	DELETE_MODAL_DELIVERY_BODY: tKey(
 		'DELETE_MODAL_DELIVERY_BODY',
 		'Ben je zeker dat je deze aflevering wil verwijderen? Dit kan niet ongedaan gemaakt worden.'
+	),
+	DELETE_MODAL_DESTINATION_BODY: tKey(
+		'DELETE_MODAL_EVENT_BODY',
+		'Ben je zeker dat je deze bestemming wil verwijderen? Dit kan niet ongedaan gemaakt worden.'
 	),
 } as const);
 
