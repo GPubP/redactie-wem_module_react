@@ -111,7 +111,6 @@ export class DeliveriesFacade extends BaseEntityFacade<
 	): Promise<void> {
 		this.store.setIsCreating(true);
 		return this.service.delete(id).then(() => {
-			console.log('deleted');
 			this.resetForm();
 			onSuccess();
 			setTimeout(() => {

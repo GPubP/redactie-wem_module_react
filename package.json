@@ -1,6 +1,6 @@
 {
 	"name": "@redactie/wem-module",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "redactie wem module",
 	"main": "dist/redactie-wem-module.umd.js",
 	"module": "dist/redactie-wem-module.umd.js",
