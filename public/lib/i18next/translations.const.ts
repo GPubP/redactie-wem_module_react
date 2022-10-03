@@ -23,6 +23,7 @@ const TRANSLATIONS = Object.freeze({
 	),
 	DELETE: tKey('DELETE', 'Verwijderen'),
 	CANCEL: tKey('CANCEL', 'Annuleer'),
+	CREATE: tKey('CREATE', 'Aanmaken'),
 	DELETED: tKey('DELETED', 'Verwijderd'),
 	DESTINATION_NAME_HELP: tKey(
 		'DESTINATION_NAME_HELP',
@@ -46,6 +47,7 @@ const TRANSLATIONS = Object.freeze({
 		'Selecteer de bestemming voor dit event.'
 	),
 	DELIVERY_TOPIC_HELP: tKey('DELIVERY_TOPIC_HELP', 'Selecteer een topic voor dit event.'),
+	DELIVERY_TOPIC_CREATE: tKey('DELIVERY_TOPIC_CREATE', 'Nieuw topic toevoegen'),
 	DELIVERY_CREATED: tKey('DELIVERY_CREATED', 'Aflevering werd successvol aangemaakt.'),
 	DELIVERY_UPDATED: tKey('DELIVERY_UPDATED', 'Aflevering werd successvol bewaard.'),
 	DELIVERY_DELETED: tKey('DELIVERY_DELETED', 'Aflevering werd successvol verwijderd.'),
@@ -100,6 +102,9 @@ const TRANSLATIONS = Object.freeze({
 		'DELETE_MODAL_EVENT_BODY',
 		'Ben je zeker dat je deze bestemming wil verwijderen? Dit kan niet ongedaan gemaakt worden.'
 	),
+	CREATE_TOPIC_MODAL_TITLE: tKey('CREATE_TOPIC_MODAL_TITLE', 'Topic Aanmaken'),
+	CREATE_TOPIC_MODAL_BODY: tKey('CREATE_TOPIC_MODAL_BODY', 'Je maakt een topic aan binnen '),
+	TOPIC_CREATED: tKey('TOPIC_CREATED', 'Topic werd successvol aangemaakt.'),
 } as const);
 
 export { TRANSLATIONS };

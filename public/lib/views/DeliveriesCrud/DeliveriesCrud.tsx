@@ -138,6 +138,13 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 		deliveriesFacade.delete(formData?.id, t, navigateToIndex);
 	};
 
+	// TODO PV ADD CREATE TOPIC
+	const onTopicSubmit = (name: string): void => {
+		const body = { name: name, namespace: formData?.destinationNamespace };
+		topicsFacade.submit(formData?.id, body, t, navigateToDetails);
+		// TODO PV check if topics need to be refetched
+	};
+
 	/**
 	 * RENDER FORM
 	 */
@@ -181,6 +188,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 						isFetchingDestinations={isFetchingDestinations === LoadingState.Loading}
 						topicOptions={topicOptions}
 						isFetchingTopics={isFetchingTopics === LoadingState.Loading}
+						onAddTopic={onTopicSubmit}
 					/>
 				)}
 				<ActionBar className="o-action-bar--fixed" isOpen>

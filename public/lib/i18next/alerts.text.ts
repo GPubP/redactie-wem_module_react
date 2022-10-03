@@ -33,4 +33,10 @@ export const ALERT_TEXTS = (translator: (a: string) => string): any => ({
 			message: translator(TRANSLATIONS.EVENT_DOES_NOT_EXIST_MESSAGE),
 		},
 	},
+	TOPICS: {
+		createOk: {
+			title: translator(TRANSLATIONS.CREATED),
+			message: translator(TRANSLATIONS.TOPIC_CREATED),
+		},
+	},
 });

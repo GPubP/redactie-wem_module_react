@@ -23,6 +23,9 @@
 		border-right: 1px solid #b0b0b0;
 		border-top: 1px solid #b0b0b0;
 	}
+	&__bottomcontent {
+		border-top: 1px solid #d8d8d8 !important;
+	}
 	&__select-item {
 		display: flex;
 		.wem-a-checkbox {

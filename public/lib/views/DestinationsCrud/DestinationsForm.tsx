@@ -1,13 +1,14 @@
 /* eslint-disable import/no-unresolved */
-import { Textarea, TextField, Button } from '@acpaas-ui/react-components';
+import { Button, Textarea, TextField } from '@acpaas-ui/react-components';
 import React, { FC, FormEvent, useState } from 'react';
+
+import Modal from '../../components/Modals/Modal';
 import FieldDescription from '../../components/forms/FieldDescription';
 import translationsConnector from '../../connectors/translations';
 import { TRANSLATIONS } from '../../i18next/translations.const';
 import { errorState, errorText } from '../utils/form.utils';
 
 import { DestinationsFormProps } from './DestinationsCrud.types';
-import Modal from '../../components/Modal/Modal';
 
 const DestinationsForm: FC<DestinationsFormProps> = props => {
 	const [t] = translationsConnector.useModuleTranslation();

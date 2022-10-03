@@ -13,6 +13,7 @@
   "DESTINATION_CANNOT_DELETE": "Deze bestemming wordt gebruikt in :usedInCount: afleveringen waardoor deze niet verwijderd kan worden. ",
   "DELETE": "Verwijderen",
   "CANCEL": "Annuleer",
+  "CREATE": "Aanmaken",
   "DELETED": "Verwijderd",
   "DESTINATION_NAME_HELP": "Geef deze bestemming een korte en duidelijke naam.",
   "DESTINATION_DESCRIPTION_HELP": "Geef deze bestemming een beschrijving voor in het overzicht.",
@@ -21,6 +22,7 @@
   "DELIVERY_EVENT_HELP": "Selecteer het event.",
   "DELIVERY_DESTINATION_HELP": "Selecteer de bestemming voor dit event.",
   "DELIVERY_TOPIC_HELP": "Selecteer een topic voor dit event.",
+  "DELIVERY_TOPIC_CREATE": "Nieuw topic toevoegen",
   "DELIVERY_CREATED": "Aflevering werd successvol aangemaakt.",
   "DELIVERY_UPDATED": "Aflevering werd successvol bewaard.",
   "DELIVERY_DELETED": "Aflevering werd successvol verwijderd.",
@@ -53,5 +55,8 @@
   "EVENT_DOES_NOT_EXIST_MESSAGE": "Het gekozen event bestaat niet en is mogelijks verwijderd. Kies een ander event.",
   "DELETE_MODAL_TITLE": "Verwijderen?",
   "DELETE_MODAL_DELIVERY_BODY": "Ben je zeker dat je deze aflevering wil verwijderen? Dit kan niet ongedaan gemaakt worden.",
-  "DELETE_MODAL_EVENT_BODY": "Ben je zeker dat je deze bestemming wil verwijderen? Dit kan niet ongedaan gemaakt worden."
+  "DELETE_MODAL_EVENT_BODY": "Ben je zeker dat je deze bestemming wil verwijderen? Dit kan niet ongedaan gemaakt worden.",
+  "CREATE_TOPIC_MODAL_TITLE": "Topic Aanmaken",
+  "CREATE_TOPIC_MODAL_BODY": "Je maakt een topic aan binnen ",
+  "TOPIC_CREATED": "Topic werd successvol aangemaakt."
 }

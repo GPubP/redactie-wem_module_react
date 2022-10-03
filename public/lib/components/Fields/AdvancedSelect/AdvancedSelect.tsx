@@ -132,6 +132,7 @@ class AdvancedSelect extends Component<any, any> {
 				<FlyoutMenu
 					name={this.props.name}
 					topContent={this.props.topContent}
+					bottomContent={this.props.bottomContent}
 					disableSearch={this.props.disableSearch}
 					checkboxes={this.props.multiple}
 					selection={this.props.value}

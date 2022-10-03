@@ -19,6 +19,7 @@ export interface DeliverySchema {
 	eventVersion: string;
 	destinationId: string;
 	destinationName: string;
+	destinationNamespace?: string;
 	testEvent: string;
 	topic: string;
 	isActive: boolean;

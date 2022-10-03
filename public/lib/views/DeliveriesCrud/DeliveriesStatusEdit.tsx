@@ -2,11 +2,12 @@
 import { Button } from '@acpaas-ui/react-components';
 import React, { FC, useState } from 'react';
 
+import Modal from '../../components/Modals/Modal';
 import translationsConnector from '../../connectors/translations';
 import { TRANSLATIONS } from '../../i18next/translations.const';
 import { renderActiveState } from '../utils/render.utilis';
+
 import { DeliveriesFormProps } from './DeliveriesCrud.types';
-import Modal from '../../components/Modal/Modal';
 
 const DeliveriesStatusEdit: FC<DeliveriesFormProps> = ({
 	canUpdate,

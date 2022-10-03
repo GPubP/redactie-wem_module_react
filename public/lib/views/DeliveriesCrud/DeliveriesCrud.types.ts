@@ -31,4 +31,5 @@ export interface DeliveriesFormProps {
 	isFetchingEvents: boolean;
 	topicOptions: TopicOptionSchema[];
 	isFetchingTopics: boolean;
+	onAddTopic: (name: string) => void;
 }

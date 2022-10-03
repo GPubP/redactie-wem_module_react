@@ -52,6 +52,7 @@ class FlyoutMenu extends Component<any, any> {
 			window.addEventListener('mousedown', this._handleFlyoutContentOutsideClick);
 		}
 	}
+
 	componentDidUpdate(prevProps: any) {
 		if (prevProps.isOpen && !this.props.isOpen) {
 			this.setState({ search: '' });
@@ -164,6 +165,7 @@ class FlyoutMenu extends Component<any, any> {
 		});
 		return [filteredOptions, filtered];
 	};
+
 	render() {
 		if (this.props.isOpen) {
 			const { sortFunction, isOpen, position, onClose, hasMinWidth } = this.props;
@@ -234,10 +236,20 @@ class FlyoutMenu extends Component<any, any> {
 							{sortFunction ? (
 								<SortableContainer onSortEnd={this._onSortEnd} useDragHandle>
 									{filteredOptions}
+									{this.props.bottomContent && (
+										<li className={'wem-m-flyout-menu__bottomcontent'}>
+											{this.props.bottomContent}
+										</li>
+									)}
 								</SortableContainer>
 							) : (
 								<ul className="m-selectable-list m-selectable-list--no-border">
 									{filteredOptions}
+									{this.props.bottomContent && (
+										<li className={'wem-m-flyout-menu__bottomcontent'}>
+											{this.props.bottomContent}
+										</li>
+									)}
 								</ul>
 							)}
 						</div>

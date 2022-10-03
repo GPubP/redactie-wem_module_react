@@ -1,22 +1,22 @@
-import React, { FC } from 'react';
+import { Button } from '@acpaas-ui/react-components';
 import {
 	ControlledModal,
 	ControlledModalBody,
 	ControlledModalFooter,
 	ControlledModalHeader,
 } from '@acpaas-ui/react-editorial-components';
-import { Button } from '@acpaas-ui/react-components';
+import React, { FC, ReactElement } from 'react';
 
-interface ModalProps {
+export interface ModalProps {
 	show: boolean;
 	onClose: () => void;
 	size: string;
 	title: string;
-	body: string;
+	body: string | ReactElement;
 	actions: ModalFooterAction[];
 }
 
-interface ModalFooterAction {
+export interface ModalFooterAction {
 	title: string;
 	onClick: () => void;
 	negative?: boolean;
