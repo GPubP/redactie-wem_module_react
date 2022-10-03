@@ -13,6 +13,7 @@ const DELIVERIES_REQUIRED_FIELDS = [
 	'eventSource',
 	'event',
 	'eventVersion',
+	'eventType',
 ];
 
 export function validateDelivery(body: DeliverySchema | undefined): DeliveryValidationSchema {
@@ -23,6 +24,9 @@ export function validateDelivery(body: DeliverySchema | undefined): DeliveryVali
 			? validateRequired('source', body?.eventSource, DELIVERIES_REQUIRED_FIELDS)
 			: ValidationState.Ok,
 		event: body?.id
+			? validateRequired('event', body?.event, DELIVERIES_REQUIRED_FIELDS)
+			: ValidationState.Ok,
+		eventType: body?.id
 			? validateRequired('event', body?.event, DELIVERIES_REQUIRED_FIELDS)
 			: ValidationState.Ok,
 		eventDescription: ValidationState.Ok,
