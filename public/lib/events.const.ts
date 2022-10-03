@@ -68,5 +68,4 @@ export const ALERT_IDS = {
 	EVENTS_INDEX: 'events-index',
 	DESTINATIONS_CRUD: 'destinations-crud',
 	DELIVERIES_CRUD: 'deliveries-crud',
-	TOPICS_CRUD: 'topics-crud',
 };

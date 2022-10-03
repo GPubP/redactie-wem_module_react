@@ -1,6 +1,7 @@
 export const enum ValidationState {
 	Required = 'required',
 	Ok = 'ok',
+	Incorrect = 'incorrect',
 }
 
 export function validateRequired(

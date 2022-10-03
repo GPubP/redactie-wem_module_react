@@ -17,6 +17,9 @@ export function errorText(
 ): string {
 	const validationsSafe = validations || {};
 	const state: ValidationState = validationsSafe[field] || ValidationState.Ok;
+	if (state === ValidationState.Ok) {
+		return '';
+	}
 	if (state === ValidationState.Required) {
 		return translator(TRANSLATIONS.REQUIRED);
 	}

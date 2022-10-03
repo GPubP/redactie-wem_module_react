@@ -105,6 +105,7 @@ class AdvancedSelect extends Component<any, any> {
 				}`}
 			>
 				<label className={`a-input__label`}>{this.props.label}</label>
+				{}
 				{this.props.showAsText ? (
 					<div className="wem-a-readfield wem-a-readfield--full-height">
 						{calculatedValue}

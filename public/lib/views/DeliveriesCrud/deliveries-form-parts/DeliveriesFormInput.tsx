@@ -8,6 +8,9 @@ import FieldDescription from '../../../components/forms/FieldDescription';
 import translationsConnector from '../../../connectors/translations';
 import { EVENT_DELIVERY_INPUT_TAB } from '../../../events.const';
 import { TRANSLATIONS } from '../../../i18next/translations.const';
+import { TopicValidationSchema } from '../../../services/topics/topics.service.types';
+import { validateTopic } from '../../../services/topics/topics.validations';
+import { ValidationState } from '../../../services/validation.helpers';
 import { errorState, errorText } from '../../utils/form.utils';
 import { DeliveriesFormProps } from '../DeliveriesCrud.types';
 
@@ -19,8 +22,17 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 	const [t] = translationsConnector.useModuleTranslation();
 	const [showCreateTopicModal, setShowCreateTopicModal] = useState(false);
 	const [newTopicName, setNewTopicName] = useState('');
+	const [topicValidation, setTopicValidation] = useState<TopicValidationSchema>({
+		valid: false,
+		feedback: { name: ValidationState.Required },
+	});
+
+	console.log(topicValidation);
 
 	const onOpenCreateTopicModal = (): void => {
+		const prefilledName = `${props.data?.name?.replace(/ /, '-')}.` ?? '';
+		setNewTopicName(prefilledName);
+		setTopicValidation(validateTopic({ name: prefilledName }));
 		setShowCreateTopicModal(true);
 	};
 
@@ -30,12 +42,14 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 	};
 
 	const onCreateTopic = (): void => {
-		props.onAddTopic(newTopicName);
-		setShowCreateTopicModal(false);
-		setNewTopicName('');
+		props.onAddTopic(newTopicName, () => {
+			setShowCreateTopicModal(false);
+			setNewTopicName('');
+		});
 	};
 
 	const onInputModal = (value: string): void => {
+		setTopicValidation(validateTopic({ name: value }));
 		setNewTopicName(value);
 	};
 
@@ -146,11 +160,11 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 								onChange={(selected: any) => {
 									props.onChange(selected, 'topic');
 								}}
-								bottomContent={
+								topContent={
 									props?.data?.destinationNamespace ? (
 										<span
 											className={`m-selectable-list__item wem-m-flyout-menu__select-item`}
-											onClick={() => onOpenCreateTopicModal()}
+											onClick={onOpenCreateTopicModal}
 										>
 											{t(TRANSLATIONS.DELIVERY_TOPIC_CREATE)}
 										</span>
@@ -203,7 +217,18 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 								onChange={(e: ChangeEvent<HTMLInputElement>): void =>
 									onInputModal(e?.target?.value)
 								}
-								// state={errorState(props.validations, 'name')}
+								loading={props.isCreatingTopic}
+								disabled={props.isCreatingTopic}
+								state={errorState(topicValidation.feedback, 'name')}
+							/>
+							<FieldDescription
+								message={errorText(
+									t,
+									topicValidation.feedback,
+									'name',
+									TRANSLATIONS.DELIVERY_TOPIC_CREATE_ERROR_MESSAGE
+								)}
+								state={errorState(topicValidation.feedback, 'name')}
 							/>
 						</div>
 					</>
@@ -216,6 +241,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 					},
 					{
 						title: t(TRANSLATIONS.CREATE),
+						disabled: props.isCreatingTopic || !topicValidation.valid,
 						onClick: onCreateTopic,
 					},
 				]}

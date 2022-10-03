@@ -49,7 +49,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	const [formData, isCreating, formValidation, isFetching] = useDeliveriesForm();
 	const [destinationsOptions, page, isFetchingDestinations] = useDestinations();
 	const [eventOptions, isFetchingEvents] = useEvents();
-	const [topicOptions, isFetchingTopics] = useTopics();
+	const [topicOptions, isFetchingTopics, isCreatingTopic] = useTopics();
 
 	const currentDestination = useMemo(
 		() => destinationsOptions.find(d => d.id === formData?.destinationId),
@@ -138,11 +138,11 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 		deliveriesFacade.delete(formData?.id, t, navigateToIndex);
 	};
 
-	// TODO PV ADD CREATE TOPIC
-	const onTopicSubmit = (name: string): void => {
-		const body = { name: name, namespace: formData?.destinationNamespace };
-		topicsFacade.submit(formData?.id, body, t, navigateToDetails);
-		// TODO PV check if topics need to be refetched
+	const onTopicSubmit = (name: string, onSuccess: (topicName: string) => void): void => {
+		topicsFacade.submit(formData?.destinationId ?? '', { name }, t, createdTopic => {
+			onFieldChange(createdTopic, 'topic');
+			onSuccess(createdTopic);
+		});
 	};
 
 	/**
@@ -189,6 +189,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 						topicOptions={topicOptions}
 						isFetchingTopics={isFetchingTopics === LoadingState.Loading}
 						onAddTopic={onTopicSubmit}
+						isCreatingTopic={isCreatingTopic === LoadingState.Loading}
 					/>
 				)}
 				<ActionBar className="o-action-bar--fixed" isOpen>

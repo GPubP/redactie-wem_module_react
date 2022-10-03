@@ -48,6 +48,10 @@ const TRANSLATIONS = Object.freeze({
 	),
 	DELIVERY_TOPIC_HELP: tKey('DELIVERY_TOPIC_HELP', 'Selecteer een topic voor dit event.'),
 	DELIVERY_TOPIC_CREATE: tKey('DELIVERY_TOPIC_CREATE', 'Nieuw topic toevoegen'),
+	DELIVERY_TOPIC_CREATE_ERROR_MESSAGE: tKey(
+		'DELIVERY_TOPIC_CREATE_ERROR_MESSAGE',
+		"Alleen letters, cijfers en '-', '.' tekens zijn toegestaan."
+	),
 	DELIVERY_CREATED: tKey('DELIVERY_CREATED', 'Aflevering werd successvol aangemaakt.'),
 	DELIVERY_UPDATED: tKey('DELIVERY_UPDATED', 'Aflevering werd successvol bewaard.'),
 	DELIVERY_DELETED: tKey('DELIVERY_DELETED', 'Aflevering werd successvol verwijderd.'),
