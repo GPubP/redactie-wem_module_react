@@ -1,4 +1,5 @@
 /* eslint-disable import/no-unresolved */
+import { Button } from '@acpaas-ui/react-components';
 import {
 	ActionBar,
 	ActionBarContentSection,
@@ -12,7 +13,12 @@ import React, { FC, useEffect, useMemo } from 'react';
 
 import rolesRightsConnector from '../../connectors/rolesRights';
 import translationsConnector from '../../connectors/translations';
-import { ALERT_IDS, EVENT_DELIVERIES_TABS, EVENTS_MODULE_PATHS } from '../../events.const';
+import {
+	ALERT_IDS,
+	EVENT_DELIVERIES_TABS,
+	EVENT_DELIVERY_TEST_TAB,
+	EVENTS_MODULE_PATHS,
+} from '../../events.const';
 import useDeliveriesForm from '../../hooks/store/useDeliveriesForm';
 import useDestinations from '../../hooks/store/useDestinations';
 import useEvents from '../../hooks/store/useEvents';
@@ -46,7 +52,14 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	const { navigate, generatePath } = useNavigate();
 	const [t] = translationsConnector.useModuleTranslation();
 
-	const [formData, isCreating, formValidation, isFetching] = useDeliveriesForm();
+	const [
+		formData,
+		isCreating,
+		formValidation,
+		isFetching,
+		isSendingTestEvent,
+		canSendTestEvent,
+	] = useDeliveriesForm();
 	const [destinationsOptions, page, isFetchingDestinations] = useDestinations();
 	const [eventOptions, isFetchingEvents] = useEvents();
 	const [topicOptions, isFetchingTopics, isCreatingTopic] = useTopics();
@@ -57,6 +70,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	);
 
 	const activeTabs = useActiveTabs(EVENT_DELIVERIES_TABS, location.pathname);
+	const activeTab = activeTabs?.find(tab => tab.active)?.target;
 
 	const [
 		mySecurityRightsLoadingState,
@@ -130,6 +144,22 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	const onSubmit = (): void => {
 		deliveriesFacade.submit(formData, t, navigateToDetails, {});
 	};
+	const onSendTestEvent = (): void => {
+		const testEvent = formData?.testEvent
+			? JSON.parse(formData?.testEvent ?? '')
+			: eventOptions?.find(e => e.uuid === formData?.eventId)?.data?.dataSchema?.definitions
+					?.datadef?.examples?.[0] ?? {};
+
+		deliveriesFacade.sendTestEvent(
+			{
+				eventBody: testEvent,
+				ownerKey: formData?.destinationOwnerKey ?? '',
+				namespace: formData?.destinationNamespace ?? '',
+				topic: formData?.topic ?? '',
+			},
+			t
+		);
+	};
 	const changeActiveState = (): void => {
 		deliveriesFacade.updateField(!formData?.isActive, 'isActive');
 		deliveriesFacade.submit(formData, t, navigateToDetails, { isActive: !formData?.isActive });
@@ -175,7 +205,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 					<DeliveriesForm
 						canUpdate={canUpdate}
 						canDelete={canDelete}
-						activeTab={activeTabs?.find(tab => tab.active)?.target}
+						activeTab={activeTab}
 						data={formData}
 						onDelete={onDelete}
 						changeActiveState={changeActiveState}
@@ -199,6 +229,26 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 							onSubmit={canUpdate ? onSubmit : undefined}
 							onCancel={onCancel}
 							submitLabel={modelId ? '' : t(TRANSLATIONS.SAVE_AND_CONTINUE)}
+							extraActions={
+								activeTab === EVENT_DELIVERY_TEST_TAB
+									? [
+											<Button
+												key="delivery-test-action"
+												iconLeft={
+													isSendingTestEvent
+														? 'circle-o-notch fa-spin'
+														: null
+												}
+												outline
+												disabled={!canSendTestEvent || isSendingTestEvent}
+												className="u-margin-right-xs"
+												onClick={onSendTestEvent}
+											>
+												{t(TRANSLATIONS.DELIVERY_SEND_TEST_EVENT)}
+											</Button>,
+									  ]
+									: []
+							}
 						/>
 					</ActionBarContentSection>
 				</ActionBar>

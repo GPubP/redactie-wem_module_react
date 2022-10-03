@@ -11,14 +11,25 @@ const useDeliveriesForm = (): [
 	DeliverySchema | undefined,
 	LoadingState,
 	DeliveryValidationSchema | undefined,
-	LoadingState
+	LoadingState,
+	boolean,
+	boolean
 ] => {
 	const isCreating = useObservable(deliveriesFacade.isCreating$, LoadingState.Loaded);
 	const formData = useObservable(deliveriesFacade.formData$, generateNewDeliveryForm());
 	const formValidation = useObservable(deliveriesFacade.formValidation$);
 	const isFetchingOne = useObservable(deliveriesFacade.isFetchingOne$, LoadingState.Loaded);
+	const isSendingTestEvent = useObservable(deliveriesFacade.isSendingTestEvent$, false);
+	const canSendTestEvent = useObservable(deliveriesFacade.canSendTestEvent$, false);
 
-	return [formData, isCreating, formValidation, isFetchingOne];
+	return [
+		formData,
+		isCreating,
+		formValidation,
+		isFetchingOne,
+		isSendingTestEvent,
+		canSendTestEvent,
+	];
 };
 
 export default useDeliveriesForm;

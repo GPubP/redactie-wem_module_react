@@ -2,7 +2,11 @@ import { DEFAULT_PAGINATION } from '../../events.const';
 import { api } from '../api';
 import { ModelCreateResponseSchema, ModelUpdateResponseSchema } from '../services.types';
 
-import { DeliveriesResponseSchema, DeliverySchema } from './deliveries.service.types';
+import {
+	DeliveriesResponseSchema,
+	DeliverySchema,
+	TestEventSchema,
+} from './deliveries.service.types';
 
 export const DELIVERIES_PATH = 'wem/v1/event-episodes';
 
@@ -38,6 +42,11 @@ export class DeliveriesAPIService {
 
 	public async delete(id: string | undefined): Promise<void> {
 		return api.delete(`${DELIVERIES_PATH}/${id}`).then();
+	}
+
+	public async sendTestEvent(body: TestEventSchema): Promise<void> {
+		// return new Promise(r => setTimeout(() => r(), 2300));
+		return api.post(`${DELIVERIES_PATH}/test-event`, { json: body }).json();
 	}
 }
 

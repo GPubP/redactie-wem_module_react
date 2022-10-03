@@ -1,16 +1,19 @@
 /* eslint-disable import/no-unresolved */
-import React, { FC, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 
 import FieldDescription from '../../../components/forms/FieldDescription';
 import { EVENT_DELIVERY_TEST_TAB } from '../../../events.const';
+import { deliveriesFacade } from '../../../store/deliveries/deliveries.facade';
 import { DeliveriesFormProps } from '../DeliveriesCrud.types';
 
 import { JSON_INPUT_COLORS, JSON_INPUT_STYLE, JSON_INPUT_THEME } from './DeliveriesFormTest.const';
 import { JSONInputOnChangeValue } from './DeliveriesFormTest.types';
 
 const DeliveriesFormTest: FC<DeliveriesFormProps> = props => {
+	const [startedInput, setStartedInput] = useState(false);
+
 	const eventDataExample = useMemo(() => {
 		const example =
 			props.eventOptions?.find(e => e.uuid === props.data?.eventId)?.data?.dataSchema
@@ -28,12 +31,21 @@ const DeliveriesFormTest: FC<DeliveriesFormProps> = props => {
 	}, [props.data?.testEvent, props.data?.eventId, props.eventOptions]);
 
 	if (props.activeTab !== EVENT_DELIVERY_TEST_TAB) {
+		if (startedInput) {
+			setStartedInput(false);
+		}
 		return null;
 	}
 
 	const handleChange = (value: JSONInputOnChangeValue): void => {
+		if (!startedInput) {
+			setStartedInput(true);
+		}
 		if (!value.error) {
 			props.onChange(value?.json ?? '', 'testEvent');
+			deliveriesFacade.setCanSendTestEvent(true);
+		} else {
+			deliveriesFacade.setCanSendTestEvent(false);
 		}
 	};
 
@@ -45,7 +57,7 @@ const DeliveriesFormTest: FC<DeliveriesFormProps> = props => {
 						<label className="a-input__label">Event</label>
 						<JSONInput
 							id="delivery-event-test"
-							placeholder={eventDataExample}
+							placeholder={startedInput ? undefined : eventDataExample}
 							theme={JSON_INPUT_THEME}
 							colors={JSON_INPUT_COLORS}
 							style={JSON_INPUT_STYLE}

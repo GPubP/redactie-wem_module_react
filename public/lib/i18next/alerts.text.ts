@@ -1,6 +1,6 @@
 import { TRANSLATIONS } from './translations.const';
 
-export const ALERT_TEXTS = (translator: (a: string) => string): any => ({
+export const ALERT_TEXTS = (translator: (a: string) => string, data?: any): any => ({
 	DESTINATIONS: {
 		createOk: {
 			title: translator(TRANSLATIONS.CREATED),
@@ -31,6 +31,12 @@ export const ALERT_TEXTS = (translator: (a: string) => string): any => ({
 		eventDoesNotExist: {
 			title: translator(TRANSLATIONS.EVENT_DOES_NOT_EXIST_TITLE),
 			message: translator(TRANSLATIONS.EVENT_DOES_NOT_EXIST_MESSAGE),
+		},
+		testEventOk: {
+			title: translator(TRANSLATIONS.DELIVERY_TEST_EVENT_SENT_TITLE),
+			message: translator(TRANSLATIONS.DELIVERY_TEST_EVENT_SENT_MESSAGE)
+				?.replace(':namespace:', data?.namespace)
+				?.replace(':topic:', data?.topic),
 		},
 	},
 	TOPICS: {

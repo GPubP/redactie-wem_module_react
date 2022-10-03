@@ -16,6 +16,10 @@ export class DeliveriesQuery extends BaseEntityQuery<DeliveriesState> {
 	public formValidation$ = this.select(state => state.formValidation).pipe(
 		filter(validation => !isNil(validation), distinctUntilChanged())
 	);
+	public isSendingTestEvent$ = this.select(state => state.isSendingTestEvent);
+	public canSendTestEvent$ = this.select(state =>
+		state.canSendTestEvent === undefined ? true : state.canSendTestEvent
+	);
 }
 
 export const deliveriesQuery = new DeliveriesQuery(deliveriesStore);

@@ -9,6 +9,7 @@ import {
 import {
 	DeliveriesResponseSchema,
 	DeliverySchema,
+	TestEventSchema,
 } from '../../services/deliveries/deliveries.service.types';
 import { validateDelivery } from '../../services/deliveries/deliveries.validations';
 import { sortAndDirectionToAPIQuery } from '../../services/query.helpers';
@@ -28,6 +29,8 @@ export class DeliveriesFacade extends BaseEntityFacade<
 	public readonly pagination$ = this.query.pagination$;
 	public readonly formData$ = this.query.formData$;
 	public readonly formValidation$ = this.query.formValidation$;
+	public readonly isSendingTestEvent$ = this.query.isSendingTestEvent$;
+	public readonly canSendTestEvent$ = this.query.canSendTestEvent$;
 
 	constructor() {
 		super(deliveriesStore, deliveriesAPIService, deliveriesQuery);
@@ -116,6 +119,25 @@ export class DeliveriesFacade extends BaseEntityFacade<
 			setTimeout(() => {
 				alertService.success(ALERT_TEXTS(translator).DELIVERIES.deleteOk, {
 					containerId: ALERT_IDS.EVENTS_INDEX,
+				});
+			}, 500);
+		});
+	}
+
+	public setCanSendTestEvent(value: boolean): void {
+		this.store.update({ canSendTestEvent: value });
+	}
+
+	public async sendTestEvent(
+		body: TestEventSchema,
+		translator: (a: string) => string
+	): Promise<void> {
+		this.store.update({ isSendingTestEvent: true });
+		return this.service.sendTestEvent(body).then(() => {
+			this.store.update({ isSendingTestEvent: false });
+			setTimeout(() => {
+				alertService.success(ALERT_TEXTS(translator, body).DELIVERIES.testEventOk, {
+					containerId: ALERT_IDS.DELIVERIES_CRUD,
 				});
 			}, 500);
 		});

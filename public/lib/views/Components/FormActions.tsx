@@ -6,7 +6,13 @@ import translationsConnector from '../../connectors/translations';
 
 import { FormActionsProps } from './components.types';
 
-const FormActions: FC<FormActionsProps> = ({ onCancel, onSubmit, isLoading, submitLabel }) => {
+const FormActions: FC<FormActionsProps> = ({
+	onCancel,
+	onSubmit,
+	extraActions,
+	isLoading,
+	submitLabel,
+}) => {
 	const [t] = translationsConnector.useCoreTranslation();
 
 	return (
@@ -20,6 +26,7 @@ const FormActions: FC<FormActionsProps> = ({ onCancel, onSubmit, isLoading, subm
 			>
 				{t(translationsConnector.CORE_TRANSLATIONS.BUTTON_CANCEL)}
 			</Button>
+			{extraActions}
 			{onSubmit && (
 				<Button
 					iconLeft={isLoading ? 'circle-o-notch fa-spin' : null}

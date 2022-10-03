@@ -27,8 +27,6 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 		feedback: { name: ValidationState.Required },
 	});
 
-	console.log(topicValidation);
-
 	const onOpenCreateTopicModal = (): void => {
 		const prefilledName = `${props.data?.name?.replace(/ /, '-')}.` ?? '';
 		setNewTopicName(prefilledName);

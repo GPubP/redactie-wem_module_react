@@ -20,6 +20,7 @@ export interface DeliverySchema {
 	destinationId: string;
 	destinationName: string;
 	destinationNamespace?: string;
+	destinationOwnerKey?: string;
 	testEvent: string;
 	topic: string;
 	isActive: boolean;
@@ -41,4 +42,11 @@ export interface DeliveryValidationType {
 	destinationId: ValidationState;
 	topic: ValidationState;
 	isActive: ValidationState;
+}
+
+export interface TestEventSchema {
+	eventBody: Record<string, unknown>;
+	ownerKey: string;
+	namespace: string;
+	topic: string;
 }

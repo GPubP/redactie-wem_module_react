@@ -9,6 +9,7 @@ export interface FormActionsProps {
 	onSubmit?: () => void;
 	onDelete?: () => void;
 	onCancel?: () => void;
+	extraActions?: JSX.Element[];
 	submitLabel?: string;
 	isLoading: boolean;
 }
