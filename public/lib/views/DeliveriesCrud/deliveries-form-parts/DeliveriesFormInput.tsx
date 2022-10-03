@@ -72,6 +72,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 									props.onChange(event?.data?.event, 'event');
 									props.onChange(selected, 'eventId');
 									props.onChange(event?.data?.source, 'eventSource');
+									props.onChange(event?.data?.type, 'eventType');
 									props.onChange(event?.data?.description, 'eventDescription');
 									props.onChange(event?.data?.version, 'eventVersion');
 									props.onChange(

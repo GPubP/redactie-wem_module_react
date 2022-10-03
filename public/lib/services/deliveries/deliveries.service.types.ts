@@ -15,6 +15,7 @@ export interface DeliverySchema {
 	event: string;
 	eventId: string;
 	eventSource: string;
+	eventType: string;
 	eventDescription: string;
 	eventVersion: string;
 	destinationId: string;
@@ -37,6 +38,7 @@ export interface DeliveryValidationType {
 	description: ValidationState;
 	event: ValidationState;
 	eventSource: string;
+	eventType: string;
 	eventDescription: ValidationState;
 	eventVersion: ValidationState;
 	destinationId: ValidationState;
