@@ -40,6 +40,7 @@ import {
 
 import deliveriesConfig from './deliveries.overview.config';
 import destinationsConfig from './destinations.overview.config';
+import './EventsOverview.scss';
 
 const EventsOverview: FC = () => {
 	/**
