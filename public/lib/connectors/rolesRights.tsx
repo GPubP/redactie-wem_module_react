@@ -8,10 +8,10 @@ class RolesRightsConnector {
 		destinationCreate: 'event_destination_create',
 		destinationUpdate: 'event_destination_update',
 		destinationDelete: 'event_destination_delete',
-		deliveryRead: 'event_episode_read',
-		deliveryCreate: 'event_episode_create',
-		deliveryUpdate: 'event_episode_update',
-		deliveryDelete: 'event_episode_delete',
+		deliveryRead: 'event_delivery_read',
+		deliveryCreate: 'event_delivery_create',
+		deliveryUpdate: 'event_delivery_update',
+		deliveryDelete: 'event_delivery_delete',
 	};
 	public api: RolesRightsModuleAPI;
 
