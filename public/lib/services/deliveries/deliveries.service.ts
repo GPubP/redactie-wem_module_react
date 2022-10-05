@@ -8,7 +8,7 @@ import {
 	TestEventSchema,
 } from './deliveries.service.types';
 
-export const DELIVERIES_PATH = 'wem/v1/event-episodes';
+export const DELIVERIES_PATH = 'wem/v1/event-deliveries';
 
 export class DeliveriesAPIService {
 	public async fetchAll(
