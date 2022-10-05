@@ -1,5 +1,5 @@
 export interface TextareaWithLineNumbersProps {
-	label: string;
+	label?: string;
 	name: string;
 	value: string;
 	disabled?: boolean;

@@ -141,8 +141,10 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 									const destination = props.destinationsOptions?.find(
 										e => e.id === selected
 									);
+
 									props.onChange(selected, 'destinationId');
 									props.onChange(destination?.namespace, 'destinationNamespace');
+									props.onChange(destination?.ownerKey, 'destinationOwnerKey');
 								}}
 								value={props.data?.destinationId}
 								name="destinationId"
