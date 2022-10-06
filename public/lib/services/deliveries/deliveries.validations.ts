@@ -16,6 +16,13 @@ const DELIVERIES_REQUIRED_FIELDS = [
 	'eventType',
 ];
 
+export function validateDeliveryFilter(
+	newFilter: Record<string, unknown> | Record<string, unknown>[] | undefined
+): ValidationState {
+	// TODO Validate filter
+	return ValidationState.Ok;
+}
+
 export function validateDelivery(body: DeliverySchema | undefined): DeliveryValidationSchema {
 	const feedback = {
 		name: validateRequired('name', body?.name, DELIVERIES_REQUIRED_FIELDS),
@@ -31,6 +38,7 @@ export function validateDelivery(body: DeliverySchema | undefined): DeliveryVali
 			: ValidationState.Ok,
 		eventDescription: ValidationState.Ok,
 		eventVersion: ValidationState.Ok,
+		filter: validateDeliveryFilter(body?.filter),
 		destinationId: body?.id
 			? validateRequired('destinationId', body?.destinationId, DELIVERIES_REQUIRED_FIELDS)
 			: ValidationState.Ok,

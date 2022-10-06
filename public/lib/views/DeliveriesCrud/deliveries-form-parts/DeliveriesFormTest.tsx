@@ -62,7 +62,6 @@ const DeliveriesFormTest: FC<DeliveriesFormProps> = props => {
 							colors={JSON_INPUT_COLORS}
 							style={JSON_INPUT_STYLE}
 							locale={locale}
-							waitAfterKeyPress={500}
 							// TODO: see if we translate to dutch or not
 							// locale={JSON_INPUT_THEME_BE_LOCALE}
 							height="550px"

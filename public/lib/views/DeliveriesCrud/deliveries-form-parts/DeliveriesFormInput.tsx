@@ -3,7 +3,6 @@ import { TextField } from '@acpaas-ui/react-components';
 import React, { ChangeEvent, FC, useState } from 'react';
 
 import AdvancedSelect from '../../../components/Fields/AdvancedSelect/AdvancedSelect';
-import TextareaWithLineNumbers from '../../../components/Fields/TextareaWithLineNumbers/TextareaWithLineNumbers';
 import Modal from '../../../components/Modals/Modal';
 import FieldDescription from '../../../components/forms/FieldDescription';
 import translationsConnector from '../../../connectors/translations';
@@ -15,6 +14,7 @@ import { ValidationState } from '../../../services/validation.helpers';
 import { errorState, errorText } from '../../utils/form.utils';
 import { DeliveriesFormProps } from '../DeliveriesCrud.types';
 
+import DeliveriesFormEventFilter from './DeliveriesFormEventFilter';
 import DeliveriesFormEventInfo from './DeliveriesFormEventInfo';
 
 import './DeliveriesFormInput.scss';
@@ -114,18 +114,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 				</div>
 				<div className="row">
 					<div className="col-xs-12 u-margin-bottom">
-						<TextareaWithLineNumbers
-							name="filter"
-							value={(props.data as any)?.filter ?? ''}
-							label="Filter"
-							onChange={props.onChange}
-						/>
-						<FieldDescription
-							message={
-								'Geef het JSON schema op, gebaseerd op https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/formats/cloudevents.json'
-							}
-							state=""
-						/>
+						<DeliveriesFormEventFilter {...props} />
 					</div>
 				</div>
 				<div className="row">

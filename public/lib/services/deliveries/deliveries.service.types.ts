@@ -22,6 +22,7 @@ export interface DeliverySchema {
 	destinationName: string;
 	destinationNamespace?: string;
 	destinationOwnerKey?: string;
+	filter: Record<string, unknown>[];
 	testEvent: string;
 	topic: string;
 	isActive: boolean;
@@ -44,6 +45,7 @@ export interface DeliveryValidationType {
 	destinationId: ValidationState;
 	topic: ValidationState;
 	isActive: ValidationState;
+	filter: ValidationState;
 }
 
 export interface TestEventSchema {

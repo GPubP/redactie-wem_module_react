@@ -5,6 +5,13 @@ import { DeliverySchema } from '../../services/deliveries/deliveries.service.typ
 
 import { DeliveriesState } from './deliveries.model';
 
+export const DEFAULT_DELIVERY_FILTER = [
+	{
+		operator: 'AND',
+		conditions: [],
+	},
+];
+
 export const generateNewDeliveryForm = (): DeliverySchema => ({
 	id: '',
 	name: '',
@@ -19,6 +26,7 @@ export const generateNewDeliveryForm = (): DeliverySchema => ({
 	destinationName: '',
 	topic: '',
 	testEvent: '',
+	filter: DEFAULT_DELIVERY_FILTER,
 	isActive: false,
 	createdAt: '',
 	updatedAt: '',

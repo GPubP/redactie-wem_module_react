@@ -51,6 +51,14 @@ export class FormUtils {
 		return validation;
 	}
 
+	public validate(body: any): ValidationProps {
+		const validation = this.validator(body);
+		this.store.update(() => ({
+			formValidation: validation,
+		}));
+		return validation;
+	}
+
 	public async fetchOne(id: string): Promise<any> {
 		const { isFetchingOne } = this.query.getValue();
 		if (isFetchingOne) {

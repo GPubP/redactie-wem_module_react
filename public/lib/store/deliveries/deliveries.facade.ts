@@ -11,7 +11,10 @@ import {
 	DeliverySchema,
 	TestEventSchema,
 } from '../../services/deliveries/deliveries.service.types';
-import { validateDelivery } from '../../services/deliveries/deliveries.validations';
+import {
+	validateDelivery,
+	validateDeliveryFilter,
+} from '../../services/deliveries/deliveries.validations';
 import { sortAndDirectionToAPIQuery } from '../../services/query.helpers';
 import { ModelCreateResponseSchema } from '../../services/services.types';
 import { FormUtils } from '../form.utils';
@@ -122,6 +125,10 @@ export class DeliveriesFacade extends BaseEntityFacade<
 				});
 			}, 500);
 		});
+	}
+
+	public async validateForm(body: DeliverySchema | undefined): Promise<void> {
+		this.formUtils.validate(body);
 	}
 
 	public setCanSendTestEvent(value: boolean): void {
