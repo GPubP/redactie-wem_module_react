@@ -22,7 +22,7 @@ export interface DeliverySchema {
 	destinationName: string;
 	destinationNamespace?: string;
 	destinationOwnerKey?: string;
-	filter: Record<string, unknown>[];
+	filter: Record<string, unknown>;
 	testEvent: string;
 	topic: string;
 	isActive: boolean;

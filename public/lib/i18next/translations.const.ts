@@ -78,6 +78,7 @@ const TRANSLATIONS = Object.freeze({
 	ACTIVE: tKey('ACTIVE', 'Actief'),
 	ACTIVATE: tKey('ACTIVATE', 'Activeren'),
 	DESACTIVATE: tKey('DESACTIVATE', 'Deactiveren'),
+	SCHEMA: tKey('SCHEMA', 'schema'),
 	DELIVERY_ACTIVE_HELP: tKey(
 		'DELIVERY_ACTIVE_HELP',
 		'Dit event is actief. Je kan het deactiveren of verwijderen.'
@@ -114,6 +115,16 @@ const TRANSLATIONS = Object.freeze({
 	),
 	CREATE_TOPIC_MODAL_TITLE: tKey('CREATE_TOPIC_MODAL_TITLE', 'Topic Aanmaken'),
 	CREATE_TOPIC_MODAL_BODY: tKey('CREATE_TOPIC_MODAL_BODY', 'Je maakt een topic aan binnen '),
+	DELIVERY_SCHEMA_MODAL_TITLE: tKey(
+		'DELIVERY_SCHEMA_MODAL_TITLE',
+		'Aflevering filter JSON schema'
+	),
+	DELIVERY_FILTER_FIELD_DESCRIPTION: tKey('DELIVERY_FILTER_FIELD_DESCRIPTION', 'JSON code met'),
+	DELIVERY_FILTER_FIELD_LABEL: tKey('DELIVERY_FILTER_FIELD_LABEL', 'Filter'),
+	DELIVERY_FILTER_SCHEMA_VALIDATION_MESSAGE: tKey(
+		'DELIVERY_FILTER_SCHEMA_VALIDATION_MESSAGE',
+		'Het opgegeven filter is niet geldig volgens het schema'
+	),
 	TOPIC_CREATED: tKey('TOPIC_CREATED', 'Topic werd successvol aangemaakt.'),
 } as const);
 

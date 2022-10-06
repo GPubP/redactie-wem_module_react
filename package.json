@@ -1,6 +1,6 @@
 {
 	"name": "@redactie/wem-module",
-	"version": "0.1.13",
+	"version": "0.1.15",
 	"description": "redactie wem module",
 	"main": "dist/redactie-wem-module.umd.js",
 	"module": "dist/redactie-wem-module.umd.js",
@@ -92,6 +92,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"@redactie/roles-rights-module": "^1.2.2",
+		"jsonschema": "^1.4.1",
 		"react-json-editor-ajrm": "^2.5.13"
 	}
 }
