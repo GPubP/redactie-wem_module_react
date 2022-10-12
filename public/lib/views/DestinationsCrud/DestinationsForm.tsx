@@ -45,12 +45,14 @@ const DestinationsForm: FC<DestinationsFormProps> = props => {
 								state={errorState(props.validations, 'name')}
 							/>
 							<FieldDescription
-								message={errorText(
-									t,
-									props.validations,
-									'name',
-									TRANSLATIONS.DESTINATION_NAME_HELP
-								)}
+								message={
+									errorText(
+										t,
+										props.validations,
+										'name',
+										TRANSLATIONS.DESTINATION_NAME_HELP
+									) || t(TRANSLATIONS.DESTINATION_NAME_HELP)
+								}
 								state={errorState(props.validations, 'name')}
 							/>
 						</div>

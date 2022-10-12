@@ -35,11 +35,11 @@ const TRANSLATIONS = Object.freeze({
 	),
 	DELIVERY_NAME_HELP: tKey(
 		'DELIVERY_NAME_HELP',
-		'Geef deze aflevering een korte en duidelijke naam.'
+		'Geef deze registratie een korte en duidelijke naam.'
 	),
 	DELIVERY_DESCRIPTION_HELP: tKey(
 		'DELIVERY_DESCRIPTION_HELP',
-		'Geef deze aflevering een beschrijving voor in het overzicht.'
+		'Geef deze registratie een beschrijving voor in het overzicht.'
 	),
 	DELIVERY_EVENT_HELP: tKey('DELIVERY_EVENT_HELP', 'Selecteer het event.'),
 	DELIVERY_DESTINATION_HELP: tKey(

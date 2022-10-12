@@ -34,12 +34,14 @@ const DeliveriesFormSettings: FC<DeliveriesFormProps> = props => {
 							state={errorState(props.validations, 'name')}
 						/>
 						<FieldDescription
-							message={errorText(
-								t,
-								props.validations,
-								'name',
-								TRANSLATIONS.DELIVERY_NAME_HELP
-							)}
+							message={
+								errorText(
+									t,
+									props.validations,
+									'name',
+									TRANSLATIONS.DELIVERY_NAME_HELP
+								) || t(TRANSLATIONS.DELIVERY_NAME_HELP)
+							}
 							state={errorState(props.validations, 'name')}
 						/>
 					</div>

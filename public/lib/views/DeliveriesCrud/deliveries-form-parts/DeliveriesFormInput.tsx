@@ -98,12 +98,14 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 								state={errorState(props.validations, 'event')}
 							/>
 							<FieldDescription
-								message={errorText(
-									t,
-									props.validations,
-									'event',
-									TRANSLATIONS.DELIVERY_EVENT_HELP
-								)}
+								message={
+									errorText(
+										t,
+										props.validations,
+										'event',
+										TRANSLATIONS.DELIVERY_EVENT_HELP
+									) || t(TRANSLATIONS.DELIVERY_EVENT_HELP)
+								}
 								state={errorState(props.validations, 'event')}
 							/>
 						</div>
@@ -146,12 +148,14 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 								state={errorState(props.validations, 'destinationId')}
 							/>
 							<FieldDescription
-								message={errorText(
-									t,
-									props.validations,
-									'destinationId',
-									TRANSLATIONS.DELIVERY_DESTINATION_HELP
-								)}
+								message={
+									errorText(
+										t,
+										props.validations,
+										'destinationId',
+										TRANSLATIONS.DELIVERY_DESTINATION_HELP
+									) || t(TRANSLATIONS.DELIVERY_DESTINATION_HELP)
+								}
 								state={errorState(props.validations, 'destinationId')}
 							/>
 						</div>
@@ -190,12 +194,14 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 								state={errorState(props.validations, 'topic')}
 							/>
 							<FieldDescription
-								message={errorText(
-									t,
-									props.validations,
-									'topic',
-									TRANSLATIONS.DELIVERY_TOPIC_HELP
-								)}
+								message={
+									errorText(
+										t,
+										props.validations,
+										'topic',
+										TRANSLATIONS.DELIVERY_TOPIC_HELP
+									) || t(TRANSLATIONS.DELIVERY_TOPIC_HELP)
+								}
 								state={errorState(props.validations, 'topic')}
 							/>
 						</div>
