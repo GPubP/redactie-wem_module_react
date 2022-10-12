@@ -48,13 +48,18 @@ const EventsOverview: FC = () => {
 	 */
 	const routes = useRoutes();
 	const { navigate, generatePath } = useNavigate();
+	const [t] = translationsConnector.useModuleTranslation();
 	const breadcrumbs = useBreadcrumbs(
 		routes as ModuleRouteConfig[],
-		breadcrumbsOptions(generatePath)
+		breadcrumbsOptions(generatePath, [
+			{
+				name: t(TRANSLATIONS.EVENTS),
+				target: '',
+			},
+		])
 	);
 
 	const [initialLoading, setInitialLoading] = useState(LoadingState.Loading);
-	const [t] = translationsConnector.useModuleTranslation();
 	const [
 		mySecurityRightsLoadingState,
 		mySecurityRights,

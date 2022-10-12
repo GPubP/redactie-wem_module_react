@@ -98,7 +98,7 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 			<ContextHeader
 				title={
 					modelId
-						? `"${formData?.name || '...'}" ${t(TRANSLATIONS.TO_EDIT)}`
+						? `'${formData?.name || '...'}' ${t(TRANSLATIONS.TO_EDIT)}`
 						: t(TRANSLATIONS.DESTINATION_NEW)
 				}
 				linkProps={linkProps}

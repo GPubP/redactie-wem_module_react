@@ -184,7 +184,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 				tabs={modelId ? activeTabs : undefined}
 				title={
 					modelId
-						? `"${formData?.name || '...'}" ${t(TRANSLATIONS.TO_EDIT)}`
+						? `'${formData?.name || '...'}' ${t(TRANSLATIONS.TO_EDIT)}`
 						: t(TRANSLATIONS.DELIVERY_NEW)
 				}
 				linkProps={(props: ExtendedContextHeaderTabLinkProps) =>
