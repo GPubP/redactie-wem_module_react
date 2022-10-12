@@ -47,7 +47,15 @@ const TRANSLATIONS = Object.freeze({
 		'Selecteer de bestemming voor dit event.'
 	),
 	DELIVERY_TOPIC_HELP: tKey('DELIVERY_TOPIC_HELP', 'Selecteer een topic voor dit event.'),
+	DELIVERY_TOPIC_FETCH_FAILED: tKey(
+		'DELIVERY_TOPIC_FETCH_FAILED',
+		'Kan geen topics ophalen. Naamruimte geconfigureerd in bestemming is mogelijk ongeldig.'
+	),
 	DELIVERY_TOPIC_CREATE: tKey('DELIVERY_TOPIC_CREATE', 'Nieuw topic toevoegen'),
+	DELIVERY_TOPIC_CREATE_FAILED_MESSAGE: tKey(
+		'DELIVERY_TOPIC_CREATE_FAILED_MESSAGE',
+		'Kan topic niet maken. Naamruimte of owner key geconfigureerd in bestemming is mogelijk ongeldig.'
+	),
 	DELIVERY_TOPIC_CREATE_ERROR_MESSAGE: tKey(
 		'DELIVERY_TOPIC_CREATE_ERROR_MESSAGE',
 		"Alleen letters, cijfers en '-', '.' tekens zijn toegestaan."

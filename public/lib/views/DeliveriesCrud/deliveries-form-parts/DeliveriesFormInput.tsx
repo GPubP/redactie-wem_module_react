@@ -6,7 +6,7 @@ import AdvancedSelect from '../../../components/Fields/AdvancedSelect/AdvancedSe
 import Modal from '../../../components/Modals/Modal';
 import FieldDescription from '../../../components/forms/FieldDescription';
 import translationsConnector from '../../../connectors/translations';
-import { EVENT_DELIVERY_INPUT_TAB } from '../../../events.const';
+import { ERROR_STATE, EVENT_DELIVERY_INPUT_TAB } from '../../../events.const';
 import { TRANSLATIONS } from '../../../i18next/translations.const';
 import { TopicValidationSchema } from '../../../services/topics/topics.service.types';
 import { validateTopic } from '../../../services/topics/topics.validations';
@@ -23,6 +23,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 	const [t] = translationsConnector.useModuleTranslation();
 	const [showCreateTopicModal, setShowCreateTopicModal] = useState(false);
 	const [newTopicName, setNewTopicName] = useState('');
+	const [topicCreateFailed, setTopicCreateFailed] = useState(false);
 	const [topicValidation, setTopicValidation] = useState<TopicValidationSchema>({
 		valid: false,
 		feedback: { name: ValidationState.Required },
@@ -41,10 +42,17 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 	};
 
 	const onCreateTopic = (): void => {
-		props.onAddTopic(newTopicName, () => {
-			setShowCreateTopicModal(false);
-			setNewTopicName('');
-		});
+		setTopicCreateFailed(false);
+		props.onAddTopic(
+			newTopicName,
+			() => {
+				setShowCreateTopicModal(false);
+				setNewTopicName('');
+			},
+			() => {
+				setTopicCreateFailed(true);
+			}
+		);
 	};
 
 	const onInputModal = (value: string): void => {
@@ -55,6 +63,8 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 	if (props.activeTab !== EVENT_DELIVERY_INPUT_TAB) {
 		return null;
 	}
+
+	console.log(errorState(props.validations, 'topic'));
 
 	return (
 		<>
@@ -191,7 +201,11 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 										label: t.name,
 									})),
 								]}
-								state={errorState(props.validations, 'topic')}
+								state={
+									props.fetchingTopicsError
+										? ERROR_STATE
+										: errorState(props.validations, 'topic')
+								}
 							/>
 							<FieldDescription
 								message={
@@ -200,9 +214,15 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 										props.validations,
 										'topic',
 										TRANSLATIONS.DELIVERY_TOPIC_HELP
-									) || t(TRANSLATIONS.DELIVERY_TOPIC_HELP)
+									) || props.fetchingTopicsError
+										? t(TRANSLATIONS.DELIVERY_TOPIC_FETCH_FAILED)
+										: t(TRANSLATIONS.DELIVERY_TOPIC_HELP)
 								}
-								state={errorState(props.validations, 'topic')}
+								state={
+									props.fetchingTopicsError
+										? ERROR_STATE
+										: errorState(props.validations, 'topic')
+								}
 							/>
 						</div>
 					</div>
@@ -235,13 +255,21 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 								state={errorState(topicValidation.feedback, 'name')}
 							/>
 							<FieldDescription
-								message={errorText(
-									t,
-									topicValidation.feedback,
-									'name',
-									TRANSLATIONS.DELIVERY_TOPIC_CREATE_ERROR_MESSAGE
-								)}
-								state={errorState(topicValidation.feedback, 'name')}
+								message={
+									topicCreateFailed
+										? t(TRANSLATIONS.DELIVERY_TOPIC_CREATE_FAILED_MESSAGE)
+										: errorText(
+												t,
+												topicValidation.feedback,
+												'name',
+												TRANSLATIONS.DELIVERY_TOPIC_CREATE_ERROR_MESSAGE
+										  )
+								}
+								state={
+									topicCreateFailed
+										? ERROR_STATE
+										: errorState(topicValidation.feedback, 'name')
+								}
 							/>
 						</div>
 					</>

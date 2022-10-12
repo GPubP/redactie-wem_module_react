@@ -31,6 +31,7 @@ export interface DeliveriesFormProps {
 	isFetchingEvents: boolean;
 	topicOptions: TopicOptionSchema[];
 	isFetchingTopics: boolean;
-	onAddTopic: (name: string, onSuccess: () => void) => void;
+	fetchingTopicsError: boolean;
+	onAddTopic: (name: string, onSuccess: () => void, onError: () => void) => void;
 	isCreatingTopic: boolean;
 }

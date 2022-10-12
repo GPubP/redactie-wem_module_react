@@ -27,10 +27,13 @@ export class TopicsFacade extends BaseEntityFacade<TopicsStore, TopicsAPIService
 		return this.service
 			.fetchAll(destinationId)
 			.then((topics: TopicOptionSchema[]) => {
+				this.store.setError('');
 				this.store.set(topics);
-				this.store.update({ isFetching: false });
+				this.store.setIsFetching(false);
 			})
 			.catch(error => {
+				this.store.set([]);
+				this.store.setIsFetching(false);
 				this.store.setError(error);
 			});
 	}
@@ -39,7 +42,8 @@ export class TopicsFacade extends BaseEntityFacade<TopicsStore, TopicsAPIService
 		destinationId: string,
 		body: TopicOptionSchema,
 		translator: (a: string) => string,
-		onSuccess: (id: string) => void
+		onSuccess: (id: string) => void,
+		onError: () => void
 	): Promise<void> {
 		this.store.setIsCreating(true);
 		return this.service
@@ -53,6 +57,10 @@ export class TopicsFacade extends BaseEntityFacade<TopicsStore, TopicsAPIService
 						containerId: ALERT_IDS.DELIVERIES_CRUD,
 					});
 				}, 500);
+			})
+			.catch(() => {
+				this.store.setIsCreating(false);
+				onError();
 			});
 	}
 }

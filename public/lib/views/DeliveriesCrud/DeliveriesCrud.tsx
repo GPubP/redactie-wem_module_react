@@ -122,6 +122,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	}, [modelId]);
 	useEffect(() => {
 		if (currentDestination?.id) {
+			console.log(currentDestination?.id);
 			topicsFacade.fetchAll(currentDestination.id);
 		}
 	}, [currentDestination?.id]);
@@ -168,12 +169,24 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 		deliveriesFacade.delete(formData?.id, t, navigateToIndex);
 	};
 
-	const onTopicSubmit = (name: string, onSuccess: (topicName: string) => void): void => {
-		topicsFacade.submit(formData?.destinationId ?? '', { name }, t, createdTopic => {
-			onFieldChange(createdTopic, 'topic');
-			onSuccess(createdTopic);
-		});
+	const onTopicSubmit = (
+		name: string,
+		onSuccess: (topicName: string) => void,
+		onError: () => void
+	): void => {
+		topicsFacade.submit(
+			formData?.destinationId ?? '',
+			{ name },
+			t,
+			createdTopic => {
+				onFieldChange(createdTopic, 'topic');
+				onSuccess(createdTopic);
+			},
+			onError
+		);
 	};
+
+	console.log(isFetchingTopics);
 
 	/**
 	 * RENDER FORM
@@ -218,6 +231,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 						isFetchingDestinations={isFetchingDestinations === LoadingState.Loading}
 						topicOptions={topicOptions}
 						isFetchingTopics={isFetchingTopics === LoadingState.Loading}
+						fetchingTopicsError={isFetchingTopics === LoadingState.Error}
 						onAddTopic={onTopicSubmit}
 						isCreatingTopic={isCreatingTopic === LoadingState.Loading}
 					/>
