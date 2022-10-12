@@ -48,6 +48,10 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 		routes as ModuleRouteConfig[],
 		breadcrumbsOptions(generatePath, [
 			{
+				name: t(TRANSLATIONS.EVENTS),
+				target: generatePath(EVENTS_MODULE_PATHS.ROOT),
+			},
+			{
 				name: t(TRANSLATIONS.DESTINATIONS),
 				target: generatePath(EVENTS_MODULE_PATHS.DESTINATIONS.index),
 			},

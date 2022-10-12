@@ -49,11 +49,16 @@ const EventsOverview: FC = () => {
 	const routes = useRoutes();
 	const { navigate, generatePath } = useNavigate();
 	const [t] = translationsConnector.useModuleTranslation();
+	const isDestinations = location.pathname.includes(EVENTS_MODULE_PATHS.DESTINATIONS.base);
 	const breadcrumbs = useBreadcrumbs(
 		routes as ModuleRouteConfig[],
 		breadcrumbsOptions(generatePath, [
 			{
 				name: t(TRANSLATIONS.EVENTS),
+				target: generatePath(EVENTS_MODULE_PATHS.ROOT),
+			},
+			{
+				name: t(isDestinations ? TRANSLATIONS.DESTINATIONS : TRANSLATIONS.DELIVERIES),
 				target: '',
 			},
 		])
@@ -69,7 +74,6 @@ const EventsOverview: FC = () => {
 	/**
 	 * LOAD OVERVIEW CONFIG
 	 */
-	const isDestinations = location.pathname.includes(EVENTS_MODULE_PATHS.DESTINATIONS.base);
 	const config = isDestinations ? destinationsConfig : deliveriesConfig;
 	const canCreate = rolesRightsConnector.api.helpers.checkSecurityRights(mySecurityRights, [
 		isDestinations

@@ -87,6 +87,10 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 		routes as ModuleRouteConfig[],
 		breadcrumbsOptions(generatePath, [
 			{
+				name: t(TRANSLATIONS.EVENTS),
+				target: generatePath(EVENTS_MODULE_PATHS.ROOT),
+			},
+			{
 				name: t(TRANSLATIONS.DELIVERIES),
 				target: generatePath(EVENTS_MODULE_PATHS.DELIVERIES.index),
 			},
@@ -185,8 +189,6 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 			onError
 		);
 	};
-
-	console.log(isFetchingTopics);
 
 	/**
 	 * RENDER FORM
