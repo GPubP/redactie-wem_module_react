@@ -45,7 +45,6 @@ export class DeliveriesAPIService {
 	}
 
 	public async sendTestEvent(body: TestEventSchema): Promise<void> {
-		// return new Promise(r => setTimeout(() => r(), 2300));
 		return api.post(`${DELIVERIES_PATH}/test-event`, { json: body }).json();
 	}
 }

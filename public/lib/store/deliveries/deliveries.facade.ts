@@ -11,10 +11,7 @@ import {
 	DeliverySchema,
 	TestEventSchema,
 } from '../../services/deliveries/deliveries.service.types';
-import {
-	validateDelivery,
-	validateDeliveryFilter,
-} from '../../services/deliveries/deliveries.validations';
+import { validateDelivery } from '../../services/deliveries/deliveries.validations';
 import { sortAndDirectionToAPIQuery } from '../../services/query.helpers';
 import { ModelCreateResponseSchema } from '../../services/services.types';
 import { FormUtils } from '../form.utils';
@@ -97,6 +94,9 @@ export class DeliveriesFacade extends BaseEntityFacade<
 						containerId: ALERT_IDS.DELIVERIES_CRUD,
 					});
 				}, 500);
+				setTimeout(() => {
+					alertService.dismiss();
+				}, 2000);
 			});
 		}
 		if (validation.valid && bodyToSubmit?.id) {
@@ -140,14 +140,24 @@ export class DeliveriesFacade extends BaseEntityFacade<
 		translator: (a: string) => string
 	): Promise<void> {
 		this.store.update({ isSendingTestEvent: true });
-		return this.service.sendTestEvent(body).then(() => {
-			this.store.update({ isSendingTestEvent: false });
-			setTimeout(() => {
-				alertService.success(ALERT_TEXTS(translator, body).DELIVERIES.testEventOk, {
-					containerId: ALERT_IDS.DELIVERIES_CRUD,
+		return this.service
+			.sendTestEvent(body)
+			.then(() => {
+				this.store.update({ isSendingTestEvent: false });
+				setTimeout(() => {
+					alertService.success(ALERT_TEXTS(translator, body).DELIVERIES.testEventOk, {
+						containerId: ALERT_IDS.DELIVERIES_CRUD,
+					});
+				}, 500);
+			})
+			.catch(() => {
+				this.store.update({ isSendingTestEvent: false });
+				setTimeout(() => {
+					alertService.danger(ALERT_TEXTS(translator, body).DELIVERIES.testEventError, {
+						containerId: ALERT_IDS.DELIVERIES_CRUD,
+					});
 				});
-			}, 500);
-		});
+			});
 	}
 }
 

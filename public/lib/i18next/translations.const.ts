@@ -65,9 +65,17 @@ const TRANSLATIONS = Object.freeze({
 	DELIVERY_DELETED: tKey('DELIVERY_DELETED', 'Aflevering werd successvol verwijderd.'),
 	DELIVERY_SEND_TEST_EVENT: tKey('DELIVERY_SEND_TEST_EVENT', 'Vestuur event'),
 	DELIVERY_TEST_EVENT_SENT_TITLE: tKey('DELIVERY_TEST_EVENT_SENT_TITLE', 'Event vestuurd'),
+	DELIVERY_TEST_EVENT_SEND_ERROR_TITLE: tKey(
+		'DELIVERY_TEST_EVENT_SEND_ERROR_TITLE',
+		'Event niet vestuurd'
+	),
 	DELIVERY_TEST_EVENT_SENT_MESSAGE: tKey(
 		'DELIVERY_TEST_EVENT_SENT_MESSAGE',
 		'Het test event werd succesvol afgeleverd aan de event handler op :namespace:.:topic:'
+	),
+	DELIVERY_TEST_EVENT_SENT_MESSAGE_FAILED: tKey(
+		'DELIVERY_TEST_EVENT_SENT_MESSAGE_FAILED',
+		'Kan het test event niet naar de event handler verzenden. Controleer de naamruimte en het topic'
 	),
 	DELIVERIES: tKey('DELIVERIES', 'Afleveringen'),
 	NEW_BUTTON: tKey('NEW_BUTTON', 'Nieuw aanmaken'),

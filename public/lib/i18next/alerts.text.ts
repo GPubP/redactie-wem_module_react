@@ -38,6 +38,10 @@ export const ALERT_TEXTS = (translator: (a: string) => string, data?: any): any 
 				?.replace(':namespace:', data?.namespace)
 				?.replace(':topic:', data?.topic),
 		},
+		testEventError: {
+			title: translator(TRANSLATIONS.DELIVERY_TEST_EVENT_SEND_ERROR_TITLE),
+			message: translator(TRANSLATIONS.DELIVERY_TEST_EVENT_SENT_MESSAGE_FAILED),
+		},
 	},
 	TOPICS: {
 		createOk: {

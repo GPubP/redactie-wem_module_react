@@ -8,7 +8,14 @@ import {
 	ContextHeaderTopSection,
 } from '@acpaas-ui/react-editorial-components';
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
-import { AlertContainer, DataLoader, LoadingState, useNavigate, useRoutes } from '@redactie/utils';
+import {
+	AlertContainer,
+	alertService,
+	DataLoader,
+	LoadingState,
+	useNavigate,
+	useRoutes,
+} from '@redactie/utils';
 import React, { FC, useEffect, useMemo } from 'react';
 
 import rolesRightsConnector from '../../connectors/rolesRights';
@@ -113,6 +120,11 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	 * STORE
 	 */
 	useEffect(() => {
+		console.log('dismiss');
+		console.log(activeTab);
+		alertService.dismiss();
+	}, [activeTab]);
+	useEffect(() => {
 		deliveriesFacade.resetForm();
 	}, []);
 	useEffect(() => {
@@ -126,7 +138,6 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	}, [modelId]);
 	useEffect(() => {
 		if (currentDestination?.id) {
-			console.log(currentDestination?.id);
 			topicsFacade.fetchAll(currentDestination.id);
 		}
 	}, [currentDestination?.id]);
@@ -263,7 +274,14 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 												{t(TRANSLATIONS.DELIVERY_SEND_TEST_EVENT)}
 											</Button>,
 									  ]
-									: []
+									: [
+											<Button
+												key="dasdsdasd"
+												onClick={() => alertService.dismiss()}
+											>
+												dismiss
+											</Button>,
+									  ]
 							}
 						/>
 					</ActionBarContentSection>
