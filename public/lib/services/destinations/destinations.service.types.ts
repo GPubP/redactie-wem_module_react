@@ -8,6 +8,10 @@ export interface DestinationsResponseSchema {
 	_page: Page;
 }
 
+export interface DestinationsValidateNamespaceResponseSchema {
+	valid: boolean;
+}
+
 export interface DestinationSchema {
 	id: string;
 	name: string;

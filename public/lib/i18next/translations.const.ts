@@ -106,6 +106,7 @@ const TRANSLATIONS = Object.freeze({
 		'NAMESPACE_HELP',
 		'Kies een naamruimte (namespace) binnen deze bestemming.'
 	),
+	NAMESPACE_NOT_FOUND: tKey('NAMESPACE_NOT_FOUND', 'Naamruimte niet gevonden.'),
 	REQUIRED: tKey('REQUIRED', 'Dit veld is verplicht'),
 	EVENT_DOES_NOT_EXIST_TITLE: tKey('EVENT_DOES_NOT_EXIST_TITLE', 'Waarschuwing'),
 	EVENT_DOES_NOT_EXIST_MESSAGE: tKey(

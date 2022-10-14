@@ -57,6 +57,7 @@
   "OWNER_KEY": "Owner key",
   "OWNER_KEY_HELP": "Geef de owner key van de bestemming op om een namespace te kunnen selecteren.",
   "NAMESPACE_HELP": "Kies een naamruimte (namespace) binnen deze bestemming.",
+  "NAMESPACE_NOT_FOUND": "Naamruimte niet gevonden.",
   "REQUIRED": "Dit veld is verplicht",
   "EVENT_DOES_NOT_EXIST_TITLE": "Waarschuwing",
   "EVENT_DOES_NOT_EXIST_MESSAGE": "Het gekozen event bestaat niet en is mogelijks verwijderd. Kies een ander event.",

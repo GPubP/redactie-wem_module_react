@@ -6,6 +6,7 @@ import Modal from '../../components/Modals/Modal';
 import FieldDescription from '../../components/forms/FieldDescription';
 import translationsConnector from '../../connectors/translations';
 import { TRANSLATIONS } from '../../i18next/translations.const';
+import { ValidationState } from '../../services/validation.helpers';
 import { errorState, errorText } from '../utils/form.utils';
 
 import { DestinationsFormProps } from './DestinationsCrud.types';
@@ -116,7 +117,9 @@ const DestinationsForm: FC<DestinationsFormProps> = props => {
 									t,
 									props.validations,
 									'namespace',
-									TRANSLATIONS.NAMESPACE_HELP
+									props.validations?.namespace === ValidationState.Incorrect
+										? TRANSLATIONS.NAMESPACE_NOT_FOUND
+										: TRANSLATIONS.NAMESPACE_HELP
 								)}
 								state={errorState(props.validations, 'namespace')}
 							/>

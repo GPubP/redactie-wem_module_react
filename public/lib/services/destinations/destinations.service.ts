@@ -2,7 +2,11 @@ import { DEFAULT_PAGINATION } from '../../events.const';
 import { api } from '../api';
 import { ModelCreateResponseSchema, ModelUpdateResponseSchema } from '../services.types';
 
-import { DestinationSchema, DestinationsResponseSchema } from './destinations.service.types';
+import {
+	DestinationSchema,
+	DestinationsResponseSchema,
+	DestinationsValidateNamespaceResponseSchema,
+} from './destinations.service.types';
 
 export const DESTINATIONS_PATH = 'wem/v1/event-destinations';
 
@@ -15,6 +19,12 @@ export class DestinationsAPIService {
 		return api
 			.get(`${DESTINATIONS_PATH}?page=${page}&pagesize=${pagesize}&sort=${sort || 'name'}`)
 			.json();
+	}
+
+	public async validateNamespace(
+		namespace: string
+	): Promise<DestinationsValidateNamespaceResponseSchema> {
+		return api.get(`${DESTINATIONS_PATH}/${namespace}/validate`).json();
 	}
 
 	public async create(body: DestinationSchema | undefined): Promise<ModelCreateResponseSchema> {
