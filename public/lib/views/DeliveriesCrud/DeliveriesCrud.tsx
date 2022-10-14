@@ -16,7 +16,7 @@ import {
 	useNavigate,
 	useRoutes,
 } from '@redactie/utils';
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 
 import rolesRightsConnector from '../../connectors/rolesRights';
 import translationsConnector from '../../connectors/translations';
@@ -70,6 +70,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	const [destinationsOptions, page, isFetchingDestinations] = useDestinations();
 	const [eventOptions, isFetchingEvents] = useEvents();
 	const [topicOptions, isFetchingTopics, isCreatingTopic] = useTopics();
+	const [alertContainerReset, setAlertContainerReset] = useState(false);
 
 	const currentDestination = useMemo(
 		() => destinationsOptions.find(d => d.id === formData?.destinationId),
@@ -120,13 +121,18 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	 * STORE
 	 */
 	useEffect(() => {
-		console.log('dismiss');
-		console.log(activeTab);
-		alertService.dismiss();
-	}, [activeTab]);
-	useEffect(() => {
 		deliveriesFacade.resetForm();
 	}, []);
+	// for some reason alertService.dismiss() does not work here
+	// so as a workaround we force rerender of AlertContainer
+	useEffect(() => {
+		setAlertContainerReset(true);
+	}, [activeTab]);
+	useEffect(() => {
+		if (alertContainerReset) {
+			setAlertContainerReset(false);
+		}
+	}, [alertContainerReset]);
 	useEffect(() => {
 		if (modelId) {
 			deliveriesFacade.fetchOne(modelId).then(verifyEventExists);
@@ -220,10 +226,12 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 				<ContextHeaderTopSection>{breadcrumbs}</ContextHeaderTopSection>
 			</ContextHeader>
 			<Container>
-				<AlertContainer
-					toastClassName="u-margin-bottom"
-					containerId={ALERT_IDS.DELIVERIES_CRUD}
-				/>
+				{!alertContainerReset && (
+					<AlertContainer
+						toastClassName="u-margin-bottom"
+						containerId={ALERT_IDS.DELIVERIES_CRUD}
+					/>
+				)}
 				{mySecurityRightsLoadingState === LoadingState.Loading ||
 				isFetching === LoadingState.Loading ? (
 					<DataLoader loadingState={isFetching} render={() => null} />
@@ -274,14 +282,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 												{t(TRANSLATIONS.DELIVERY_SEND_TEST_EVENT)}
 											</Button>,
 									  ]
-									: [
-											<Button
-												key="dasdsdasd"
-												onClick={() => alertService.dismiss()}
-											>
-												dismiss
-											</Button>,
-									  ]
+									: []
 							}
 						/>
 					</ActionBarContentSection>
