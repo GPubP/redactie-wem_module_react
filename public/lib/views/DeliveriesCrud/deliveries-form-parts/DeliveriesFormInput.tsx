@@ -11,6 +11,7 @@ import { TRANSLATIONS } from '../../../i18next/translations.const';
 import { TopicValidationSchema } from '../../../services/topics/topics.service.types';
 import { validateTopic } from '../../../services/topics/topics.validations';
 import { ValidationState } from '../../../services/validation.helpers';
+import { getTestEventFromEventData } from '../../utils/deliveries.utils';
 import { errorState, errorText } from '../../utils/form.utils';
 import { DeliveriesFormProps } from '../DeliveriesCrud.types';
 
@@ -64,8 +65,6 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 		return null;
 	}
 
-	console.log(errorState(props.validations, 'topic'));
-
 	return (
 		<>
 			<div className="DeliveriesFormInput">
@@ -88,9 +87,9 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 									props.onChange(event?.data?.version, 'eventVersion');
 									props.onChange(
 										JSON.stringify(
-											props.eventOptions?.find(e => e.uuid === selected)?.data
-												?.dataSchema?.definitions?.datadef?.examples?.[0] ??
-												{}
+											getTestEventFromEventData(
+												props.eventOptions?.find(e => e.uuid === selected)
+											)
 										),
 										'testEvent'
 									);

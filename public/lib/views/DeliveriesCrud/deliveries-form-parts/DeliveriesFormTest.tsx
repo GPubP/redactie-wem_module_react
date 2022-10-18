@@ -1,4 +1,5 @@
 /* eslint-disable import/no-unresolved */
+import _ from 'lodash';
 import React, { FC, useMemo, useState } from 'react';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
@@ -6,6 +7,7 @@ import locale from 'react-json-editor-ajrm/locale/en';
 import FieldDescription from '../../../components/forms/FieldDescription';
 import { EVENT_DELIVERY_TEST_TAB } from '../../../events.const';
 import { deliveriesFacade } from '../../../store/deliveries/deliveries.facade';
+import { getTestEventFromEventData } from '../../utils/deliveries.utils';
 import { DeliveriesFormProps } from '../DeliveriesCrud.types';
 
 import { JSON_INPUT_COLORS, JSON_INPUT_STYLE, JSON_INPUT_THEME } from './DeliveriesFormTest.const';
@@ -15,9 +17,8 @@ const DeliveriesFormTest: FC<DeliveriesFormProps> = props => {
 	const [startedInput, setStartedInput] = useState(false);
 
 	const eventDataExample = useMemo(() => {
-		const example =
-			props.eventOptions?.find(e => e.uuid === props.data?.eventId)?.data?.dataSchema
-				?.definitions?.datadef?.examples?.[0] ?? {};
+		const eventData = props.eventOptions?.find(e => e.uuid === props.data?.eventId);
+		const example = getTestEventFromEventData(eventData);
 
 		if (props.data?.testEvent) {
 			try {

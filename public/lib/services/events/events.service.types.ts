@@ -17,6 +17,7 @@ interface EventOptionData {
 	version: string;
 	type: string;
 	dataSchema: {
+		$schema: string;
 		definitions: {
 			datadef: {
 				examples: any[];

@@ -1,6 +1,6 @@
 {
 	"name": "@redactie/wem-module",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "redactie wem module",
 	"main": "dist/redactie-wem-module.umd.js",
 	"module": "dist/redactie-wem-module.umd.js",
@@ -14,6 +14,7 @@
 		"build:analyse": "npm run build:types && webpack --env.analyse",
 		"start": "concurrently --kill-others \"npm run build:w\" \"cd demo && npm run start\"",
 		"lint:scss": "stylelint public/**/*.scss --allow-empty-input",
+
 		"lint:ts": "eslint --cache --cache-location .eslintcache --ext .ts,.tsx public",
 		"lint": "npm run lint:scss && npm run lint:ts",
 		"test": "jest ./public",
