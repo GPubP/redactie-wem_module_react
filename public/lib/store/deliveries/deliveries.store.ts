@@ -82,6 +82,8 @@ export const generateNewDeliveryForm = (): DeliverySchema => ({
 	isActive: false,
 	createdAt: '',
 	updatedAt: '',
+	documentationUrl: '',
+	auditLogUrl: '',
 });
 
 @StoreConfig({ name: 'deliveries', idKey: 'id' })

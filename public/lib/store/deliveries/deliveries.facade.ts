@@ -1,4 +1,4 @@
-import { alertService, BaseEntityFacade } from '@redactie/utils';
+import { AlertProps, alertService, BaseEntityFacade } from '@redactie/utils';
 
 import { ALERT_IDS } from '../../events.const';
 import { ALERT_TEXTS } from '../../i18next/alerts.text';
@@ -140,24 +140,31 @@ export class DeliveriesFacade extends BaseEntityFacade<
 		translator: (a: string) => string
 	): Promise<void> {
 		this.store.update({ isSendingTestEvent: true });
-		return this.service
-			.sendTestEvent(body)
-			.then(() => {
-				this.store.update({ isSendingTestEvent: false });
+		return this.service.sendTestEvent(body).then(response => {
+			this.store.update({ isSendingTestEvent: false });
+			if (response?.error) {
 				setTimeout(() => {
-					alertService.success(ALERT_TEXTS(translator, body).DELIVERIES.testEventOk, {
-						containerId: ALERT_IDS.DELIVERIES_CRUD,
-					});
-				}, 500);
-			})
-			.catch(() => {
-				this.store.update({ isSendingTestEvent: false });
-				setTimeout(() => {
-					alertService.danger(ALERT_TEXTS(translator, body).DELIVERIES.testEventError, {
-						containerId: ALERT_IDS.DELIVERIES_CRUD,
-					});
+					const errorAlertProps: AlertProps = ALERT_TEXTS(translator, body).DELIVERIES
+						.testEventError;
+					alertService.danger(
+						{
+							...errorAlertProps,
+							message: response?.message ?? errorAlertProps.message,
+						},
+						{
+							containerId: ALERT_IDS.DELIVERIES_CRUD,
+						}
+					);
 				});
-			});
+				return;
+			}
+
+			setTimeout(() => {
+				alertService.success(ALERT_TEXTS(translator, body).DELIVERIES.testEventOk, {
+					containerId: ALERT_IDS.DELIVERIES_CRUD,
+				});
+			}, 500);
+		});
 	}
 }
 

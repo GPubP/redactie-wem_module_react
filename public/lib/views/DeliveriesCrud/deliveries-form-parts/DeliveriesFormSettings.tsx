@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { Textarea, TextField } from '@acpaas-ui/react-components';
+import { Icon, Link, Textarea, TextField } from '@acpaas-ui/react-components';
 import React, { FC, FormEvent } from 'react';
 
 import FieldDescription from '../../../components/forms/FieldDescription';
@@ -20,6 +20,26 @@ const DeliveriesFormSettings: FC<DeliveriesFormProps> = props => {
 	return (
 		<div>
 			<div className="row">
+				{(props?.data?.auditLogUrl || props?.data?.documentationUrl) && (
+					<>
+						{props.data.auditLogUrl && (
+							<div className="col-xs-12 u-margin-bottom">
+								<Link href={props.data.auditLogUrl} target="_blank">
+									<Icon className="u-margin-right-xs" name="external-link" />
+									Audit log
+								</Link>
+							</div>
+						)}
+						{props.data.documentationUrl && (
+							<div className="col-xs-12 u-margin-bottom">
+								<Link href={props.data.documentationUrl} target="_blank">
+									<Icon className="u-margin-right-xs" name="external-link" />
+									Documentatie
+								</Link>
+							</div>
+						)}
+					</>
+				)}
 				<div className="col-lg-6 col-xs-12">
 					<div className="u-margin-bottom">
 						<TextField

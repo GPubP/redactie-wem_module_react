@@ -178,6 +178,8 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 				ownerKey: formData?.destinationOwnerKey ?? '',
 				namespace: formData?.destinationNamespace ?? '',
 				topic: formData?.topic ?? '',
+				filter: formData?.filter ?? {},
+				deliveryId: formData?.id ?? '',
 			},
 			t
 		);

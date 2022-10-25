@@ -5,6 +5,7 @@ import { ModelCreateResponseSchema, ModelUpdateResponseSchema } from '../service
 import {
 	DeliveriesResponseSchema,
 	DeliverySchema,
+	TestEventErrorResponse,
 	TestEventSchema,
 } from './deliveries.service.types';
 
@@ -44,8 +45,12 @@ export class DeliveriesAPIService {
 		return api.delete(`${DELIVERIES_PATH}/${id}`).then();
 	}
 
-	public async sendTestEvent(body: TestEventSchema): Promise<void> {
-		return api.post(`${DELIVERIES_PATH}/test-event`, { json: body }).json();
+	public async sendTestEvent(body: TestEventSchema): Promise<void | TestEventErrorResponse> {
+		try {
+			await api.post(`${DELIVERIES_PATH}/test-event`, { json: body }).json();
+		} catch (error) {
+			return (error as any)?.response?.json() ?? {};
+		}
 	}
 }
 

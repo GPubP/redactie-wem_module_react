@@ -28,6 +28,8 @@ export interface DeliverySchema {
 	isActive: boolean;
 	createdAt: string;
 	updatedAt: string;
+	auditLogUrl: string;
+	documentationUrl: string;
 }
 
 export interface DeliveryValidationSchema extends ValidationProps {
@@ -53,4 +55,11 @@ export interface TestEventSchema {
 	ownerKey: string;
 	namespace: string;
 	topic: string;
+	deliveryId: string;
+	filter: Record<string, unknown>;
+}
+
+export interface TestEventErrorResponse {
+	error: string;
+	message: string;
 }
