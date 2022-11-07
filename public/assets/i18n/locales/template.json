@@ -5,6 +5,7 @@
   "EVENTS": "Events",
   "DESTINATIONS": "Bestemmingen",
   "DESTINATION_NEW": "Nieuwe bestemming aanmaken",
+  "DELIVERY": "Aflevering",
   "DELIVERY_NEW": "Nieuwe aflevering aanmaken",
   "DESTINATION_CREATED": "Bestemming werd successvol aangemaakt.",
   "DESTINATION_UPDATED": "Bestemming werd successvol bewaard.",

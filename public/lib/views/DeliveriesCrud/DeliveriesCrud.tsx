@@ -11,6 +11,7 @@ import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
 import {
 	AlertContainer,
 	alertService,
+	ContextHeaderBadge,
 	DataLoader,
 	LoadingState,
 	useNavigate,
@@ -223,6 +224,17 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 				}
 				linkProps={(props: ExtendedContextHeaderTabLinkProps) =>
 					linkProps(props, formValidation?.feedback, activeTabs)
+				}
+				badges={
+					[
+						{ name: t(TRANSLATIONS.DELIVERY), type: 'primary' },
+						{
+							name: formData?.isActive
+								? t(TRANSLATIONS.ACTIVE)
+								: t(TRANSLATIONS.NOT_ACTIVE),
+							type: formData?.isActive ? 'success' : 'danger',
+						},
+					] as ContextHeaderBadge[]
 				}
 			>
 				<ContextHeaderTopSection>{breadcrumbs}</ContextHeaderTopSection>

@@ -9,6 +9,7 @@ const TRANSLATIONS = Object.freeze({
 	EVENTS: tKey('EVENTS', 'Events'),
 	DESTINATIONS: tKey('DESTINATIONS', 'Bestemmingen'),
 	DESTINATION_NEW: tKey('DESTINATION_NEW', 'Nieuwe bestemming aanmaken'),
+	DELIVERY: tKey('DELIVERY', 'Aflevering'),
 	DELIVERY_NEW: tKey('DELIVERY_NEW', 'Nieuwe aflevering aanmaken'),
 	DESTINATION_CREATED: tKey('DESTINATION_CREATED', 'Bestemming werd successvol aangemaakt.'),
 	DESTINATION_UPDATED: tKey('DESTINATION_UPDATED', 'Bestemming werd successvol bewaard.'),

@@ -7,7 +7,14 @@ import {
 	ContextHeaderTopSection,
 } from '@acpaas-ui/react-editorial-components';
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
-import { AlertContainer, DataLoader, LoadingState, useNavigate, useRoutes } from '@redactie/utils';
+import {
+	AlertContainer,
+	ContextHeaderBadge,
+	DataLoader,
+	LoadingState,
+	useNavigate,
+	useRoutes,
+} from '@redactie/utils';
 import React, { FC, useEffect } from 'react';
 
 import rolesRightsConnector from '../../connectors/rolesRights';
@@ -106,6 +113,9 @@ const DestinationsCrud: FC<DestinationsCrudProps> = ({ match }) => {
 						: t(TRANSLATIONS.DESTINATION_NEW)
 				}
 				linkProps={linkProps}
+				badges={
+					[{ name: t(TRANSLATIONS.DESTINATION), type: 'primary' }] as ContextHeaderBadge[]
+				}
 			>
 				<ContextHeaderTopSection>{breadcrumbs}</ContextHeaderTopSection>
 			</ContextHeader>
