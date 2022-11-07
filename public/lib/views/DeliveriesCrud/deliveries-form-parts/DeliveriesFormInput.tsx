@@ -89,7 +89,8 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 									props.onChange(
 										JSON.stringify(
 											getTestEventFromEventData(
-												props.eventOptions?.find(e => e.uuid === selected)
+												props.eventOptions?.find(e => e.uuid === selected),
+												props.tenantId
 											)
 										),
 										'testEvent'

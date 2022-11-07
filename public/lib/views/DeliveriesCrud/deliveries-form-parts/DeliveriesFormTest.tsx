@@ -18,7 +18,7 @@ const DeliveriesFormTest: FC<DeliveriesFormProps> = props => {
 
 	const eventDataExample = useMemo(() => {
 		const eventData = props.eventOptions?.find(e => e.uuid === props.data?.eventId);
-		const example = getTestEventFromEventData(eventData);
+		const example = getTestEventFromEventData(eventData, props.tenantId);
 
 		if (props.data?.testEvent) {
 			try {
@@ -29,7 +29,7 @@ const DeliveriesFormTest: FC<DeliveriesFormProps> = props => {
 		}
 
 		return example;
-	}, [props.data?.testEvent, props.data?.eventId, props.eventOptions]);
+	}, [props.data?.testEvent, props.data?.eventId, props.tenantId, props.eventOptions]);
 
 	if (props.activeTab !== EVENT_DELIVERY_TEST_TAB) {
 		if (startedInput) {

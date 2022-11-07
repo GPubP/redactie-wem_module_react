@@ -14,10 +14,11 @@ import {
 	ContextHeaderBadge,
 	DataLoader,
 	LoadingState,
+	TenantContext,
 	useNavigate,
 	useRoutes,
 } from '@redactie/utils';
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useContext, useEffect, useMemo, useState } from 'react';
 
 import rolesRightsConnector from '../../connectors/rolesRights';
 import translationsConnector from '../../connectors/translations';
@@ -55,6 +56,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 	 * INITIALIZE
 	 */
 	const modelId = match.params.deliveryId;
+	const tenantContext = useContext(TenantContext);
 
 	const routes = useRoutes();
 	const { navigate, generatePath } = useNavigate();
@@ -269,6 +271,7 @@ const DeliveriesCrud: FC<DeliveriesCrudProps> = ({ match }) => {
 						fetchingTopicsError={isFetchingTopics === LoadingState.Error}
 						onAddTopic={onTopicSubmit}
 						isCreatingTopic={isCreatingTopic === LoadingState.Loading}
+						tenantId={tenantContext.tenantId}
 					/>
 				)}
 				<ActionBar className="o-action-bar--fixed" isOpen>

@@ -34,4 +34,5 @@ export interface DeliveriesFormProps {
 	fetchingTopicsError: boolean;
 	onAddTopic: (name: string, onSuccess: () => void, onError: () => void) => void;
 	isCreatingTopic: boolean;
+	tenantId: string;
 }
