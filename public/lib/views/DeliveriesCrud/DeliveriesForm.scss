@@ -1,0 +1,10 @@
+@import '../../../assets/styles/variables';
+
+.DeliveriesForm {
+	.a-input {
+		textarea,
+		input {
+			color: $wem-color-black !important;
+		}
+	}
+}

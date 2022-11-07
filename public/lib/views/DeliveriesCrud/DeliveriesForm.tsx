@@ -6,9 +6,11 @@ import DeliveriesFormInput from './deliveries-form-parts/DeliveriesFormInput';
 import DeliveriesFormSettings from './deliveries-form-parts/DeliveriesFormSettings';
 import DeliveriesFormTest from './deliveries-form-parts/DeliveriesFormTest';
 
+import './DeliveriesForm.scss';
+
 const DeliveriesForm: FC<DeliveriesFormProps> = props => {
 	return (
-		<div>
+		<div className="DeliveriesForm">
 			<DeliveriesFormSettings {...props} />
 			<DeliveriesFormInput {...props} />
 			<DeliveriesFormTest {...props} />
