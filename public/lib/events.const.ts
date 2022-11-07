@@ -69,3 +69,7 @@ export const ALERT_IDS = {
 	DESTINATIONS_CRUD: 'destinations-crud',
 	DELIVERIES_CRUD: 'deliveries-crud',
 };
+
+export const ERROR_RESPONSES = {
+	NO_FILTER_MATCH: 'NoFilterMatchError',
+};

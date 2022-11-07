@@ -1,6 +1,7 @@
 import { AlertProps, alertService, BaseEntityFacade } from '@redactie/utils';
+import React from 'react';
 
-import { ALERT_IDS } from '../../events.const';
+import { ALERT_IDS, ERROR_RESPONSES } from '../../events.const';
 import { ALERT_TEXTS } from '../../i18next/alerts.text';
 import {
 	deliveriesAPIService,
@@ -14,6 +15,7 @@ import {
 import { validateDelivery } from '../../services/deliveries/deliveries.validations';
 import { sortAndDirectionToAPIQuery } from '../../services/query.helpers';
 import { ModelCreateResponseSchema } from '../../services/services.types';
+import TestEventNoFilterMatchMessage from '../../views/DeliveriesCrud/test-event-no-filter-match-message/TestEventNoFilterMatchMessage';
 import { FormUtils } from '../form.utils';
 
 import { deliveriesQuery, DeliveriesQuery } from './deliveries.query';
@@ -146,10 +148,22 @@ export class DeliveriesFacade extends BaseEntityFacade<
 				setTimeout(() => {
 					const errorAlertProps: AlertProps = ALERT_TEXTS(translator, body).DELIVERIES
 						.testEventError;
-					alertService.danger(
+					const alertProps = {
+						...errorAlertProps,
+						message: response?.message ?? errorAlertProps.message,
+					};
+					alertService.warning(
 						{
-							...errorAlertProps,
-							message: response?.message ?? errorAlertProps.message,
+							...alertProps,
+							message:
+								response.error === ERROR_RESPONSES.NO_FILTER_MATCH ? (
+									<TestEventNoFilterMatchMessage
+										message={alertProps.message}
+										filters={response.filters || []}
+									/>
+								) : (
+									alertProps.message
+								),
 						},
 						{
 							containerId: ALERT_IDS.DELIVERIES_CRUD,

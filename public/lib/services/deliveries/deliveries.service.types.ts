@@ -62,4 +62,5 @@ export interface TestEventSchema {
 export interface TestEventErrorResponse {
 	error: string;
 	message: string;
+	filters?: string[];
 }
