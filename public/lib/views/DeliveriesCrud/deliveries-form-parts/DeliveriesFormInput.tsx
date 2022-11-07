@@ -75,6 +75,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 								disabled={
 									props.isLoading || props.isFetchingEvents || !props.canUpdate
 								}
+								isFetching={props.isLoading || props.isFetchingEvents}
 								onChange={(selected: any) => {
 									const event = props.eventOptions?.find(
 										e => e.uuid === selected
@@ -137,6 +138,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 									props.isFetchingDestinations ||
 									!props.canUpdate
 								}
+								isFetching={props.isLoading || props.isFetchingDestinations}
 								onChange={(selected: any) => {
 									const destination = props.destinationsOptions?.find(
 										e => e.id === selected
@@ -177,6 +179,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 								disabled={
 									props.isLoading || props.isFetchingTopics || !props.canUpdate
 								}
+								isFetching={props.isLoading || props.isFetchingTopics}
 								onChange={(selected: any) => {
 									props.onChange(selected, 'topic');
 								}}

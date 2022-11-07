@@ -15,6 +15,14 @@
 				color: $wem-color-red !important;
 			}
 		}
+		.a-spinner {
+			position: absolute;
+			top: $wem-space-small;
+			right: $wem-space-small;
+			&::before {
+				font-size: $wem-space;
+			}
+		}
 	}
 	.wem-a-adv-select__input {
 		display: block;

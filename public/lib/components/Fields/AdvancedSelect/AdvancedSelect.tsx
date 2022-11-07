@@ -127,7 +127,11 @@ class AdvancedSelect extends Component<any, any> {
 						>
 							{calculatedValue}
 						</div>
-						{this.props.disabled ? null : <span className="fa fa-angle-down" />}
+						{this.props.isFetching ? (
+							<span className="a-spinner a-spinner--s" />
+						) : this.props.disabled ? null : (
+							<span className="fa fa-angle-down" />
+						)}
 					</div>
 				)}
 				<FlyoutMenu

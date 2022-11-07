@@ -140,7 +140,7 @@ const TRANSLATIONS = Object.freeze({
 	DELIVERY_FILTER_FIELD_LABEL: tKey('DELIVERY_FILTER_FIELD_LABEL', 'Filter'),
 	DELIVERY_FILTER_SCHEMA_VALIDATION_MESSAGE: tKey(
 		'DELIVERY_FILTER_SCHEMA_VALIDATION_MESSAGE',
-		'Het opgegeven filter is niet geldig volgens het schema'
+		'Filter does not match the schema. Please check the documentation for correct usage.'
 	),
 	TOPIC_CREATED: tKey('TOPIC_CREATED', 'Topic werd successvol aangemaakt.'),
 } as const);

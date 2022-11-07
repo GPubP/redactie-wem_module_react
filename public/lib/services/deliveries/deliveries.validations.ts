@@ -1,3 +1,6 @@
+import { Validator } from 'jsonschema';
+
+import { DELIVERY_FILTER_SCHEMA } from '../../store/deliveries/deliveries.store';
 import { validateRequired, ValidationState } from '../validation.helpers';
 
 import {
@@ -19,8 +22,12 @@ const DELIVERIES_REQUIRED_FIELDS = [
 export function validateDeliveryFilter(
 	newFilter: Record<string, unknown> | Record<string, unknown>[] | undefined
 ): ValidationState {
-	// TODO Validate filter
-	return ValidationState.Ok;
+	const validated = new Validator().validate(newFilter, DELIVERY_FILTER_SCHEMA);
+	debugger;
+	if (validated.valid) {
+		return ValidationState.Ok;
+	}
+	return ValidationState.Incorrect;
 }
 
 export function validateDelivery(body: DeliverySchema | undefined): DeliveryValidationSchema {
