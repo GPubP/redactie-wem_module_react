@@ -19,7 +19,12 @@ import TestEventNoFilterMatchMessage from '../../views/DeliveriesCrud/test-event
 import { FormUtils } from '../form.utils';
 
 import { deliveriesQuery, DeliveriesQuery } from './deliveries.query';
-import { deliveriesStore, DeliveriesStore, generateNewDeliveryForm } from './deliveries.store';
+import {
+	deliveriesStore,
+	DeliveriesStore,
+	generateNewDeliveryForm,
+	mapDeliveryToStore,
+} from './deliveries.store';
 
 export class DeliveriesFacade extends BaseEntityFacade<
 	DeliveriesStore,
@@ -41,7 +46,8 @@ export class DeliveriesFacade extends BaseEntityFacade<
 			this.query,
 			this.service,
 			generateNewDeliveryForm,
-			validateDelivery
+			validateDelivery,
+			mapDeliveryToStore
 		);
 	}
 
@@ -102,8 +108,28 @@ export class DeliveriesFacade extends BaseEntityFacade<
 			});
 		}
 		if (validation.valid && bodyToSubmit?.id) {
-			return this.service.update(bodyToSubmit.id, bodyToSubmit).then(() => {
+			const updateBody = {
+				...bodyToSubmit,
+				filter: bodyToSubmit.filter ? JSON.parse(bodyToSubmit.filter) : undefined,
+			};
+			if (bodyToSubmit.testEvent) {
+				try {
+					updateBody.testEvent = JSON.stringify(
+						JSON.parse(bodyToSubmit.testEvent),
+						null,
+						4
+					);
+				} catch {
+					updateBody.testEvent = bodyToSubmit.testEvent;
+				}
+			}
+			return this.service.update(bodyToSubmit.id, updateBody).then(() => {
 				this.store.setIsCreating(false);
+				this.updateField(
+					JSON.stringify(JSON.parse(bodyToSubmit.filter), null, 4),
+					'filter'
+				);
+				this.updateField(updateBody.testEvent, 'testEvent');
 				alertService.success(ALERT_TEXTS(translator).DELIVERIES.updateOk, {
 					containerId: ALERT_IDS.DELIVERIES_CRUD,
 				});

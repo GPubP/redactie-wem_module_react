@@ -52,7 +52,6 @@
   "ACTIVE": "Actief",
   "ACTIVATE": "Activeren",
   "DESACTIVATE": "Deactiveren",
-  "SCHEMA": "schema",
   "DELIVERY_ACTIVE_HELP": "Dit event is actief. Je kan het deactiveren of verwijderen.",
   "DELIVERY_NOT_ACTIVE_HELP": "Dit event is niet actief. Je kan het activeren of verwijderen.",
   "NOT_ACTIVE": "Niet actief",
@@ -69,9 +68,8 @@
   "DELETE_MODAL_EVENT_BODY": "Ben je zeker dat je deze bestemming wil verwijderen? Dit kan niet ongedaan gemaakt worden.",
   "CREATE_TOPIC_MODAL_TITLE": "Topic Aanmaken",
   "CREATE_TOPIC_MODAL_BODY": "Je maakt een topic aan binnen ",
-  "DELIVERY_SCHEMA_MODAL_TITLE": "Aflevering filter JSON schema",
-  "DELIVERY_FILTER_FIELD_DESCRIPTION": "JSON code met",
+  "DELIVERY_FILTER_FIELD_DESCRIPTION": "JSON-filterdocumentatie.",
   "DELIVERY_FILTER_FIELD_LABEL": "Filter",
-  "DELIVERY_FILTER_SCHEMA_VALIDATION_MESSAGE": "Filter does not match the schema. Please check the documentation for correct usage.",
+  "DELIVERY_FILTER_SCHEMA_VALIDATION_MESSAGE": "Filter komt niet overeen met het schema. Raadpleeg de documentatie voor het juiste gebruik.",
   "TOPIC_CREATED": "Topic werd successvol aangemaakt."
 }

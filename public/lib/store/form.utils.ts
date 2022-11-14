@@ -9,19 +9,22 @@ export class FormUtils {
 	private service: any;
 	private populate: () => any;
 	private validator: (a: any) => ValidationProps;
+	private mapper?: (a: any) => any;
 
 	constructor(
 		store: BaseEntityStore<any>,
 		query: BaseEntityQuery<any>,
 		service: any,
 		populator: () => any,
-		validator: (a: any) => ValidationProps
+		validator: (a: any) => ValidationProps,
+		mapper?: (a: any) => any
 	) {
 		this.store = store;
 		this.populate = populator;
 		this.service = service;
 		this.query = query;
 		this.validator = validator;
+		this.mapper = mapper;
 	}
 
 	public updateField(value: string | boolean, field: string): void {
@@ -67,7 +70,7 @@ export class FormUtils {
 		this.store.setIsFetchingOne(true);
 		return this.service.fetchOne(id).then((response: any) => {
 			this.store.update(() => ({
-				formData: { ...response },
+				formData: this.mapper ? this.mapper(response) : { ...response },
 			}));
 			this.store.setIsFetchingOne(false);
 			return response;

@@ -91,7 +91,9 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 											getTestEventFromEventData(
 												props.eventOptions?.find(e => e.uuid === selected),
 												props.tenantId
-											)
+											),
+											null,
+											4
 										),
 										'testEvent'
 									);

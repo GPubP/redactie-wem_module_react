@@ -4,6 +4,7 @@ import { DELIVERY_FILTER_SCHEMA } from '../../store/deliveries/deliveries.store'
 import { validateRequired, ValidationState } from '../validation.helpers';
 
 import {
+	DeliveryFilterValidationState,
 	DeliverySchema,
 	DeliveryValidationSchema,
 	DeliveryValidationType,
@@ -20,14 +21,26 @@ const DELIVERIES_REQUIRED_FIELDS = [
 ];
 
 export function validateDeliveryFilter(
-	newFilter: Record<string, unknown> | Record<string, unknown>[] | undefined
-): ValidationState {
-	const validated = new Validator().validate(newFilter, DELIVERY_FILTER_SCHEMA);
-	debugger;
-	if (validated.valid) {
-		return ValidationState.Ok;
+	newFilter: string | undefined
+): DeliveryFilterValidationState {
+	if (!newFilter) {
+		return { valid: true, error: '' };
 	}
-	return ValidationState.Incorrect;
+	let parsed;
+	try {
+		parsed = JSON.parse(newFilter as string);
+	} catch (error) {
+		return {
+			valid: false,
+			error: (error as any).message,
+		};
+	}
+
+	const validated = new Validator().validate(parsed, DELIVERY_FILTER_SCHEMA);
+	if (validated.valid) {
+		return { valid: true, error: '' };
+	}
+	return { valid: false, error: validated.toString() };
 }
 
 export function validateDelivery(body: DeliverySchema | undefined): DeliveryValidationSchema {
@@ -56,7 +69,11 @@ export function validateDelivery(body: DeliverySchema | undefined): DeliveryVali
 	};
 	let valid = true;
 	Object.keys(feedback).forEach(
-		fk => (valid = valid && feedback[fk as keyof DeliveryValidationType] === ValidationState.Ok)
+		fk =>
+			(valid =
+				valid && fk === 'filter'
+					? !!feedback.filter.valid
+					: feedback[fk as keyof DeliveryValidationType] === ValidationState.Ok)
 	);
 	return {
 		valid,

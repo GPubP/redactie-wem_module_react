@@ -1,75 +1,63 @@
 /* eslint-disable import/no-unresolved */
-import _ from 'lodash';
-import React, { FC, useMemo, useState } from 'react';
-import JSONInput from 'react-json-editor-ajrm';
-import locale from 'react-json-editor-ajrm/locale/en';
+import { Textarea } from '@acpaas-ui/react-components';
+import React, { FC, FormEvent, useEffect, useMemo, useState } from 'react';
 
 import FieldDescription from '../../../components/forms/FieldDescription';
-import { EVENT_DELIVERY_TEST_TAB } from '../../../events.const';
+import translationsConnector from '../../../connectors/translations';
+import { ERROR_STATE } from '../../../events.const';
+import { TRANSLATIONS } from '../../../i18next/translations.const';
 import { deliveriesFacade } from '../../../store/deliveries/deliveries.facade';
 import { getTestEventFromEventData } from '../../utils/deliveries.utils';
 import { DeliveriesFormProps } from '../DeliveriesCrud.types';
 
-import { JSON_INPUT_COLORS, JSON_INPUT_STYLE, JSON_INPUT_THEME } from './DeliveriesFormTest.const';
-import { JSONInputOnChangeValue } from './DeliveriesFormTest.types';
+import './DeliveriesFormTest.scss';
 
 const DeliveriesFormTest: FC<DeliveriesFormProps> = props => {
-	const [startedInput, setStartedInput] = useState(false);
+	const [t] = translationsConnector.useModuleTranslation();
+	const [error, setError] = useState('');
 
 	const eventDataExample = useMemo(() => {
 		const eventData = props.eventOptions?.find(e => e.uuid === props.data?.eventId);
 		const example = getTestEventFromEventData(eventData, props.tenantId);
 
 		if (props.data?.testEvent) {
-			try {
-				return JSON.parse(props.data.testEvent);
-			} catch (error) {
-				return example;
-			}
+			return props.data?.testEvent;
 		}
 
-		return example;
+		return JSON.stringify(example, null, 4);
 	}, [props.data?.testEvent, props.data?.eventId, props.tenantId, props.eventOptions]);
 
-	if (props.activeTab !== EVENT_DELIVERY_TEST_TAB) {
-		if (startedInput) {
-			setStartedInput(false);
-		}
-		return null;
-	}
-
-	const handleChange = (value: JSONInputOnChangeValue): void => {
-		if (!startedInput) {
-			setStartedInput(true);
-		}
-		if (!value.error) {
-			props.onChange(value?.json ?? '', 'testEvent');
-			deliveriesFacade.setCanSendTestEvent(true);
-		} else {
-			deliveriesFacade.setCanSendTestEvent(false);
-		}
+	const handleChange = (e: FormEvent<HTMLInputElement>): void => {
+		props.onChange(e.currentTarget.value, 'testEvent');
 	};
 
+	useEffect(() => {
+		try {
+			JSON.parse(eventDataExample);
+			deliveriesFacade.setCanSendTestEvent(true);
+			setError('');
+		} catch (error) {
+			setError((error as any).message);
+			deliveriesFacade.setCanSendTestEvent(false);
+		}
+	}, [eventDataExample]);
+
 	return (
-		<div>
+		<div className="DeliveriesFormTest">
 			<div className="row">
 				<div className="col-xs-12">
-					<div className="a-input">
-						<label className="a-input__label">Event</label>
-						<JSONInput
-							id="delivery-event-test"
-							placeholder={startedInput ? undefined : eventDataExample}
-							theme={JSON_INPUT_THEME}
-							colors={JSON_INPUT_COLORS}
-							style={JSON_INPUT_STYLE}
-							locale={locale}
-							// TODO: see if we translate to dutch or not
-							// locale={JSON_INPUT_THEME_BE_LOCALE}
-							height="550px"
-							onChange={handleChange}
-						/>
-					</div>
-					<FieldDescription message={'JSON code.'} state="" />
+					<Textarea
+						label={t(TRANSLATIONS.EVENT)}
+						value={eventDataExample}
+						name="testEvent"
+						onChange={handleChange}
+						spellcheck={false}
+						state={error ? ERROR_STATE : ''}
+					/>
+					<FieldDescription
+						message={error || 'JSON code.'}
+						state={error ? ERROR_STATE : ''}
+					/>
 				</div>
 			</div>
 		</div>

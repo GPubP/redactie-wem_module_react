@@ -22,7 +22,7 @@ export interface DeliverySchema {
 	destinationName: string;
 	destinationNamespace?: string;
 	destinationOwnerKey?: string;
-	filter: Record<string, unknown>;
+	filter: string;
 	testEvent: string;
 	topic: string;
 	isActive: boolean;
@@ -36,6 +36,11 @@ export interface DeliveryValidationSchema extends ValidationProps {
 	feedback: DeliveryValidationType;
 }
 
+export interface DeliveryFilterValidationState {
+	valid: boolean;
+	error: string;
+}
+
 export interface DeliveryValidationType {
 	name: ValidationState;
 	description: ValidationState;
@@ -47,7 +52,7 @@ export interface DeliveryValidationType {
 	destinationId: ValidationState;
 	topic: ValidationState;
 	isActive: ValidationState;
-	filter: ValidationState;
+	filter: DeliveryFilterValidationState;
 }
 
 export interface TestEventSchema {

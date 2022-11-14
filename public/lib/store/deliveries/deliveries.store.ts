@@ -78,12 +78,19 @@ export const generateNewDeliveryForm = (): DeliverySchema => ({
 	destinationName: '',
 	topic: '',
 	testEvent: '',
-	filter: DEFAULT_DELIVERY_FILTER,
+	filter: JSON.stringify(DEFAULT_DELIVERY_FILTER, null, 4),
 	isActive: false,
 	createdAt: '',
 	updatedAt: '',
 	documentationUrl: '',
 	auditLogUrl: '',
+});
+
+export const mapDeliveryToStore = (apiDelivery: any): DeliverySchema => ({
+	...apiDelivery,
+	filter: apiDelivery?.filter
+		? JSON.stringify(apiDelivery?.filter, null, 4)
+		: JSON.stringify(DEFAULT_DELIVERY_FILTER, null, 4),
 });
 
 @StoreConfig({ name: 'deliveries', idKey: 'id' })

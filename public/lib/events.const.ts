@@ -73,3 +73,6 @@ export const ALERT_IDS = {
 export const ERROR_RESPONSES = {
 	NO_FILTER_MATCH: 'NoFilterMatchError',
 };
+
+export const EVENTS_FILTER_DOCUMENTATION_URL =
+	'https://gpubp.antwerpen.be/#/modules/content/modules/events?id=events-verder-filteren-in-een-aflevering';
