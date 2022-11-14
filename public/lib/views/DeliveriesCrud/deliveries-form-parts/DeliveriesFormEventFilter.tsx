@@ -5,6 +5,7 @@ import FieldDescription from '../../../components/forms/FieldDescription';
 import translationsConnector from '../../../connectors/translations';
 import { ERROR_STATE, EVENTS_FILTER_DOCUMENTATION_URL } from '../../../events.const';
 import { TRANSLATIONS } from '../../../i18next/translations.const';
+import { ValidationState } from '../../../services/validation.helpers';
 import { DeliveriesFormProps } from '../DeliveriesCrud.types';
 
 import './DeliveriesFormEventFilter.scss';
@@ -37,7 +38,11 @@ const DeliveriesFormEventFilter: FC<DeliveriesFormProps> = props => {
 				</div>
 				{hasError && (
 					<FieldDescription
-						message={props.validations?.filter.error ?? ''}
+						message={
+							props.validations?.filter.error === ValidationState.Incorrect
+								? t(TRANSLATIONS.DELIVERY_FILTER_SCHEMA_VALIDATION_MESSAGE)
+								: props.validations?.filter.error ?? ''
+						}
 						state={ERROR_STATE}
 					/>
 				)}

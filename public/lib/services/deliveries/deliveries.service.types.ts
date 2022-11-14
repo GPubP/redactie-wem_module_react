@@ -38,7 +38,7 @@ export interface DeliveryValidationSchema extends ValidationProps {
 
 export interface DeliveryFilterValidationState {
 	valid: boolean;
-	error: string;
+	error: string | ValidationState.Incorrect;
 }
 
 export interface DeliveryValidationType {

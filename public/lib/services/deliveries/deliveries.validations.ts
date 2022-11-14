@@ -40,7 +40,7 @@ export function validateDeliveryFilter(
 	if (validated.valid) {
 		return { valid: true, error: '' };
 	}
-	return { valid: false, error: validated.toString() };
+	return { valid: false, error: ValidationState.Incorrect };
 }
 
 export function validateDelivery(body: DeliverySchema | undefined): DeliveryValidationSchema {
@@ -71,9 +71,10 @@ export function validateDelivery(body: DeliverySchema | undefined): DeliveryVali
 	Object.keys(feedback).forEach(
 		fk =>
 			(valid =
-				valid && fk === 'filter'
+				valid &&
+				(fk === 'filter'
 					? !!feedback.filter.valid
-					: feedback[fk as keyof DeliveryValidationType] === ValidationState.Ok)
+					: feedback[fk as keyof DeliveryValidationType] === ValidationState.Ok))
 	);
 	return {
 		valid,
