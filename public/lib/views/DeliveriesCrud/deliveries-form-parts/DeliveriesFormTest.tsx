@@ -4,7 +4,7 @@ import React, { FC, FormEvent, useEffect, useMemo, useState } from 'react';
 
 import FieldDescription from '../../../components/forms/FieldDescription';
 import translationsConnector from '../../../connectors/translations';
-import { ERROR_STATE } from '../../../events.const';
+import { ERROR_STATE, EVENT_DELIVERY_TEST_TAB } from '../../../events.const';
 import { TRANSLATIONS } from '../../../i18next/translations.const';
 import { deliveriesFacade } from '../../../store/deliveries/deliveries.facade';
 import { getTestEventFromEventData } from '../../utils/deliveries.utils';
@@ -41,6 +41,10 @@ const DeliveriesFormTest: FC<DeliveriesFormProps> = props => {
 			deliveriesFacade.setCanSendTestEvent(false);
 		}
 	}, [eventDataExample]);
+
+	if (props.activeTab !== EVENT_DELIVERY_TEST_TAB) {
+		return null;
+	}
 
 	return (
 		<div className="DeliveriesFormTest">
