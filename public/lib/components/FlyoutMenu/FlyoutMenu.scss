@@ -6,16 +6,20 @@
 	visibility: hidden;
 	transition: visibility 0.3s, opacity 0.3s;
 	z-index: $wem-index-flyout;
+
 	&--min-width {
 		min-width: 280px;
 	}
+
 	.a-input {
 		z-index: $wem-index-flyout;
 	}
+
 	&.is-open {
 		opacity: 1;
 		visibility: visible;
 	}
+
 	&__topcontent {
 		width: 100%;
 		border-left: 1px solid #b0b0b0;
@@ -23,20 +27,25 @@
 		border-right: 1px solid #b0b0b0;
 		border-top: 1px solid #b0b0b0;
 	}
+
 	&__bottomcontent {
 		border-top: 1px solid #d8d8d8 !important;
 	}
+
 	&__select-item {
 		display: flex;
+
 		.wem-a-checkbox {
 			position: relative;
 			top: -1px;
 		}
+
 		i {
 			position: relative;
 			top: 5px;
 		}
 	}
+
 	&__search-input {
 		padding: 10px;
 		z-index: $wem-index-flyout;
@@ -45,9 +54,11 @@
 		border-top: 1px solid #b0b0b0;
 		border-left: 1px solid #b0b0b0;
 		border-right: 1px solid #b0b0b0;
+
 		&--empty {
 			border-bottom: 1px solid #b0b0b0;
 		}
+
 		&--loading {
 			position: absolute;
 			right: calc(50% - #{$wem-space-small});
@@ -64,6 +75,7 @@
 		top: 0;
 		z-index: $wem-index-flyout-overlay;
 	}
+
 	&__sortable {
 		border: 1px solid $wem-color-grey-light;
 		z-index: $wem-index-flyout-overlay + 1;
@@ -71,13 +83,15 @@
 		background: $wem-color-white;
 		position: relative;
 		line-height: 29px;
-		box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
 	}
+
 	.wem-m-flyout-menu__sortable {
 		border: none;
 		box-shadow: none;
 		border-top: 1px solid $wem-color-grey-light;
 	}
+
 	&__sort-handle {
 		position: absolute;
 		top: 18px;
@@ -86,35 +100,43 @@
 		font-size: 20px;
 		cursor: ns-resize;
 	}
+
 	.wem-m-flyout-input-wrapper {
 		position: relative;
+
 		input {
 			padding-right: 2rem;
 			padding-left: 1rem;
 		}
-		&:after {
+
+		&::after {
 			@include fontawesome();
+
 			color: $wem-color-grey;
 			font-size: $font-size-lg;
 			position: absolute;
 			right: 12px;
 			top: 16px;
 		}
-		&--with-search:after {
+
+		&--with-search::after {
 			color: $wem-color-blue;
 		}
 	}
+
 	.m-selectable-list__item {
 		&.disabled {
 			color: #c9c9c9;
 			cursor: not-allowed;
 		}
+
 		cursor: pointer;
 		line-height: $wem-lh-default;
 	}
+
 	&--search {
 		.wem-m-flyout-input-wrapper {
-			&:after {
+			&::after {
 				content: '\f002';
 			}
 		}

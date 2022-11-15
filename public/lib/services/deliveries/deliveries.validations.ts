@@ -32,7 +32,7 @@ export function validateDeliveryFilter(
 	} catch (error) {
 		return {
 			valid: false,
-			error: (error as any).message,
+			error: (error as SyntaxError).message,
 		};
 	}
 

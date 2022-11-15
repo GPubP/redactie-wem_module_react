@@ -37,7 +37,7 @@ const DeliveriesFormTest: FC<DeliveriesFormProps> = props => {
 			deliveriesFacade.setCanSendTestEvent(true);
 			setError('');
 		} catch (error) {
-			setError((error as any).message);
+			setError((error as SyntaxError).message);
 			deliveriesFacade.setCanSendTestEvent(false);
 		}
 	}, [eventDataExample]);

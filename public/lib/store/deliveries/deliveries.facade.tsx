@@ -88,24 +88,26 @@ export class DeliveriesFacade extends BaseEntityFacade<
 		body: DeliverySchema | undefined,
 		translator: (a: string) => string,
 		onSuccess: (id: string) => void,
-		update: any
+		update: Partial<DeliverySchema>
 	): Promise<void> {
 		const bodyToSubmit = { ...body, ...update };
 		const validation = this.formUtils.preSubmit(bodyToSubmit);
 		if (validation.valid && !bodyToSubmit?.id) {
-			return this.service.create(bodyToSubmit).then((response: ModelCreateResponseSchema) => {
-				this.resetForm();
-				this.store.setIsCreating(false);
-				onSuccess(response.id);
-				setTimeout(() => {
-					alertService.success(ALERT_TEXTS(translator).DELIVERIES.createOk, {
-						containerId: ALERT_IDS.DELIVERIES_CRUD,
-					});
-				}, 500);
-				setTimeout(() => {
-					alertService.dismiss();
-				}, 2000);
-			});
+			return this.service
+				.create(bodyToSubmit as DeliverySchema)
+				.then((response: ModelCreateResponseSchema) => {
+					this.resetForm();
+					this.store.setIsCreating(false);
+					onSuccess(response.id);
+					setTimeout(() => {
+						alertService.success(ALERT_TEXTS(translator).DELIVERIES.createOk, {
+							containerId: ALERT_IDS.DELIVERIES_CRUD,
+						});
+					}, 500);
+					setTimeout(() => {
+						alertService.dismiss();
+					}, 2000);
+				});
 		}
 		if (validation.valid && bodyToSubmit?.id) {
 			const updateBody = {
@@ -123,13 +125,13 @@ export class DeliveriesFacade extends BaseEntityFacade<
 					updateBody.testEvent = bodyToSubmit.testEvent;
 				}
 			}
-			return this.service.update(bodyToSubmit.id, updateBody).then(() => {
+			return this.service.update(bodyToSubmit.id, updateBody as DeliverySchema).then(() => {
 				this.store.setIsCreating(false);
 				this.updateField(
-					JSON.stringify(JSON.parse(bodyToSubmit.filter), null, 4),
+					JSON.stringify(JSON.parse(bodyToSubmit.filter as string), null, 4),
 					'filter'
 				);
-				this.updateField(updateBody.testEvent, 'testEvent');
+				this.updateField(updateBody.testEvent as string, 'testEvent');
 				alertService.success(ALERT_TEXTS(translator).DELIVERIES.updateOk, {
 					containerId: ALERT_IDS.DELIVERIES_CRUD,
 				});

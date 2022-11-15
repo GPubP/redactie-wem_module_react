@@ -3,8 +3,7 @@
 		li > a.has-error {
 			&::before {
 				-webkit-font-smoothing: antialiased;
-				font-family: FontAwesome;
-				font-size: inherit;
+				font-family: FontAwesome, sans-serif;
 				text-rendering: auto;
 				font-size: 1rem;
 				position: absolute;
@@ -16,6 +15,7 @@
 			}
 		}
 	}
+
 	.u-relative {
 		position: relative;
 	}

@@ -10,7 +10,6 @@ import {
 import { ModuleRouteConfig, useBreadcrumbs } from '@redactie/redactie-core';
 import {
 	AlertContainer,
-	alertService,
 	ContextHeaderBadge,
 	DataLoader,
 	LoadingState,

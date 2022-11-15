@@ -5,6 +5,11 @@ export interface EventsModuleRouteProps extends RouteConfigComponentProps {
 	tenantId: string;
 }
 
+export interface AlertMessage {
+	title: string;
+	message: string;
+}
+
 export type ChangeHandlerFn = (value: any, name: string) => void;
 
 export interface ValidationProps {

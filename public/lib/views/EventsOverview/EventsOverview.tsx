@@ -122,7 +122,9 @@ const EventsOverview: FC = () => {
 				className="u-margin-top"
 				tableClassName="a-table--fixed--xs"
 				columns={config.columnsConfig(t)}
-				rows={config.dataToRows(navigate, items)}
+				// any because config.dataToRows is conditional here
+				// and TS complains because it does not understand
+				rows={config.dataToRows(navigate, items as any[])}
 				currentPage={query.page}
 				itemsPerPage={DEFAULT_SEARCH_PARAMS.pagesize.defaultValue}
 				onPageChange={handlePageChange}

@@ -20,7 +20,7 @@ interface EventOptionData {
 		$schema: string;
 		definitions: {
 			datadef: {
-				examples: any[];
+				examples: Record<string, any>[];
 			};
 		};
 	};

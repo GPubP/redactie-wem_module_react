@@ -24,13 +24,16 @@ export function breadcrumbsOptions(
 
 export interface ExtendedContextHeaderTabLinkProps extends ContextHeaderTabLinkProps {
 	className: string;
+	to: string;
+	// cant figure out typing for this JSX.Element or Node dont work
+	component?: any;
 }
 
 export function linkProps(
 	props: ExtendedContextHeaderTabLinkProps,
 	validationFeedback: DeliveryValidationType | undefined,
 	tabs: ContextHeaderTab[]
-): any {
+): ExtendedContextHeaderTabLinkProps {
 	const hasSettingsErrors =
 		props.href === EVENT_DELIVERY_SETTINGS_TAB &&
 		(validationFeedback?.name !== ValidationState.Ok ||

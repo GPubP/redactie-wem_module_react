@@ -76,7 +76,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 									props.isLoading || props.isFetchingEvents || !props.canUpdate
 								}
 								isFetching={props.isLoading || props.isFetchingEvents}
-								onChange={(selected: any) => {
+								onChange={(selected: string) => {
 									const event = props.eventOptions?.find(
 										e => e.uuid === selected
 									);
@@ -142,7 +142,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 									!props.canUpdate
 								}
 								isFetching={props.isLoading || props.isFetchingDestinations}
-								onChange={(selected: any) => {
+								onChange={(selected: string) => {
 									const destination = props.destinationsOptions?.find(
 										e => e.id === selected
 									);
@@ -183,7 +183,7 @@ const DeliveriesFormInput: FC<DeliveriesFormProps> = props => {
 									props.isLoading || props.isFetchingTopics || !props.canUpdate
 								}
 								isFetching={props.isLoading || props.isFetchingTopics}
-								onChange={(selected: any) => {
+								onChange={(selected: string) => {
 									props.onChange(selected, 'topic');
 								}}
 								topContent={

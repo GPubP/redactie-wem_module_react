@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { TableColumn } from '@redactie/utils';
+import { NavigateFn, TableColumn } from '@redactie/utils';
 
 import { EVENTS_MODULE_PATHS } from '../../events.const';
 import useDeliveries from '../../hooks/store/useDeliveries';
@@ -66,7 +66,7 @@ const deliveriesColumns = (translator: (a: string) => string): TableColumn<Deliv
 	];
 };
 
-const deliveryDataToRows = (navigate: any, data: any[]): DeliveryRow[] => {
+const deliveryDataToRows = (navigate: NavigateFn, data: DeliverySchema[]): DeliveryRow[] => {
 	return data.map((delivery: DeliverySchema) => ({
 		uuid: delivery.id,
 		name: delivery.name,

@@ -1,6 +1,5 @@
 import Core from '@redactie/redactie-core';
 
-import { registerEventsModule } from './lib/api';
 import rolesRightsConnector from './lib/connectors/rolesRights';
 import { EVENTS_MODULE_PATHS } from './lib/events.const';
 import { translations } from './lib/i18next';
@@ -114,4 +113,3 @@ Core.routes.register({
 });
 
 translations.registerTranslations();
-registerEventsModule();

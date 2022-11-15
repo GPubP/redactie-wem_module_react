@@ -1,6 +1,11 @@
+import { AlertMessage } from '../events.types';
+
 import { TRANSLATIONS } from './translations.const';
 
-export const ALERT_TEXTS = (translator: (a: string) => string, data?: any): any => ({
+export const ALERT_TEXTS = (
+	translator: (a: string) => string,
+	data?: Record<string, any>
+): Record<string, Record<string, AlertMessage>> => ({
 	DESTINATIONS: {
 		createOk: {
 			title: translator(TRANSLATIONS.CREATED),

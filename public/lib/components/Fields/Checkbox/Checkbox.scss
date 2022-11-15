@@ -1,14 +1,38 @@
 @import '../../../../assets/styles/variables';
 
 .wem-a-checkbox {
+	// OVERRIDE SOME PROBLEMS WITH CHECKED STATE CHECKBOXES
+	&--checked {
+		label::before {
+			background-color: #0064b4 !important;
+			box-shadow: 0 0 0 1px #0064b4 inset !important;
+		}
+
+		label::after {
+			content: '\F00C' !important;
+			-webkit-font-smoothing: antialiased;
+			font-size: inherit;
+			font-family: FontAwesome, sans-serif;
+			text-rendering: auto;
+		}
+	}
+
+	&--not-checked {
+		label::before {
+			background-color: white !important;
+			box-shadow: 0 0 0 1px #b0b0b0 inset !important;
+		}
+	}
+
 	&--white-border {
-		input + label:before,
-		input:checked + label:before {
+		input + label::before,
+		input:checked + label::before {
 			box-shadow: 0 0 0 1px white inset;
 		}
 	}
+
 	&.partially-checked {
-		label:after {
+		label::after {
 			color: $wem-color-blue;
 			content: '-';
 			display: flex;
@@ -18,26 +42,7 @@
 			top: -4px;
 		}
 	}
-	// OVERRIDE SOME PROBLEMS WITH CHECKED STATE CHECKBOXES
-	&--checked {
-		label:before {
-			background-color: #0064b4 !important;
-			box-shadow: 0 0 0 1px #0064b4 inset !important;
-		}
-		label:after {
-			content: '\F00C' !important;
-			-webkit-font-smoothing: antialiased;
-			font-size: inherit;
-			font-family: FontAwesome;
-			text-rendering: auto;
-		}
-	}
-	&--not-checked {
-		label:before {
-			background-color: white !important;
-			box-shadow: 0 0 0 1px #b0b0b0 inset !important;
-		}
-	}
+
 	&--label-offset {
 		margin-top: calc(#{$wem-space} + #{$wem-space-small});
 	}

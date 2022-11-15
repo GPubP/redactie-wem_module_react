@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { TableColumn } from '@redactie/utils';
+import { NavigateFn, TableColumn } from '@redactie/utils';
 
 import { EVENTS_MODULE_PATHS } from '../../events.const';
 import useDestinations from '../../hooks/store/useDestinations';
@@ -47,7 +47,10 @@ const destinationsColumns = (translator: (a: string) => string): TableColumn<Des
 	];
 };
 
-const destinationDataToRows = (navigate: any, data: any[]): DestinationRow[] => {
+const destinationDataToRows = (
+	navigate: NavigateFn,
+	data: DestinationSchema[]
+): DestinationRow[] => {
 	return data.map((destination: DestinationSchema) => ({
 		uuid: destination.id,
 		name: destination.name,
