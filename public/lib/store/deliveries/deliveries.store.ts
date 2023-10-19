@@ -22,23 +22,7 @@ export const DELIVERY_FILTER_SCHEMA: Schema = {
 				},
 				conditions: {
 					type: 'array',
-					items: {
-						type: 'object',
-						properties: {
-							operator: {
-								type: 'string',
-								enum: ['='],
-							},
-							path: {
-								type: 'string',
-							},
-							value: {
-								type: 'string',
-							},
-						},
-						required: ['operator', 'path', 'value'],
-						additionalProperties: false,
-					},
+					items: { $ref: '#' },
 				},
 			},
 			required: ['operator', 'conditions'],
